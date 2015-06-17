@@ -1,2 +1,2 @@
-#/var/backups/nodezero
-This is the default local backup location for nodezero.
+#/var/backups/srv01
+This is the default local backup location for srv01.

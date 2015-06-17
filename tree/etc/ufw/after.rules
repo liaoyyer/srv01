@@ -28,7 +28,7 @@
 
 
 #####################################################
-##  nodezero - Disallow apache's outgoing connections
+##  srv01 - Disallow apache's outgoing connections
 # Create new chain
 --new-chain out_apache
 

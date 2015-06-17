@@ -92,7 +92,7 @@ Unattended-Upgrade::Remove-Unused-Dependencies "false";
 // speed to 70kb/sec
 //Acquire::http::Dl-Limit "70";
 
-/////////////////// Config for Nodezero /////////////
+/////////////////// Config for srv01 /////////////
 
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "1";
