@@ -10,6 +10,8 @@ function _install() {
 	chown -R www-data:bsp /var/www/docs
 	chown g+rws /var/www/docs
 	cp config/h5ai/conf/options.json /var/www/_h5ai/conf/options.json
+	ln -s /var/www/docs/ /home/bsp/docs
+	echo "Done. You can now upload your documents to the directory ~/docs directory through SFTP."
 }
 
 _install
