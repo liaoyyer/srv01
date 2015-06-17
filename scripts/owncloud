@@ -1,0 +1,21 @@
+#!/bin/bash
+# srv01 - owncloud wrapper
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+
+disable_maintenance() { #Disable Owncloud maintenance mode
+sed -i "/'maintenance'/c\  \'maintenance' => false," ${srv01_apache_documentroot}/owncloud/config/config.php
+}
+
+enable_maintenance() { #Disable Owncloud maintenance mode
+sed -i "/'maintenance'/c\  \'maintenance' => true," ${srv01_apache_documentroot}/owncloud/config/config.php
+}
+
+clean_trashes() {
+	oc_trashes=$(find /var/www/owncloud -name files_trashbin)
+	$rm_command $oc_trashes
+}
+
+$@

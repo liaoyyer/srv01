@@ -1,0 +1,26 @@
+#!/bin/bash
+# srv01 - h5ai wrapper
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+
+h5ai_release="https://release.larsjung.de/h5ai/h5ai-0.27.0.zip"
+h5ai_zip="h5ai-0.27.0.zip"
+
+install() {
+	wget "$h5ai_release" -O "$tmp_dir/$h5ai_zip"
+	aunpack "$tmp_dir/$h5ai_zip" -X "$tmp_dir/"
+	mv "$tmp_dir"/_h5ai "$srv01_apache_documentroot"/
+	cp config/h5ai/conf/options.json "$srv01_apache_documentroot"/_h5ai/conf/options.json
+	chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/_h5ai
+	chmod g+rwx "$srv01_apache_documentroot"/_h5ai/cache
+	mkdir "$srv01_apache_documentroot"/docs/
+	echo "DirectoryIndex  index.html  index.php  /_h5ai/server/php/index.php" >| "$srv01_apache_documentroot"/docs/.htaccess
+	chown -R "$srv01_apache_user":"$srv01_user" "$srv01_apache_documentroot"/docs
+	chmod g+rws "$srv01_apache_documentroot"/docs
+	ln -s "$srv01_apache_documentroot"/docs/ /home/"$srv01_user"/docs
+	echo "Done. You can now upload your documents to the directory ~/docs directory through SFTP."
+}
+
+$@

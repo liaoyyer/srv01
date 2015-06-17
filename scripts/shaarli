@@ -1,0 +1,16 @@
+#!/bin/bash
+# srv01 - shaarli wrapper
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+
+
+install() {
+	git clone https://github.com/shaarli/Shaarli /var/www/links
+	cp -r "$srv01_path"/config/shaarli/* "$srv01_apache_documentroot"/links
+	chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/links
+	echo "please open $srv01_fqdn/links/"
+"
+
+$@
