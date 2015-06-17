@@ -1,0 +1,4 @@
+[Transmission]
+title=Transmission Bittorrent client
+description=Transfer files using the Bittorrent protocol
+ports=51913/tcp
