@@ -1,4 +1,0 @@
-#!/bin/bash
-rm_command="trash-put"
-#rm_command="rm -rf"
-#rm_command="srm -llzr"
