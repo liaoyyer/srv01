@@ -1,0 +1,25 @@
+#!/bin/bash
+# srv01 - mumble wrapper
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
+_install() {
+	aptitude install mumble-server
+}
+
+_editconfig() {
+	nano /etc/mumble-server.ini
+	service mumble restart
+}
+
+_resetconfig() {
+	echo "Not yet implemented"
+}
+
+if [ "$1" != "" ]
+	then $@
+	else _listFunctions
+fi
