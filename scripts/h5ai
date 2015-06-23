@@ -4,11 +4,12 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
 
 h5ai_release="https://release.larsjung.de/h5ai/h5ai-0.27.0.zip"
 h5ai_zip="h5ai-0.27.0.zip"
 
-install() {
+_install() {
 	wget "$h5ai_release" -O "$tmp_dir/$h5ai_zip"
 	aunpack "$tmp_dir/$h5ai_zip" -X "$tmp_dir/"
 	mv "$tmp_dir"/_h5ai "$srv01_apache_documentroot"/
@@ -23,4 +24,7 @@ install() {
 	echo "Done. You can now upload your documents to the directory ~/docs directory through SFTP."
 }
 
-$@
+if [ "$1" != "" ]
+	then $@
+	else _listFunctions
+fi
