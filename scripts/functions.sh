@@ -451,13 +451,17 @@ grep -roh "^_.*()" $srv01_path/scripts/
 }
 
 
-_CheckRoot() { #Check if we are root
+_checkRoot() { #Check if we are root
 if [[ "$(/usr/bin/whoami)" != "root" ]]; then
     echo "This script must be run as root\! Script aborted."
     return 1
 fi
 }
 
-_GetTimestamp() {
+_getTimestamp() {
     date +"%Y-%m-%d_%H%M%S"
+}
+
+_listFunctions() { #List all available Nodezero shell scripts
+	grep -roh "^_.*()" $0
 }
