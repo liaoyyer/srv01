@@ -66,6 +66,10 @@ _runNetstat() {
 }
 
 
+_runAptitude() {
+aptitude
+}
+
 _showMotd() { #TODO: uptime, hostname, OS/kernel, disk/ram/cpu usage graph over time, IP addresses, Internet traffic over time, disk I/O, top 5 processes, load average, 
 echo "NOT YET IMPLEMENTED"
 }
