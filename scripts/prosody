@@ -1,0 +1,16 @@
+#!/bin/bash
+# srv01 - prosody wrapper
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
+_install() {
+	aptitude install prosody lua-sec
+}
+
+if [ "$1" != "" ]
+	then $@
+	else _listFunctions
+fi
