@@ -3,6 +3,8 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -12,62 +14,63 @@
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_Srv01RunGlances() {
+_runGlances() {
     glances --disable-process-extended
 }
 
-_Srv01RunLynis() {
-lynis -c -q
+_runLynis() {
+	lynis -c -q
 }
 
-_NZRunDfc() {
-dfc -p -udev,tmpfs
+_runDfc() {
+	dfc -p -udev,tmpfs
 }
 
-_Srv01RunHtop() {
-htop
+_runHtop() {
+	htop
 }
 
-_Srv01RunNcdu() {
-ncdu /
+_runNcdu() {
+	ncdu /
 }
 
-_Srv01RunLast() {
+_runLast() {
 last -wdai |less -P "$LESSPROMPT"
 }
 
-_Srv01RunLastb() { #Check last failed login attempts
-lastb -wdai |less +F -P "$LESSPROMPT"
+_runLastb() { #Check last failed login attempts
+lastb -wdai |less +F -P "$LESSPROMllPT"
 }
 
-_Srv01RunRanger() {
+_runRanger() {
 ranger
 }
 
-
-
-_Srv01ShowMotd() { #TODO: uptime, hostname, OS/kernel, disk/ram/cpu usage graph over time, IP addresses, Internet traffic over time, disk I/O, top 5 processes, load average, 
-echo "NOT YET IMPLEMENTED"
-}
-
-
-_Srv01RunIftop() { #TODO set default interface
+_runIftop() { #TODO set default interface
 iftop
 }
 
-_Srv01RunGoAccess() {
+_runGoaccess() {
     zcat -f /var/log/apache2/access* | goaccess
     GoAccess_Outfile=/home/$NZ_USER/goaccess.html
     zcat -f /var/log/apache2/access* | goaccess -a >| $GoAccess_Outfile
     echo "Latest statistics saved to $GoAccess_Outfile"
 }
 
-_Srv01RunIotop() {
+_runIotop() {
     iotop
 }
 
-_Srv01RunNetstat() {
+_runNetstat() {
 	netstat -pltuna
 }
 
-exec $@
+
+_showMotd() { #TODO: uptime, hostname, OS/kernel, disk/ram/cpu usage graph over time, IP addresses, Internet traffic over time, disk I/O, top 5 processes, load average, 
+echo "NOT YET IMPLEMENTED"
+}
+
+if [ "$1" != "" ]
+	then $@
+	else _listFunctions
+fi
