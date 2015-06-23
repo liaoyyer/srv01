@@ -23,7 +23,7 @@ fi
 #source "${srv01_path}/scripts/srv01-menus.sh"
 source "${srv01_path}/scripts/functions.sh"
 
-_CheckRoot &&
+_checkroot &&
 if [ -x "${srv01_path}/scripts/$1" ]
 	then
 		exec "${srv01_path}/scripts/$@"
