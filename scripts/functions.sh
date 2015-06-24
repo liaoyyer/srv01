@@ -33,19 +33,17 @@
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_MaintenanceAptCleanup() {
+_maintenanceAptCleanup() {
     aptitude clean
     aptitude purge -y ~c
 }
 
-_MaintenanceAptUpgrade() {
+_maintenanceAptUpgrade() {
 aptitude -q5 update
 aptitude -q5 -y upgrade
 }
 
-_ToolsRunAptitude() {
-aptitude
-}
+
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -55,11 +53,9 @@ aptitude
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_Srv01EditMotd() { #Edit maintenance message
-    nano /etc/motd
-}
 
-_Srv01EditMainConfig() { #Edit and reload main srv01 config file
+
+_editMainConfig() { #Edit and reload main srv01 config file
     #Note: See also https://packages.debian.org/sid/augeas-tools to edit config files
     $EDITOR ${NZ_CONF_PATH}/srv01.conf
     source "${NZ_CONF_PATH}/srv01.conf"
