@@ -1,5 +1,26 @@
-    srv01 shaarli install
-    srv01 h5ai install
+### SSH
+
     srv01 ssh install
+    srv01 ssh regenkey
+
+### Apache
+
+    srv01 apache install
+    srv01 apache ssl status
+    srv01 apache ssl enable
+    srv01 apache ssl regenkey
+    srv01 apache firewall allowinet
+    srv01 apache firewall allowlanonly
+    srv01 apache firewall allowlocalonly
+    srv01 webapp shaarli install
+    srv01 webapp h5ai install
+
+### Mumble
+
     srv01 mumble install
+    srv01 mumble changepassword
+
+### Other
+
     srv01 transmission install
+    srv01 prosody install
