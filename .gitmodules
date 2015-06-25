@@ -1,3 +1,3 @@
-[submodule "config/apache/usr/share/logwatch-modsec2"]
-	path = config/apache/usr/share/logwatch-modsec2
+[submodule "tree/usr/share/logwatch-modsec2"]
+	path = tree/usr/share/logwatch-modsec2
 	url = https://github.com/derhansen/logwatch-modsec2
