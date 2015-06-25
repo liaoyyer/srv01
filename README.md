@@ -24,3 +24,12 @@
 
     srv01 transmission install
     srv01 prosody install
+    srv01 pulseaudio install
+    srv01 minidlna install
+
+    srv01 maintenance securitychecks
+    srv01 maintenance update
+    srv01 maintenance cleanup
+
+    srv01 tools
+
