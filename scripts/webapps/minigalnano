@@ -1,6 +1,13 @@
 #!/bin/bash
+# srv01 - minigalnano wrapper
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
 
-function _install() {
+function install() {
 	git clone https://github.com/sebsauvage/MinigalNano /var/www/images
 	cp -r config/MinigalNano/* /var/www/images
 	chown -R www-data:www-data /var/www/images
@@ -10,4 +17,7 @@ function _install() {
 	echo "Done. You can now upload your pictures to the directory ~/photos/ directory through SFTP."
 }
 
-_install
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi

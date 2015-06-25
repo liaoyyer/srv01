@@ -1,5 +1,14 @@
 #!/bin/bash
-function _install() {
+#!/bin/bash
+# srv01 - h5ai wrapper
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
+install() {
 	aptitude install npm
 	npm install -g bower
 	git clone https://github.com/georgeOsdDev/markdown-edit /var/www/markdown-edit
@@ -9,4 +18,7 @@ function _install() {
 	chown -R www-data:www-data /var/www/markdown-edit
 }
 
-_install
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi

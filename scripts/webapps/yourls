@@ -1,5 +1,5 @@
 #!/bin/bash
-# srv01 - mumble wrapper
+# srv01 - yourls wrapper
 # STATUS: UNTESTED
 # https://github.com/nodiscc/srv01
 # ░░░░░█▀█
@@ -7,17 +7,21 @@
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/functions.sh"
 
+changepassword() {
+	#edit /var/www/yourls/user/config.php, array $yourls_user_passwords
+	echo "Not yet implemented."
+}
+
 install() {
-	aptitude install mumble-server
+		echo "Not yet implemented."
 }
 
-editconfig() {
-	nano /etc/mumble-server.ini
-	service mumble restart
+uninstall() {
+		echo "Not yet implemented."
 }
 
-_resetconfig() {
-	echo "Not yet implemented"
+status() {
+	echo "Not yet implemented."
 }
 
 if [ "$1" != "" ]

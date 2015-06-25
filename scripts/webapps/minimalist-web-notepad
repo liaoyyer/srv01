@@ -1,0 +1,22 @@
+#!/bin/bash
+# srv01 - minimalist-web-notedad wrapper
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
+
+install() {
+	git clone https://github.com/pereorga/minimalist-web-notepad /var/www/notepad
+	chown -R www-data:www-data /var/www/notepad
+	hostname=($hostname)
+	domainname=$(domainname)
+	sed -i 's/^\$URL.*/\$URL = "https://$hostname.$domainname/notepad";/g' /var/www/notepad/index.php
+}
+
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi

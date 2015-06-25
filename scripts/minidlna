@@ -1,16 +1,17 @@
 #!/bin/bash
 # srv01 - minidlna wrapper
+# STATUS: UNTESTED
 # https://github.com/nodiscc/srv01
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/functions.sh"
 
-_install() {
+install() {
 	aptitude install minidlna
 }
 
 if [ "$1" != "" ]
 	then $@
-	else _listFunctions
+	else listFunctions
 fi

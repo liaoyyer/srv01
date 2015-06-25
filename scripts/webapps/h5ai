@@ -1,5 +1,6 @@
 #!/bin/bash
 # srv01 - h5ai wrapper
+# STATUS: UNTESTED
 # https://github.com/nodiscc/srv01
 # ░░░░░█▀█
 # ░░░░░█░█
@@ -9,7 +10,7 @@ source "${srv01_path}/scripts/functions.sh"
 h5ai_release="https://release.larsjung.de/h5ai/h5ai-0.27.0.zip"
 h5ai_zip="h5ai-0.27.0.zip"
 
-_install() {
+install() {
 	wget "$h5ai_release" -O "$tmp_dir/$h5ai_zip"
 	aunpack "$tmp_dir/$h5ai_zip" -X "$tmp_dir/"
 	mv "$tmp_dir"/_h5ai "$srv01_apache_documentroot"/
@@ -26,5 +27,5 @@ _install() {
 
 if [ "$1" != "" ]
 	then $@
-	else _listFunctions
+	else listFunctions
 fi

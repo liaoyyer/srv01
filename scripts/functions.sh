@@ -458,6 +458,6 @@ _getTimestamp() {
     date +"%Y-%m-%d_%H%M%S"
 }
 
-_listFunctions() { #List all available Nodezero shell scripts
+listFunctions() { #List all available Nodezero shell scripts
 	grep -roh "^_.*()" $0
 }

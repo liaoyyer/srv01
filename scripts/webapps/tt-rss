@@ -1,14 +1,19 @@
 #!/bin/bash
-set -o errexit
-set -o nounset
-source common.sh
+#!/bin/bash
+# srv01 - tt-rss wrapper
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
 
-_install() {
+install() {
 	echo "Not yet implemented"
 	#configure: enable external API
 }
 
-_backup() {
+backup() {
 	TS=$(getTimestamp)
 	ttrss_backup_dir='/var/backups/ttrss'
 	ttrss_backup_file="ttrss.$TS.mysqldump"
@@ -28,7 +33,11 @@ _backup() {
 
 }
 
-_backup_expire() {
+backup_expire() {
 	  find "$ttrss_ttrss_backup_dir" -mtime +"$days_keep" -print0 | xargs -0 "$rm_command"
 }
 
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi

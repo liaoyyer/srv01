@@ -1,10 +1,12 @@
 #!/bin/bash
+# srv01 - minidlna wrapper
+# STATUS: UNTESTED
+# TODO: add a menu (man dialog) to show this list of tools
 # https://github.com/nodiscc/srv01
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/functions.sh"
-
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -14,71 +16,71 @@ source "${srv01_path}/scripts/functions.sh"
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_runGlances() {
+runGlances() {
     glances --disable-process-extended
 }
 
-_runLynis() {
+runLynis() {
 	lynis -c -q
 }
 
-_runDfc() {
+runDfc() {
 	dfc -p -udev,tmpfs
 }
 
-_runHtop() {
+runHtop() {
 	htop
 }
 
-_runNcdu() {
+runNcdu() {
 	ncdu /
 }
 
-_runLast() {
+runLast() {
 last -wdai |less -P "$LESSPROMPT"
 }
 
-_runLastb() { #Check last failed login attempts
+runLastb() { #Check last failed login attempts
 lastb -wdai |less +F -P "$LESSPROMllPT"
 }
 
-_runRanger() {
+runRanger() {
 ranger
 }
 
-_runIftop() { #TODO set default interface
+runIftop() { #TODO set default interface
 iftop
 }
 
-_runGoaccess() {
+runGoaccess() {
     zcat -f /var/log/apache2/access* | goaccess
     GoAccess_Outfile=/home/$NZ_USER/goaccess.html
     zcat -f /var/log/apache2/access* | goaccess -a >| $GoAccess_Outfile
     echo "Latest statistics saved to $GoAccess_Outfile"
 }
 
-_runIotop() {
+runIotop() {
     iotop
 }
 
-_runNetstat() {
+runNetstat() {
 	netstat -pltuna
 }
 
 
-_runAptitude() {
+runAptitude() {
 aptitude
 }
 
-_editMotd() { #Edit maintenance message
+editMotd() { #Edit maintenance message
     nano /etc/motd
 }
 
-_showMotd() { #TODO: uptime, hostname, OS/kernel, disk/ram/cpu usage graph over time, IP addresses, Internet traffic over time, disk I/O, top 5 processes, load average, 
+showMotd() { #TODO: uptime, hostname, OS/kernel, disk/ram/cpu usage graph over time, IP addresses, Internet traffic over time, disk I/O, top 5 processes, load average, 
 echo "NOT YET IMPLEMENTED"
 }
 
 if [ "$1" != "" ]
 	then $@
-	else _listFunctions
+	else listFunctions
 fi

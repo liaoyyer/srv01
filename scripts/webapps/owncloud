@@ -1,9 +1,11 @@
 #!/bin/bash
 # srv01 - owncloud wrapper
+# STATUS: UNTESTED
 # https://github.com/nodiscc/srv01
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
 
 disable_maintenance() { #Disable Owncloud maintenance mode
 	sed -i "/'maintenance'/c\  \'maintenance' => false," ${srv01_apache_documentroot}/owncloud/config/config.php
@@ -18,4 +20,7 @@ clean_trashes() {
 	$rm_command $oc_trashes
 }
 
-$@
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi
