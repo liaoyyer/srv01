@@ -6,12 +6,27 @@
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/functions.sh"
 
-_install() {
+install() {
 	git clone https://github.com/shaarli/Shaarli "$srv01_apache_documentroot"/links
 	cp -r "$srv01_path"/config/shaarli/* "$srv01_apache_documentroot"/links
 	chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/links
 	echo "please open $srv01_fqdn/links/"
+}
 
+uninstall() {
+	echo "Not yet implemented."
+}
+
+changepassword() {
+	echo "Not yet implemented."
+}
+
+status() {
+	echo "Not yet implemented."
+}
+
+config() {
+	echo "Not yet implemented."
 }
 
 if [ "$1" != "" ]
