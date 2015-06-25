@@ -8,9 +8,9 @@
 source "${srv01_path}/scripts/functions.sh"
 
 install() {
-    git clone https://github.com/Rudloff/alltube -b 0.2.1 /var/www/alltube
-    cp config/alltube/config.php /var/www/alltube
-    chown -R www-data:www-data /var/www/alltube
+    git clone https://github.com/Rudloff/alltube -b 0.2.1 "$srv01_apache_documentroot"/alltube
+    cp config/alltube/config.php "$srv01_apache_documentroot"/alltube
+    chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/alltube
 }
 
 if [ "$1" != "" ]

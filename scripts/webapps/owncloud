@@ -16,7 +16,7 @@ enable_maintenance() { #Disable Owncloud maintenance mode
 }
 
 clean_trashes() {
-	oc_trashes=$(find /var/www/owncloud -name files_trashbin)
+	oc_trashes=$(find "$srv01_apache_documentroot"/owncloud -name files_trashbin)
 	$rm_command $oc_trashes
 }
 

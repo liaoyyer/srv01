@@ -8,7 +8,7 @@
 source "${srv01_path}/scripts/functions.sh"
 
 changepassword() {
-	#edit /var/www/yourls/user/config.php, array $yourls_user_passwords
+	#edit "$srv01_apache_documentroot"/yourls/user/config.php, array $yourls_user_passwords
 	echo "Not yet implemented."
 }
 

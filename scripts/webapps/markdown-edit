@@ -11,11 +11,11 @@ source "${srv01_path}/scripts/functions.sh"
 install() {
 	aptitude install npm
 	npm install -g bower
-	git clone https://github.com/georgeOsdDev/markdown-edit /var/www/markdown-edit
-	cd /var/www/markdown-edit
+	git clone https://github.com/georgeOsdDev/markdown-edit "$srv01_apache_documentroot"/markdown-edit
+	cd "$srv01_apache_documentroot"/markdown-edit
 	ln -s /usr/bin/nodejs /usr/bin/node
 	sudo -u www-data bower install
-	chown -R www-data:www-data /var/www/markdown-edit
+	chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/markdown-edit
 }
 
 if [ "$1" != "" ]
