@@ -19,6 +19,7 @@
 
     srv01 mumble install
     srv01 mumble changepassword
+    srv01 mumble config
 
 ### Other
 
