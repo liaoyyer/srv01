@@ -9,6 +9,17 @@ source "${srv01_path}/scripts/functions.sh"
 
 install() {
 	aptitude install transmission-daemon
+	cp "${srv01_path}/config/transmission/etc/transmission-daemon/settings.json" /etc/transmission-daemon/settings.json
+	service transmission-daemon restart
+}
+
+uninstall() {
+	aptitude purge install transmission-daemon
+}
+
+config() {
+	nano /etc/transmission-daemon/settings.json
+	service transmission-daemon restart
 }
 
 if [ "$1" != "" ]
