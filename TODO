@@ -35,8 +35,6 @@
          ☐ make sure it logs shaarli failed logins
          ☐ make sure it logs owncloud failed logins
          ☐ make sure it logs bumpy-booby failed logins
-         
-
          ☐ make sure it logs transmission failed logins
          ☐ make sure it logs tt-rss failed logins
          Config: https://github.com/Glench/dotfiles/tree/master/conf/fail2ban
@@ -77,9 +75,13 @@
     ☐ wake on lan
       https://wiki.debian.org/fr/WakeOnLan
       http://doc.ubuntu-fr.org/wakeonlan
+    ☐ OpenVPN server or similar
+     IPSEC: https://blog.ls20.com/ipsec-l2tp-vpn-auto-setup-for-ubuntu-12-04-on-amazon-ec2/
+     https://github.com/Nyr/openvpn-install
+     http://readwrite.com/2014/04/10/raspberry-pi-vpn-tutorial-server-secure-web-browsing
     ☐ tor relay
       http://www.devconsole.info/?p=848
-      ☐ [security][feature] encrypted DNS proxy
+    ☐ [security][feature] encrypted DNS proxy
         https://packages.debian.org/stretch/dnscrypt-proxy
     ☐ new apps
       ☐ tt-rss
