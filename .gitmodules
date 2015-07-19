@@ -1,3 +1,6 @@
 [submodule "tree/usr/share/logwatch-modsec2"]
 	path = config/apache/usr/share/logwatch-modsec2
 	url = https://github.com/derhansen/logwatch-modsec2
+[submodule "scripts/openvpn-install"]
+	path = scripts/openvpn-install
+	url = https://github.com/Nyr/openvpn-install
