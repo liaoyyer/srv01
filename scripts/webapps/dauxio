@@ -1,0 +1,26 @@
+#!/bin/bash
+# srv01 - daux.io wrapper
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/functions.sh"
+
+install() {
+    git clone https://github.com/justinwalsh/daux.io -b master "$srv01_apache_documentroot"/daux
+    chown -R "$srv01_apache_user":"$srv01_apache_group" "$srv01_apache_documentroot"/daux
+    ln -s "$srv01_apache_documentroot"/daux/docs/ /home/"$srv01_user"/publicdocs
+    #TODO: set proper permissions
+    echo "Please place your docs in ~/publicdocs/"
+}
+
+config() {
+    if [ ! -d  "$srv01_apache_documentroot"/daux ]; then echo "E: Daux not installed."; return 0; fi
+    nano "$srv01_apache_documentroot"/daux/docs/default.json
+}
+
+if [ "$1" != "" ]
+    then $@
+    else listFunctions
+fi
