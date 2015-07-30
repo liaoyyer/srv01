@@ -137,15 +137,15 @@ _Srv01Poweroff() { #Power off the machine
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_Srv01TestInetConnection() { #Test connectivity to debian.org #TODO move to NzMenuTroubleshooting
+testinetconnection() { #Test connectivity to debian.org #TODO move to NzMenuTroubleshooting
     ping -q -c3 debian.org
 }
 
-_Srv01UserGetName() { #Get system's main user name (assume it was the first user created)
-	NZ_USER=$(getent passwd|grep 1000:1000|awk -F":" '{print $1}')
+getmainuser() { #Get system's main user name (assume it was the first user created)
+	NZ_USER=$(getent passwd|grep 1001:1001|awk -F":" '{print $1}')
 }
 
-_Srv01GetLANSubnet() { #Get the current LAN IP and subnet
+getlansubnet() { #Get the current LAN IP and subnet
 	ip addr show ${srv01_net_iface} | egrep "inet " | awk -F" " '{print $2}'
 }
 
@@ -226,131 +226,6 @@ _Srv01UpgradeWebapp() { #Upgrade a web application
 	"$srv01_path/webapps/$AppToUpgrade.sh" upgrade
 }
 
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   Prosody XMPP server admin                   ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-_Srv01ProsodyGetStatus() { #Get IM server enabled/disabled status
-if [[ -f /var/run/prosody/prosody.pid ]]
-then PROSODY_STATUS="Enabled"
-else PROSODY_STATUS="Disabled"
-fi
-}
-
-_xmpp_enable() { #Enable/disable IM server
-update-rc.d prosody enable; service prosody start
-}
-
-_xmpp_disable() { #Enable/disable IM server
-	update-rc.d prosody disable; service prosody stop
-}
-
-_Srv01ProsodyGetRegistrationsStatus() { #Get new IM accounts registrations allowed/denied status
-if [ `grep "allow_registration = true" /etc/prosody/prosody.cfg.lua` ]
-then PROSODY_REG_ENABLED="Allowed"
-else PROSODY_REG_ENABLED="Not allowed"
-fi
-}
-
-_Srv01ProsodyAddUser() { #Create new IM account
-echo "Please enter the desired username for the new account:"
-read PROSODY_NEW_USERNAME
-prosodyctl adduser "${PROSODY_NEW_USERNAME}@${NZ_FQDN}"
-if [ $? = 0 ]
-    then echo "Done. You can now login with an XMPP client. Username: ${PROSODY_NEW_USERNAME} , Domain: ${NZ_FQDN}. Press any key to continue."
-read -n 1
-fi
-}
-
-_Srv01ProsodyGetUserlist() { #Get list of IM accounts on the server
-PROSODY_FQDN_STRING=`echo $NZ_FQDN | sed 's/\./\%2e/g'`
-PROSODY_ACCOUNT_FILES=`find "/var/lib/prosody/${PROSODY_FQDN_STRING}/accounts" -name "*.dat"`
-PROSODY_ACCOUNT_LIST=`for i in ${PROSODY_ACCOUNT_FILES}; do basename $i .dat; done`
-}
-
-_Srv01ProsodyDelUser() { #Delete an existing IM account
-_Srv01ProsodyGetUserlist
-echo "List of accounts on the server:
-$PROSODY_ACCOUNT_LIST
-Enter the name of the account you want to delete:"
-read PROSODY_DELETE_ACCOUNT
-prosodyctl deluser "${PROSODY_DELETE_ACCOUNT}@${FQDN}"
-}
-
-_Srv01ProsodyChangeUserPassword() { #Change password for an IM account
-_Srv01ProsodyGetUserlist
-echo "List of accounts on the server:
-$PROSODY_ACCOUNT_LIST
-Enter the name of the account you want to change the password for:"
-read PROSODY_PASSWD_ACCOUNT
-prosodyctl passwd "${PROSODY_PASSWD_ACCOUNT}@${FQDN}"
-}
-
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   Firewall admin                              ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-_Srv01AllowFromLAN() { #Allow a port to be accessed from the LAN. Usage: _Srv01AllowFromLAN 135,139,445 tcp
-	source "${NZ_PATH}/scripts/NzConfigRoutines"
-	ufw allow from $(_Srv01GetLANSubnet) to any port "$1" proto "$2"
-}
-
-_Srv01FirewallDeny() { #Deny access to a port. Usage: _Srv01FirewallDeny 80,443 tcp
-	ufw deny log $1/$2
-}
-
-_Srv01FirewallAllow() { #Allow all access to a port. Usage: _Srv01FirewallAllow 80,443 tcp
-	ufw allow $1/$2
-}
-
-
-
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   MySQL admin                                 ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-_Srv01DeleteDB() {
-	QUERY="DROP DATABASE $1; DROP USER $1@localhost;"
-	mysql -u root -p -e "$QUERY"
-}
-
-_CreateDB() {
-	QUERY="create database $1; create user $1@localhost identified by \"$2\"; grant all on $1.* to $1@localhost;"
-	mysql -u root -p -e "$QUERY"
-}
-
-_Srv01SecureMysql() {
-	mysql_secure_installation
-}
-
-_Srv01MysqlRootPwReset() {
-	echo -n "Please enter your new MySQL root password: "
-	read NEWMYSQLPASSWORD
-	echo -n "Please enter your new password again: "
-	read NEWMYSQLCONFIRMATION
-	if [ "$NEWMYSQLPASSWORD" != "$NEWMYSQLCONFIRMATION" ]
-		then echo "Passwords do not match\!"; return 1
-	fi
-
-	QUERY="UPDATE user SET Password=PASSWORD(\'"$NEWMYSQLPASSWORD"\') WHERE User='root'; FLUSH PRIVILEGES;"
-	service mysql stop
-	mysqld_safe --skip-grant-tables&
-	sleep 5
-	mysql -u root mysql -e "$QUERY"
-	echo "Password changed to: $NEWMYSQLPASSWORD"
-}
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
