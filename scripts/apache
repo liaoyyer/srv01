@@ -13,6 +13,25 @@ install() {
 	a2dismod autoindex
 }
 
+status() {
+	if [ ! -f /usr/bin/apache2 ]
+		then echo "Apache2 webserver not installed"
+	elif service apache2 status >/dev/null
+		then echo "Apache2 webserver running"
+	else
+		echo "Apache2 webserver stopped"
+
+	subnet=$(ip addr show ${srv01_net_iface} | egrep "inet " | awk -F" " '{print $2}' | cut -d"." -f 1-)
+	if [[ $(ufw status numbered | egrep "(Apache|80/tcp) *ALLOW IN *Anywhere") ]]
+		then echo "Apache (HTTP): firewall open to Internet access"
+	elif [[ $(ufw status numbered | grep "(Apache|80/tcp) *ALLOW IN *$subnet.*") ]]
+		then echo "Apache (HTTP): Firewall open to LAN only"
+	else
+		echo "Apache (HTTP): blocked by firewall"
+	fi
+}
+
+
 if [ "$1" != "" ]
 	then $@
 	else listFunctions
