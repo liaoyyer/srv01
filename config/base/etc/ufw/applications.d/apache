@@ -1,0 +1,9 @@
+[Apache]
+title=Apache webserver (insecure HTTP protocol)
+description=Serve web pages and applications (insecure HTTP protocol)
+ports=80/tcp
+
+[Apache-HTTPS]
+title=Apache webserver (HTTPS)
+description=Serve web pages and applications (secure connections only)
+ports=443/tcp
