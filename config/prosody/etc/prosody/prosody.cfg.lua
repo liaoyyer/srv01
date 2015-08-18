@@ -54,6 +54,8 @@ modules_enabled = {
 		"pep"; -- Enables users to publish their mood, activity, playing music and more
 		"register"; -- Allow users to register on this server using a client and change passwords
 		"adhoc"; -- Support for "ad-hoc commands" that can be executed with an XMPP client
+		"carbons"; --  XEP-0280: Message Carbons, allowing users to maintain a shared and synchronized view of all conversations across all their online clients and devices. 
+		"smacks"; -- allow a client to resume a disconnected session, and prevent message loss
 
 	-- Admin interfaces
 		"admin_adhoc"; -- Allows administration via an XMPP client that supports ad-hoc commands
