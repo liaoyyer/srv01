@@ -5,7 +5,7 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
-source "${srv01_path}/scripts/functions.sh"
+source "${srv01_path}/scripts/utils"
 
 install() {
     aptitude install prosody lua-sec
@@ -61,6 +61,11 @@ disable() { #Enable/disable IM server
     update-rc.d prosody disable; service prosody stop
 }
 
+regencert() { #Re-generate prosody SSL certificates/keys
+    echo "Generating SSL keys and certificates..."
+    prosodyctl cert generate
+    #pre-0.9: openssl req -new -x509 -days 365 -nodes -out "/var/lib/prosody/$NZ_FQDN.crt" -newkey rsa:2048 -keyout "/var/lib/prosody/$NZ_FQDN.key" -batch
+}
 
 if [ "$1" != "" ]
     then $@

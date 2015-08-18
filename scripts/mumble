@@ -5,7 +5,7 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
-source "${srv01_path}/scripts/functions.sh"
+source "${srv01_path}/scripts/utils"
 
 install() {
 	aptitude install mumble-server

@@ -1,0 +1,22 @@
+#!/bin/bash
+# srv01 - firewall wrappers
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+source "${srv01_path}/scripts/utils"
+
+
+allowfromlan() { #Allow a port to be accessed from the LAN. Usage: allowfromlan 135,139,445 tcp
+	ufw allow from $(getlanip) to any port "$1" proto "$2"
+}
+
+deny() { #Deny access to a port. Usage: deny80,443 tcp
+	ufw deny log $1/$2
+}
+
+allowinet() { #Allow all access to a port. Usage: allowinet 80,443 tcp
+	ufw allow $1/$2
+}
+

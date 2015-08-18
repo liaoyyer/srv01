@@ -5,7 +5,7 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
-source "${srv01_path}/scripts/functions.sh"
+source "${srv01_path}/scripts/utils"
 
 install() {
 	aptitude install apache2-mpm-prefork ssl-cert libapache2-mod-php5 libapache2-modsecurity modsecurity-crs libapache2-mod-evasive mysql-server php5-mysql php5 php-apc php5-gd php5-sqlite php5-curl php5-cli php5-imagick php5-intl php5-mcrypt php5-json
@@ -31,6 +31,10 @@ status() {
 	fi
 }
 
+regencert() { #Re-generate Apache SSL certificates/keys
+	echo "Generating SSL keys and certificates..."
+	make-ssl-cert generate-default-snakeoil --force-overwrite
+}
 
 if [ "$1" != "" ]
 	then $@

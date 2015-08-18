@@ -1,0 +1,40 @@
+#!/bin/bash
+# srv01 - function wrappers
+# STATUS: UNTESTED
+# https://github.com/nodiscc/srv01
+# ░░░░░█▀█
+# ░░░░░█░█
+# ░▀▀▀░▀▀▀
+
+testinetconnection() { #Test connectivity to debian.org #TODO move to NzMenuTroubleshooting
+    ping -q -c3 debian.org
+}
+
+getmainuser() { #Get system's main user name (assume it was the first user created)
+	NZ_USER=$(getent passwd|grep 1001:1001|awk -F":" '{print $1}')
+}
+
+getlanip() { #Get the current LAN IP and subnet
+	ip addr show ${srv01_net_iface} | egrep "inet " | awk -F" " '{print $2}'
+}
+
+updatehostname() {
+	echo "$NZ_FQDN" >| /etc/hostname
+	hostname "$NZ_FQDN"
+}
+
+reboot() { #Reboot
+    read -p "Are you sure? This will reboot the machine [y/N]: " confirmation
+    if [ "$confirmation" != "y" ]
+        then echo "Reboot cancelled."
+        else reboot
+    fi
+}
+
+poweroff() { #Power off the machine
+    read -p "Are you sure? This will turn the machine off (you will have to manually turn it on) [y/N]: " confirmation
+    if [ "$confirmation" != "y" ]
+        then echo "Power off cancelled."
+        else poweroff
+    fi
+}

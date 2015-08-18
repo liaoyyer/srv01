@@ -5,7 +5,7 @@
 # ░░░░░█▀█
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
-source "${srv01_path}/scripts/functions.sh"
+source "${srv01_path}/scripts/utils"
 
 
 deletedb() { #Delete a database and owner. Usage: deletedb database

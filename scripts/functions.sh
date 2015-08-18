@@ -59,12 +59,11 @@ _editMainConfig() { #Edit and reload main srv01 config file
     #Note: See also https://packages.debian.org/sid/augeas-tools to edit config files
     $EDITOR ${NZ_CONF_PATH}/srv01.conf
     source "${NZ_CONF_PATH}/srv01.conf"
-    echo "$NZ_FQDN" >| /etc/hostname
-    hostname "$NZ_FQDN"
+    updatehostname
     _Srv01ReloadConfig #TODO: (check if paths/values in srv01.conf are valid) update config files accordingly
 }
 
-_Srv01ClearCaches() { #Clear dokuwiki and php-apc caches
+clearcaches() { #Clear dokuwiki and php-apc caches
 	rm -r "$srv01_apache_documentroot/dokuwiki/data/cache/*"
 	service apache2 restart #clear php-apc cache, so subtle
 	#TODO: remove more caches (minigal, shaarli, owncloud deleted files...)
@@ -80,14 +79,7 @@ _AutoMaintenance() { #full auto maintenance tasks
 
 
 
-_Srv01RegenCertificates() { #Regenerate TLS certificates for apache and prosody
-    #TODO: Move text inside the function move this to NzMenuTroubleshooting, call it from there
-    echo "
-    Generating SSL keys and certificates..."
-    make-ssl-cert generate-default-snakeoil --force-overwrite
-    #prosodyctl cert generate #This only works on 0.9+
-    openssl req -new -x509 -days 365 -nodes -out "/var/lib/prosody/$NZ_FQDN.crt" -newkey rsa:2048 -keyout "/var/lib/prosody/$NZ_FQDN.key" -batch
-}
+
 
 
 
@@ -98,72 +90,6 @@ _Srv01ReloadConfig() { #Main config reload routine
 	_Srv01FixPermissions
 }
 
-_Srv01ConfigUpdateFqdn() {
-	echo "$NZ_FQDN" >| /etc/hostname
-	hostname "$NZ_FQDN"
-}
-
-
-
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   Power management                            ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-_Srv01Reboot() { #Reboot
-    read -p "Are you sure? This will reboot the machine [y/N]: " confirmation
-    if [ "$confirmation" != "y" ]
-        then echo "Reboot cancelled."
-        else reboot
-    fi
-}
-
-_Srv01Poweroff() { #Power off the machine
-    read -p "Are you sure? This will turn the machine off (you will have to manually turn it on) [y/N]: " confirmation
-    if [ "$confirmation" != "y" ]
-        then echo "Power off cancelled."
-        else poweroff
-    fi
-}
-
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   Network management                          ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-testinetconnection() { #Test connectivity to debian.org #TODO move to NzMenuTroubleshooting
-    ping -q -c3 debian.org
-}
-
-getmainuser() { #Get system's main user name (assume it was the first user created)
-	NZ_USER=$(getent passwd|grep 1001:1001|awk -F":" '{print $1}')
-}
-
-getlansubnet() { #Get the current LAN IP and subnet
-	ip addr show ${srv01_net_iface} | egrep "inet " | awk -F" " '{print $2}'
-}
-
-
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░                                               ░░░
-#░░░   Services management                         ░░░
-#░░░                                               ░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-#░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-_Srv01ServiceToggle() { #Start or stop a service, depending on it's status
-	if [ "$nz_service_toggle_action" = "Disable service" ]
-		then service $1 stop
-		else service $1 start
-	fi
-}
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -174,44 +100,16 @@ _Srv01ServiceToggle() { #Start or stop a service, depending on it's status
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 _Srv01ServiceApacheCheck() { #Checks for apache2 status and network access
-	if [ ! -f /etc.init.d/apache2 ]
+	if [ ! -f /usr/bin/apache2 ]
 	#If apache is not installed	
-	then
-		nz_apache2_installed="no",
-		nz_menu_apache2_line=" [1]	Apache web server	[not installed]"
-
-	#If apache is installed
-	else
-		#Get service status
-		service apache2 status >/dev/null
-		case "$?" in
-		0) nz_apache2_status="running"; nz_service_toggle_action="Disable service";;
-		*) nz_apache2_status="stopped"; nz_service_toggle_action="Enable service";;
-		esac
-
 		#Check firewall status for service
 		#TODO: move this to NzMenuFirewall as a function: _Srv01FirewallCheck 443
 		#TODO: use LAN and VPN netmasks instead of hardcoding 192.168 (_Srv01GetLANSubnet)
-		if [[ $(sudo ufw status numbered | grep "443/tcp                    ALLOW IN    Anywhere") ]]
-			then nz_apache2_firewall="Internet access"
-		elif [[ $(sudo ufw status numbered | grep "443/tcp                    ALLOW IN    192.168") ]]
-			then nz_apache2_firewall="LAN access only"
-		else
-			nz_apache2_firewall="Blocked"
-		fi
 
-		#Build variables for menus
-		nz_menu_apache2_line=" [1]	Apache web server	[$nz_apache2_status]	[$nz_apache2_firewall]"
-		nz_apache2_installed="yes"
-	fi
 }
 
 
 
-_Srv01InstallWebappPrompt() { #Prompt user for app name to install
-	read -p "Install what app? " apptoinstall
-	_Srv01InstallWebApp "$apptoinstall"
-}
 
 _Srv01InstallWebapp() { #Install a web application
 	AppToInstall="$1"
@@ -240,9 +138,7 @@ _Srv01UserShowWwwaccess() { #Show main user's permissions on web served content
     groups $NZ_USER | grep -q "$APACHE_GROUP"
     if [ ?$ != 0 ]
         then echo "$NZ_USER is not allowed to edit the web server files"
-        export NZ_USERWWWACCESS=0
         else  echo "$NZ_USER is allowed to edit the web server files"
-        export NZ_USERWWWACCESS=1
     fi
 }
 
