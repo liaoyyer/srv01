@@ -8,10 +8,61 @@
 source "${srv01_path}/scripts/functions.sh"
 
 install() {
-	aptitude install prosody lua-sec
+    aptitude install prosody lua-sec
 }
 
+
+adduser() { #Create new IM account
+    echo "Please enter the desired username for the new account:"
+    read PROSODY_NEW_USERNAME
+    prosodyctl adduser "${PROSODY_NEW_USERNAME}@${NZ_FQDN}"
+    if [ $? = 0 ]
+        then echo "Done. You can now login with an XMPP client. Username: ${PROSODY_NEW_USERNAME} , Domain: ${NZ_FQDN}."
+    fi
+}
+
+
+deluser() { #Delete an existing IM account
+    echo "Enter the name of the account you want to delete:"
+    read PROSODY_DELETE_ACCOUNT
+    prosodyctl deluser "${PROSODY_DELETE_ACCOUNT}@${FQDN}"
+}
+
+listusers() { #Get list of IM accounts on the server
+    PROSODY_FQDN_STRING=$(echo $NZ_FQDN | sed 's/\./\%2e/g')
+    PROSODY_ACCOUNT_FILES=$(find "/var/lib/prosody/${PROSODY_FQDN_STRING}/accounts" -name "*.dat")
+    PROSODY_ACCOUNT_LIST=$(for i in ${PROSODY_ACCOUNT_FILES}; do basename $i .dat; done)
+    echo "$PROSODY_ACCOUNT_LIST"
+}
+
+passwd() { #Change password for an IM account
+    echo"Enter the name of the account you want to change the password for:"
+    read PROSODY_PASSWD_ACCOUNT
+    prosodyctl passwd "${PROSODY_PASSWD_ACCOUNT}@${FQDN}" 
+}
+
+
+status() { #Get IM server enabled/disabled status
+    if [[ -f /var/run/prosody/prosody.pid ]]
+    then echo "Prosody is enabled"
+    else echo "Prosody is disabled"
+    fi
+        if grep "allow_registration = true" /etc/prosody/prosody.cfg.lua
+        then echo " New account registrations allowed"
+        else echo "New account registrations not allowed"
+    fi
+}
+
+enable() { #Enable/disable IM server
+    update-rc.d prosody enable; service prosody start
+}
+
+disable() { #Enable/disable IM server
+    update-rc.d prosody disable; service prosody stop
+}
+
+
 if [ "$1" != "" ]
-	then $@
-	else listFunctions
+    then $@
+    else listFunctions
 fi
