@@ -4,3 +4,45 @@
 [submodule "scripts/openvpn-install"]
 	path = scripts/openvpn-install
 	url = https://github.com/Nyr/openvpn-install
+[submodule "config/webapps/tt-rss/themes/chalk"]
+	path = config/webapps/tt-rss/themes/chalk
+	url = https://github.com/asyncopation/ttrss-theme-chalk
+[submodule "config/webapps/tt-rss/themes/grone"]
+	path = config/webapps/tt-rss/themes/grone
+	url = https://github.com/cas--/tt-rss_theme_grone
+[submodule "config/webapps/tt-rss/themes/feedly"]
+	path = config/webapps/tt-rss/themes/feedly
+	url = https://github.com/levito/tt-rss-feedly-theme
+[submodule "config/webapps/tt-rss/themes/reeder"]
+	path = config/webapps/tt-rss/themes/theme-reeder
+	url = https://github.com/tschinz/tt-rss_reeder_theme
+[submodule "config/webapps/tt-rss/plugins/tt-rss-yourls"]
+	path = config/webapps/tt-rss/plugins/tt-rss-yourls
+	url = https://github.com/acaranta/tt-rss-yourls
+[submodule "config/webapps/tt-rss/plugins/tt-rss_plugin_readabillity"]
+	path = config/webapps/tt-rss/plugins/tt-rss_plugin_readabillity
+	url = https://github.com/ebell451/tt-rss_plugin_readabillity
+[submodule "config/webapps/tt-rss/plugins/framarticle_toolbar"]
+	path = config/webapps/tt-rss/plugins/framarticle_toolbar
+	url = https://github.com/framasoft/framarticle_toolbar
+[submodule "config/webapps/tt-rss/plugins/ttrss-qrcode"]
+	path = config/webapps/tt-rss/plugins/ttrss-qrcode
+	url = https://github.com/jonrandoem/ttrss-qrcode
+[submodule "config/webapps/tt-rss/plugins/tt-rss-poche"]
+	path = config/webapps/tt-rss/plugins/tt-rss-poche
+	url = https://github.com/jcsaaddupuy/tt-rss-poche
+[submodule "config/webapps/tt-rss/plugins/tt-rss-shaarli"]
+	path = config/webapps/tt-rss/plugins/tt-rss-shaarli
+	url = https://github.com/jcsaaddupuy/tt-rss-shaarli
+[submodule "config/webapps/tt-rss/plugins/ttrss-videoframes"]
+	path = config/webapps/tt-rss/plugins/ttrss-videoframes
+	url = https://github.com/tribut/ttrss-videoframes
+[submodule "config/webapps/tt-rss/plugins/ttrss-sendtokindle"]
+	path = config/webapps/tt-rss/plugins/ttrss-sendtokindle
+	url = https://github.com/usr42/ttrss-sendtokindle
+[submodule "config/webapps/tt-rss/plugins/tt-rss-tumblr"]
+	path = config/webapps/tt-rss/plugins/tt-rss-tumblr
+	url = https://github.com/epyonavenger/tt-rss-tumblr
+[submodule "config/webapps/tt-rss/plugins/ttrss-facebook"]
+	path = config/webapps/tt-rss/plugins/ttrss-facebook
+	url = https://github.com/dotdavid/ttrss-facebook
