@@ -11,6 +11,8 @@
       ☐ doc: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/WhatIsWrongWithSystemWide/
       doc: screenshot paprefs
     ☐ minidlna: pas de fichiers flac??
+    [] samba
+       simple config: https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
     [] mail: add an option to use an external provider (3 mail modes: none (default), external (ssmtp), self-hosted)
     ☐ [security] Setup logcheck and logwatch
        http://www.bock.nu/blog/logcheck-logwatch
