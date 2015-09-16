@@ -11,6 +11,7 @@
       ☐ doc: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/WhatIsWrongWithSystemWide/
       doc: screenshot paprefs
     ☐ minidlna: pas de fichiers flac??
+    [] mail: add an option to use an external provider (3 mail modes: none (default), external (ssmtp), self-hosted)
     ☐ [security] Setup logcheck and logwatch
        http://www.bock.nu/blog/logcheck-logwatch
        http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
