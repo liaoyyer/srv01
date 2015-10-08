@@ -10,6 +10,9 @@
       ☐ adduser pulse audio
       ☐ doc: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/WhatIsWrongWithSystemWide/
       doc: screenshot paprefs
+    [ ] network scanner server
+     - https://wiki.archlinux.org/index.php/SANE
+     - clients?
     ☐ minidlna: pas de fichiers flac??
     [] samba
        simple config: https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
