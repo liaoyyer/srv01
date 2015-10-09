@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash/tt-rss
 #!/bin/bash
 # srv01 - tt-rss wrapper
 # STATUS: UNTESTED
@@ -10,6 +10,7 @@ source "${srv01_path}/scripts/functions.sh"
 
 install() {
 	echo "Not yet implemented"
+	#https://tt-rss.org/gitlab/fox/tt-rss.git
 	#configure: enable external API
 }
 
