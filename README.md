@@ -39,3 +39,18 @@
 
     srv01 tools
 
+### Hardware requirements
+
+    1 GHz x86-compatible CPU
+    512MB RAM
+    10GB main storage
+    External backup drive
+
+### Server build tips
+
+ * Some BIOS configuration tools allow turning the power back on after a power loss.
+ * Get an [UPS](https://en.wikipedia.org/wiki/Uninterruptible_power_supply) to protect your server from power loss.
+ * Prefer using newer hardware as it likely decreases your server's power consumption.
+  * [PicoPSU](http://www.silentpcreview.com/article601-page1.html) power supply units.
+ * Prefer using wired network connections. A wireless connection is possible if the signal quality is good enough, but will decrease performance.
+  * Always USE WPA2 wireless connections with good passphrases.
