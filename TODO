@@ -1,5 +1,9 @@
 
   srv01:
+    ☐ apache/prosody: generate secure ssl certs
+        https://github.com/sovereign/sovereign/issues/373, https://weakdh.org/sysadmin.html
+        https://github.com/sovereign/sovereign/issues/399
+
     ☐ pulseaudio + test (share audio outputs over local network)
       ☐ start services pulseaudio and avahi-daemon
       ☐ firewall port 4713: sudo ufw allow from 192.168.0.0/16 to any port 4713 proto tcp
@@ -16,7 +20,14 @@
     ☐ minidlna: pas de fichiers flac??
     [] samba
        simple config: https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
-    [] mail: add an option to use an external provider (3 mail modes: none (default), external (ssmtp), self-hosted)
+    ☐ mail server
+      ☐ dkim
+      ☐ spf
+      ☐ antispam
+      ☐ smtp
+      ☐ imap
+      ☐ web UI
+      ☐ add an option to use an external provider (3 mail modes: none (default), external (ssmtp), self-hosted)
     ☐ [security] Setup logcheck and logwatch
        http://www.bock.nu/blog/logcheck-logwatch
        http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
@@ -43,6 +54,7 @@
          ☐ make sure it logs bumpy-booby failed logins
          ☐ make sure it logs transmission failed logins
          ☐ make sure it logs tt-rss failed logins
+         ☐ https://github.com/lfit/itpol/blob/master/linux-workstation-security.md#root-mail
          Config: https://github.com/Glench/dotfiles/tree/master/conf/fail2ban
          Config: report owncloud login failures to fail2ban
          http://tuxicoman.jesuislibre.net/2015/01/fail2ban-pour-owncloud-7-sur-debian-jessie.html
