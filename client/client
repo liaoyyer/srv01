@@ -14,13 +14,26 @@ if [ ! -d "$backups_dir" ]; then
     mkdir -p "$backups_dir"
 fi
 
-_backup_ttrss_opml() {
+backup_ttrss_opml() {
     curl --insecure "$ttrss_opml_url" --output "$backups_dir/tt-rss$(getTimestamp).opml"
 }
 
 
-_rsync_backups() {
+rsync_backups() {
     rsync -avzP "$srv01_hostname:$srv01_backups_dir/" "$backups_dir"
 }
 
-$1
+
+sftp() {
+	gvfs-mount sftp://${srv01_remote_username}@${srv01_hostname}:${srv01_ssh_port}
+	xdg-open sftp://${srv01_remote_username}@${srv01_hostname}:${srv01_ssh_port}
+}
+
+web() {}
+	xdg-open ${srv01_apache_proto}${srv01_hostname}
+}
+
+if [ "$1" != "" ]
+	then $@
+	else listFunctions
+fi
