@@ -7,6 +7,10 @@
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/functions.sh"
 
+upgrade() { #Upgrade to latest version
+	sudo -u www-data /usr/bin/php /var/www/owncloud/occ upgrade --skip-migration-test
+}
+
 disable_maintenance() { #Disable Owncloud maintenance mode
 	sed -i "/'maintenance'/c\  \'maintenance' => false," ${srv01_apache_documentroot}/owncloud/config/config.php
 }
