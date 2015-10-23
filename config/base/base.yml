@@ -1,5 +1,9 @@
+- name: install base packages
+  apt: pkg=openssh-server state=present
+  
+
 - name: Install server security tools
-  apt: pkg={{item}} state=absent
+  apt: pkg={{item}} state=present
   with_items:
     - lynis
     - rkhunter
