@@ -1,0 +1,21 @@
+- name: Install server security tools
+  apt: pkg={{item}} state=absent
+  with_items:
+    - lynis
+    - rkhunter
+    - chkrootkit
+    - tiger
+    - debsums
+    - unattended-upgrades
+    - logwatch
+    - goaccess
+    - logcheck
+    - unhide
+    - unhide.rb
+    - ufw
+    - debsecan
+    - needrestart
+    - scanlogd
+    - auditd
+
+#Resource: https://wiki.debian.org/UnattendedUpgrades
