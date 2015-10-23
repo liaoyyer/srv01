@@ -6,6 +6,7 @@
 
     ☐ pulseaudio + test (share audio outputs over local network)
       ☐ start services pulseaudio and avahi-daemon
+        https://github.com/pimusicbox/pimusicbox/blob/develop/filechanges/etc/avahi/avahi-daemon.conf
       ☐ firewall port 4713: sudo ufw allow from 192.168.0.0/16 to any port 4713 proto tcp
       ☐ /etc/default/pulse
       ☐ /etc/pulse/system.pa
@@ -28,6 +29,16 @@
       ☐ imap
       ☐ web UI
       ☐ add an option to use an external provider (3 mail modes: none (default), external (ssmtp), self-hosted)
+
+    ☐ minidlna: pas de fichiers flac??
+
+    ☐ firejail?
+      http://l3net.wordpress.com/2014/04/16/how-to-restrict-a-login-shell-using-linux-namespaces/
+
+    ☐ SFTP: chroot users to their home directory
+        requires the home dir to be owned by root
+        https://en.wikibooks.org/wiki/OpenSSH/Cookbook/SFTP -> ChrootDirectory %h
+        http://www.cyberciti.biz/faq/debian-ubuntu-restricting-ssh-user-session-to-a-directory-chrooted-jail/
     ☐ [security] Setup logcheck and logwatch
        http://www.bock.nu/blog/logcheck-logwatch
        http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
@@ -97,10 +108,26 @@
      IPSEC: https://blog.ls20.com/ipsec-l2tp-vpn-auto-setup-for-ubuntu-12-04-on-amazon-ec2/
      https://github.com/Nyr/openvpn-install
      http://readwrite.com/2014/04/10/raspberry-pi-vpn-tutorial-server-secure-web-browsing
+      https://we.riseup.net/debian/personal-vpn
+      http://thegeekblog.aahank.com/notes/debian-ubuntu-vpn-server/
+      http://networkfilter.blogspot.fr/2015/01/be-your-own-vpn-provider-with-openbsd.html
+      https://github.com/StarshipEngineer/OpenVPN-Setup
+      ☐ test against http://ipleak.net/
+      ☐ Firewall: restrict access to VPN ou mod_authz_host
+        http://serverfault.com/questions/451788/how-to-access-a-port-via-openvpn-only
     ☐ tor relay
       http://www.devconsole.info/?p=848
     ☐ [security][feature] encrypted DNS proxy
         https://packages.debian.org/stretch/dnscrypt-proxy
+    ☐ dns resolver
+      bind, dnsmasq
+      http://www.bortzmeyer.org/son-propre-resolveur-dns.html
+      http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch18_:_Configuring_DNS
+    ☐ htaccess/htpasswd manager (restrict access to each individual web app)
+    ☐ Main RSS feed on the homepage
+      ☐ Should aggregate feeds from links, images, owncloud shared files, blog, bugs....
+      ☐ Feedek client side, JS, uses google Feed API
+      ☐ Feed2js, server-side PHP + client JS
     ☐ new apps
       ☐ tt-rss
         ☐ tt-rss/config.php
@@ -125,6 +152,14 @@
         http://doc.wallabag.org/
         https://github.com/wallabag/wallabag
       ✔ h5ai @done (15-06-18 04:08)
+
+    ☐ private bittorrent tracker
+
+    ☐ DHCP server
+      dhcpd configured Disabled by default
+      http://www.linuxhomenetworking.com/wiki/index.php Quick_HOWTO_:_Ch08_:_Configuring_the_DHCP_Server
+      http://www.it-connect.fr/serveur-dhcp-sous-linux/
+
       ☐ maps:routing
         provide directions/routes from the map service.
         ☐ Graphhopper
@@ -153,4 +188,18 @@
       ☐ Ports: 64738/tcp
       ☐ Change superuser password: murmurd -i /etc/mumble-server.ini -supw "$NEWPASSWORD"; service mumble-server restart
 
+---------------------------------------------
 
+CLIENT
+ * auto export bumpy booby bugs (json)
+ * auto export TT-RSS OPML
+ * auto-export shaarli public/private/all
+ * auto-copy client ssh key
+ * auto backup LUKS keys (password protected)
+        ☐ owncloud backup calendriers/taches
+          http://www.webdav.org/cadaver/
+          https://github.com/untitaker/vdirsyncer
+          https://git.barrera.io/hobarrera/todoman/tree/master
+        ☐ owncloud backup users/passes
+        ☐ owncloud backup contacts
+ * backup prosody accounts
