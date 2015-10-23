@@ -85,7 +85,14 @@ TCPKeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
+# SFTP Options
 Subsystem sftp /usr/lib/openssh/sftp-server
+
+# Options for SFTP-only users
+Match Group sftponly
+        AllowTCPForwarding no
+        X11Forwarding no
+        ForceCommand internal-sftp
 
 # Set this to 'yes' to enable PAM authentication, account processing,
 # and session processing. If this is enabled, PAM authentication will
