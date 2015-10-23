@@ -1,5 +1,5 @@
-
-  srv01:
+MOVE TO ANSIBLE!
+  
     ☐ apache/prosody: generate secure ssl certs
         https://github.com/sovereign/sovereign/issues/373, https://weakdh.org/sysadmin.html
         https://github.com/sovereign/sovereign/issues/399
@@ -21,7 +21,7 @@
     ☐ minidlna: pas de fichiers flac??
     [] samba
        simple config: https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
-    ☐ mail server
+    ☐ mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail)
       ☐ dkim
       ☐ spf
       ☐ antispam
