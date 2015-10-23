@@ -19,9 +19,7 @@ listsftp() {
 createsftpuser() {
     read -e -p "Enter name for the new user: " newuser
     getent group sftponly > /dev/null
-    if [ "$?" != "0" ]
-        then addgroup sftponly
-    fi
+    if [ "$?" != "0" ]; then addgroup sftponly; fi
     if $(!getent passwd "$newuser" && ! -d /home/"$newuser")
         then mkdir /home/"$newuser"
              adduser "$newuser" -g sftponly --no-create-home --no-user-group -d /home/"$newuser" --shell /bin/false
