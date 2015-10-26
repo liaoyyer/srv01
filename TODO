@@ -87,6 +87,7 @@ MOVE TO ANSIBLE!
       ✔ _other_vhosts_access.log should be empty DONE, everything in access.log @done (15-06-18 04:13)
       ☐ requests to the ISP hostname (domain names other than NZ_FQDN) should be catched returned 403 or DROPped at firewall level
       ☐ Use mod_security's DROP action instead of a 403 error for apache2's prevent-direct-ip-access.conf The 403 error still allows to get the server's certificate, which has a reference to the actual FQDN see http://serverfault.com/questions/401517/how-to-drop-all-requests-using-mod-security
+      owncloud: mount transmission downloads dir
     ☐ portsentry
       http://www.tldp.org/HOWTO/Security-Quickstart-HOWTO/firewalls.html
       http://www.linuxjournal.com/article/4751
@@ -203,3 +204,4 @@ CLIENT
         ☐ owncloud backup users/passes
         ☐ owncloud backup contacts
  * backup prosody accounts
+ * setup SFTP connection as gtk bookmark
