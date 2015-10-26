@@ -1,12 +1,6 @@
-### Client Bittorrent / Seedbox Transmission
+### Transmission Bittorrent client
 
-Transmission est un client pour le réseau [peer-to-peer](https://fr.wikipedia.org/wiki/Pair_%C3%A0_pair) [Bittorrent](https://fr.wikipedia.org/wiki/BitTorrent_%28protocole%29).
+Transmission is a client for the [peer-to-peer](https://fr.wikipedia.org/wiki/Pair_%C3%A0_pair) [Bittorrent](https://en.wikipedia.org/wiki/BitTorrent) [Peer-to-peer](https://en.wikipedia.org/wiki/Peer-to-peer) file sharing protocol.
 
-
-
-##### Accéder aux fichiers téléchargés
-
- * Par SFTP: Dans votre gestionnaire de fichiers, connectez vous à votre [serveur SFTP](openssh.md#Accès_aux_fichiers_par_SFTP) et rendez vous dans le répertoire de téléchargement de transmission (spécifié dans la configuration principale de nodezero)
- * Par Owncloud: Dans l'interface web d'Owncloud, rendez vous dans le menu `Apps`, activez l'application `External storage support` TODO, puis accédez à la section `Admin` dans le menu de droite. Dans la section `External Storage`, sélectionnez `Add storage` puis remplissez les informations: `Location` doit correspondre au répertoire de téléchargement de transmission (spécifié dans la configuration principale de nodezero).
-
-_Note: Si vous ne parvenez pas à accéder aux fichiers, lancez la commande `Fix file permissions` depuis la console d'administration._
+ * [Seedbox - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Seedbox)
+ * [Transmission (BitTorrent client) - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Transmission_(BitTorrent_client))
