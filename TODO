@@ -24,7 +24,17 @@
 ☐ [enh] minidlna: pas de fichiers flac??
 
 ☐ [feature] samba file sharing
-    simple config: https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
+    ☐ config: https://github.com/debops/ansible-samba/blob/master/tasks/main.yml https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
+	☐ Add samba user: create corresponding unix user -s /dev/null -m -d /homedir user1; smbpasswd -a, smb.conf:; run testparm
+        ## SAMBA SHARE
+        #[$username-share]
+        #path = /home/$username (?)
+        #available = yes
+        #valid users = $username
+        #read only = no
+        #browseable = yes
+        #public = yes
+        #writeable = yes
 
 ☐ [feature] mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail)
     ☐ dkim
@@ -210,11 +220,31 @@
 ☐ [feature] add SMART tests maintenance functions
 
 ☐ [feature] mumble server
-    Web interface: http://mumble.sourceforge.net/Mumble-Django
+
     ☐ Packages: mumble-server
     ☐ Config: /etc/mumble-server.ini
     ☐ Ports: 64738/tcp
     ☐ Change superuser password: murmurd -i /etc/mumble-server.ini -supw "$NEWPASSWORD"; service mumble-server restart
+    ☐ Web interface.: http://mumble.sourceforge.net/Mumble-Django
+
+[backups] backups
+     ☐ action: backup data files, dbs and manually specified dirs to local dir
+     ☐ action: sync local backups to external drive (check avail space)
+     ☐ rsnapshot config https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/templates/rsnapshot.conf.j2 https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/files/rsnapshot.cron https://github.com/debops/ansible-rsnapshot https://github.com/osiell/ansible-rsnapshot-master nice/priority
+
+☐ [bug] reports
+     ☐ services status + firewall access
+     ☐ installed services/roles
+     ☐ list of samba users
+     ☐ date of last local backup
+     ☐ date of last remote/external backup
+     ☐ current FS tree
+     ☐ samba addresses smb://localip/$share-name on linux, \\$localip\$share-name
+     ☐ output of w, who, uptime, date, last, lastb
+
+
+☐ [enh] create symlinks to webapps data dirs/transmission data dir in user home
+
 
 ---------------------------------------------
 
