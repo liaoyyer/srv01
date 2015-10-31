@@ -1,0 +1,5 @@
+- name: Clone MapBBcodeShare
+  git: repo=https://github.com/MapBBCode/share.mapbbcode.org
+       dest=/var/www/maps
+       version=master
+       accept_hostkey=yes

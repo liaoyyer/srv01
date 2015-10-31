@@ -1,0 +1,5 @@
+- name: Clone Alltube
+  git: repo=https://github.com/Rudloff/alltube
+       dest=/var/www/alltube
+       version=0.2.1
+       accept_hostkey=yes

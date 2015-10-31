@@ -1,0 +1,5 @@
+- name: Clone Chyrp
+  git: repo=https://github.com/chyrp/chyrp/
+       dest=/var/www/chyrp
+       version=v2.5.2
+       accept_hostkey=yes

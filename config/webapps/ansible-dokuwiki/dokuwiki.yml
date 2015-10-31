@@ -1,0 +1,134 @@
+- name: Clone Dokuwiki
+  git: repo=https://github.com/splitbrain/dokuwiki
+       dest=/var/www/dokuwiki
+       version=release_stable_2014_09_29c
+       accept_hostkey=yes
+
+
+# Plugins
+       
+- name: Clone orphanmedia plugin
+  git: repo=https://github.com/Taggic/orphanmedia
+       dest=/var/www/dokuwiki/lib/plugins/orphanmedia
+       version=master
+       accept_hostkey=yes
+       
+
+- name: Clone orphanswanted plugin
+  git: repo=https://github.com/lupo49/dokuwiki-plugin-orphanswanted
+       dest=/var/www/dokuwiki/lib/plugins/orphanswanted
+       version=master
+       accept_hostkey=yes
+
+- name: Clone text plugin
+  git: repo=https://github.com/michitux/dokuwiki-plugin-text/
+       dest=/var/www/dokuwiki/lib/plugins/text
+       version=master
+       accept_hostkey=yes
+
+- name: Clone titlesanchorlink plugin
+  git: repo=https://github.com/Dric/dokuwiki-titlesanchorlink/
+       dest=/var/www/dokuwiki/lib/plugins/titlesanchorlink
+       version=master
+       accept_hostkey=yes
+
+- name: Clone upgrade plugin
+  git: repo=https://github.com/splitbrain/dokuwiki-plugin-upgrade
+       dest=/var/www/dokuwiki/lib/plugins/upgrade
+       version=master
+       accept_hostkey=yes
+
+- name: Clone xbr plugin
+  git: repo=https://github.com/Chris--S/dokuwiki-plugin-xbr
+       dest=/var/www/dokuwiki/lib/plugins/xbr
+       version=master
+       accept_hostkey=yes
+
+- name: Clone addnewpage plugin
+  git: repo=https://github.com/samwilson/dokuwiki-plugin-addnewpage/
+       dest=/var/www/dokuwiki/lib/plugins/addnewpage
+       version=master
+       accept_hostkey=yes
+
+#- name: Clone ckgedit plugin
+#  git: repo=https://github.com/turnermm/ckgedit/
+#       dest=/var/www/dokuwiki/lib/plugins/ckgedit
+#       version=master
+#       accept_hostkey=yes
+
+#- name: Clone editx plugin
+#  git: repo=https://github.com/danny0838/dw-editx/
+#       dest=/var/www/dokuwiki/lib/plugins/editx
+#       version=master
+#       accept_hostkey=yes
+
+#- name: Clone gallery plugin
+#  git: repo=https://github.com/splitbrain/dokuwiki-plugin-gallery/
+#       dest=/var/www/dokuwiki/lib/plugins/gallery
+#       version=master
+#       accept_hostkey=yes
+
+- name: Clone include plugin
+  git: repo=https://github.com/dokufreaks/plugin-include/
+       dest=/var/www/dokuwiki/lib/plugins/include
+       version=master
+       accept_hostkey=yes
+
+- name: Clone indexmenu plugin
+  git: repo=https://github.com/samuelet/indexmenu
+       dest=/var/www/dokuwiki/lib/plugins/indexmenu
+       version=master
+       accept_hostkey=yes
+       
+- name: Clone markdownextra plugin
+  git: repo=https://github.com/naokij/dokuwiki-plugin-markdownextra/
+       dest=/var/www/dokuwiki/lib/plugins/markdownextra
+       version=master
+       accept_hostkey=yes
+
+- name: Download note plugin
+  get_url:
+    url=http://gauret.free.fr/fichiers/dokuwiki/dokuwiki-note-20090615.tgz
+    dest=/var/lib/srv01/dokuwiki-note-20090615.tgz
+
+- name: Decompress note plugin
+  unarchive: src=/var/lib/srv01/dokuwiki-note-20090615.tgz
+             dest=/var/lib/srv01 copy=no
+             creates=/var/lib/srv01/dokuwiki-note-20090615
+
+- name: Move note plugin to /var/www/dokuwiki/lib/plugins/note
+  command: mv dokuwiki-note-20090615 /var/www/dokuwiki/lib/plugins/note chdir=/var/lib/srv01 creates=/var/www/dokuwiki/lib/plugins/note
+
+
+- name: Download externallink plugin
+  get_url:
+    url=http://koti.mbnet.fi/oiv/pubtest/externallink.zip
+    dest=/var/lib/srv01/externallink.zip
+
+- name: Decompress externallink plugin
+  unarchive: src=/var/lib/srv01/externallink.zip
+             dest=/var/lib/srv01 copy=no
+             creates=/var/lib/srv01/externallink
+
+- name: Move externallink plugin to /var/www/dokuwiki/lib/plugins/externallink
+  command: mv externallink /var/www/dokuwiki/lib/plugins/externallink chdir=/var/lib/srv01 creates=/var/www/dokuwiki/lib/plugins/externallink
+
+
+
+- name: Download baselink plugin
+  get_url:
+    url=http://www.robmeerman.co.uk/downloads/dokuwiki-plugin-baselink.tar.gz
+    dest=/var/lib/srv01/dokuwiki-plugin-baselink.tar.gz
+
+- name: Decompress externallink plugin
+  unarchive: src=/var/lib/srv01/dokuwiki-plugin-baselink.tar.gz
+             dest=/var/lib/srv01 copy=no
+             creates=/var/lib/srv01/dokuwiki-plugin-baselink
+
+- name: Move externallink plugin to /var/www/dokuwiki/lib/plugins/externallink
+  command: mv dokuwiki-plugin-baselink /var/www/dokuwiki/lib/plugins/dokuwiki-plugin-baselink chdir=/var/lib/srv01 creates=/var/www/dokuwiki/lib/plugins/dokuwiki-plugin-baselink
+
+
+
+
+
