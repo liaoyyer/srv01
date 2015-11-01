@@ -1,3 +1,4 @@
+#TODO https://github.com/Rudloff/alltube/releases/download/0.3.2/alltube-release.zip
 - name: Clone Alltube
   git: repo=https://github.com/Rudloff/alltube
        dest=/var/www/alltube
