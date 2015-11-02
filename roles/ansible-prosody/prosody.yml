@@ -5,7 +5,6 @@
     - prosody-modules
     - lua-sec
 
-
 - name: Download mod_block_registrations
   get_url:
     url=https://prosody-modules.googlecode.com/hg/mod_block_registrations/mod_block_registrations.lua
@@ -20,3 +19,7 @@
   get_url:
     url=https://prosody-modules.googlecode.com/hg/mod_blocking/mod_blocking.lua
     dest=/usr/lib/prosody/modules/mod_blocking.lua
+
+- name: Add UFW allow rules for Prosody
+  copy: src=etc_ufw_applications.d_prosody dest=etc/ufw/applications.d/prosody
+  ufw: rule=allow name=Prosody

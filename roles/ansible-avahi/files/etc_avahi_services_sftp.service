@@ -4,7 +4,7 @@
   <name replace-wildcards="yes">SFTP on %h</name>
   <service>
    <type>_sftp-ssh._tcp</type>
-   <port>822</port>
+   <port>823</port>
   </service>
  </service-group>
 

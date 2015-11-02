@@ -1,0 +1,6 @@
+- name: Add UFW allow rules for Transmission
+  copy: src=etc_ufw_applications.d_transmission dest=etc/ufw/applications.d/transmission
+  ufw: rule=allow name=Transmission
+
+- name: create empty transmission log
+  file: path=/var/log/transmission-daemon.log owner=debian-transmission group=debian-transmission state=file

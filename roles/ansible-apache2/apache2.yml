@@ -1,0 +1,37 @@
+- name: install apache2 web server
+  apt: pkg={{item}} state=present
+  with_items:
+    - apache2
+    - libapache2-mod-security2
+    - modsecurity-crs
+    - goaccess
+
+- name: Disable default Apache site
+  command: a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
+
+- name: Enable default srv01 Apache site
+  command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
+
+- name: Enable Apache headers module
+  command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
+  notify: restart apache
+
+- name: Copy ServerName config for Apache
+  template: src=fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
+  notify: restart apache
+
+- name: Set ServerName for Apache
+  command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf
+  notify: restart apache
+
+- name: Enable Apache SSL module
+  command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
+
+- name: Set permissions on cert/keys
+  file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root
+  file: name=/etc/ssl/private/ssl-srv01.key mode=644 owner=root group=root
+
+- name: Add UFW allow rules for apache
+  copy: src=etc_ufw_applications.d_apache dest=etc/ufw/applications.d/apache
+  ufw: rule=allow name=Apache
+  ufw: rule=allow name=Apache-HTTPS
