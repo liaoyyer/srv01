@@ -1,0 +1,7 @@
+- name: clone tt-rss
+    git: repo=https://tt-rss.org/gitlab/fox/tt-rss.git
+       dest=/var/www/tt-rss
+       version=master
+       accept_hostkey=yes
+
+#TODO: implement backup

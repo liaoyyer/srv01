@@ -1,31 +1,33 @@
-- name: install apache2 web server
+#TODO roles/ansible-apache2/files/*
+
+- name: install apache web server
   apt: pkg={{item}} state=present
   with_items:
     - apache2
     - libapache2-mod-security2
+    - libapache2-mod-evasive
+    - libapache2-mod-php5
     - modsecurity-crs
     - goaccess
 
-- name: Disable default Apache site
-  command: a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
-
-- name: Enable default srv01 Apache site
-  command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
-
-- name: Enable Apache headers module
+- name: configure apache
   command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
+  command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
+  command: a2enmod deflate creates=/etc/apache2/mods-enabled/deflate.load
+  command: a2enmod mod-evasive creates=/etc/apache2/mods-enabled/mod-evasive.load
+  command: a2enmod rewrite creates=/etc/apache2/mods-enabled/rewrite.load
+  command: a2enmod mod-security creates=/etc/apache2/mods-enabled/mod-security.load
+  command: a2enmod php5 creates=/etc/apache2/mods-enabled/php5.load
   notify: restart apache
 
-- name: Copy ServerName config for Apache
+- name: copy and enable config for apache
   template: src=fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
-  notify: restart apache
-
-- name: Set ServerName for Apache
   command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf
   notify: restart apache
 
-- name: Enable Apache SSL module
-  command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
+- name: disable default apache site and enable srv01 site
+  command: a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
+  command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
 
 - name: Set permissions on cert/keys
   file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root

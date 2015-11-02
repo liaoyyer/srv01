@@ -2,7 +2,7 @@
     ░░░░░█░█ ┗━┓┣┳┛┃┏┛┃┃┃ ┃ 
     ░▀▀▀░▀▀▀ ┗━┛╹┗╸┗┛ ┗━┛╺┻╸
 
-
+<!--
 ### SSH
 
     srv01 ssh install
@@ -52,5 +52,4 @@
  * Get an [UPS](https://en.wikipedia.org/wiki/Uninterruptible_power_supply) to protect your server from power loss.
  * Prefer using newer hardware as it likely decreases your server's power consumption.
   * [PicoPSU](http://www.silentpcreview.com/article601-page1.html) power supply units.
- * Prefer using wired network connections. A wireless connection is possible if the signal quality is good enough, but will decrease performance.
-  * Always USE WPA2 wireless connections with good passphrases.
+ * Prefer using wired network connections. A wireless connection is possible if the signal quality is good enough, but will decrease performance. Always USE WPA2 wireless connections with good passphrases. -->

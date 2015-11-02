@@ -4,3 +4,8 @@
        dest=/var/www/alltube
        version=0.2.1
        accept_hostkey=yes
+
+- name: copy alltube config
+  copy: src=var_www_alltube_config.php dest=/var/www/alltube/config.php
+
+

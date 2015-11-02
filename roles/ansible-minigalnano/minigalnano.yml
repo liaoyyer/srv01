@@ -3,3 +3,13 @@
        dest=/var/www/images
        version=master
        accept_hostkey=yes
+
+- name: copy minigalnano config
+  copy: src=var_www_images_config.php dest=/var/www/images/config.php
+
+#TODO: chown -R www-data:user /var/www/images/photos
+#TODO: sgid /var/www/images/photos
+#TODO: create a symlink in user's home dir to /var/www/images/photos
+
+- name: print photos upload reminder
+  debug: msg="You can now upload your pictures to your ~/IMAGES directory directory through SFTP."

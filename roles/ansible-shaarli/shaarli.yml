@@ -1,0 +1,11 @@
+- name: clone shaarli
+  git: repo=https://github.com/shaarli/Shaarli
+       dest=/var/www/links
+       version=master
+       accept_hostkey=yes
+
+- name: copy shaarli config
+  copy: src=var_www_links_data_options.php dest=/var/www/links/data/options.php
+
+- name: print manual install reminder
+  debug: msg="Please open https://{{ srv01_fqdn }}/links to complete the installation"
