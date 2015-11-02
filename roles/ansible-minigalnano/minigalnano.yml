@@ -1,0 +1,5 @@
+- name: Clone MinigalNano
+  git: repo=https://github.com/sebsauvage/MinigalNano
+       dest=/var/www/images
+       version=master
+       accept_hostkey=yes

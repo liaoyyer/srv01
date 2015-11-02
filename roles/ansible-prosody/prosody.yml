@@ -1,0 +1,22 @@
+- Name: Prosody XMPP Instant Messaging server
+  pkg={{item}} state=present
+  with_items:
+    - prosody
+    - prosody-modules
+    - lua-sec
+
+
+- name: Download mod_block_registrations
+  get_url:
+    url=https://prosody-modules.googlecode.com/hg/mod_block_registrations/mod_block_registrations.lua
+    dest=/usr/lib/prosody/modules/mod_block_registrations.lua
+
+- name: Download mod_roster_command
+  get_url:
+    url=https://prosody-modules.googlecode.com/hg/mod_roster_command/mod_roster_command.lua
+    dest=/usr/lib/prosody/modules/mod_roster_command.lua
+
+- name: Download mod_blocking
+  get_url:
+    url=https://prosody-modules.googlecode.com/hg/mod_blocking/mod_blocking.lua
+    dest=/usr/lib/prosody/modules/mod_blocking.lua

@@ -2,6 +2,5 @@
   - apt: pkg={{item}} state=present
   with_items:
     - pulseaudio-module-zeroconf
-    - avahi-daemon
     - pulseaudio-utils
     - pulseaudio

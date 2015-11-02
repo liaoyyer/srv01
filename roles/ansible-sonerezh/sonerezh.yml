@@ -1,0 +1,5 @@
+- name: Clone Sonerezh
+  git: repo=https://github.com/Sonerezh/sonerezh
+       dest=/var/www/music
+       version=1.0.0-beta
+       accept_hostkey=yes

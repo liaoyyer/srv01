@@ -1,7 +1,7 @@
 - name: Clone Dokuwiki
   git: repo=https://github.com/splitbrain/dokuwiki
        dest=/var/www/dokuwiki
-       version=release_stable_2014_09_29c
+       version=release_stable_2015_08_10a
        accept_hostkey=yes
 
 
