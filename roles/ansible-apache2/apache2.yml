@@ -1,5 +1,3 @@
-#TODO roles/ansible-apache2/files/*
-
 - name: install apache web server
   apt: pkg={{item}} state=present
   with_items:
@@ -11,6 +9,20 @@
     - goaccess
 
 - name: configure apache
+  copy: src=etc_apache2_conf-available_deflate.conf dest=/etc/apache2/conf-available/deflate.conf
+  copy: src=etc_apache2_conf-available_force-https.conf dest=/etc/apache2/conf-available/force-https.conf
+  copy: src=etc_apache2_conf_available_mitigate-memory-leaks.conf dest=/etc/apache2/conf/available/mitigate-memory-leaks.conf
+  copy: src=etc_apache2_conf-available_mod-evasive.conf dest=/etc/apache2/conf-available/mod-evasive.conf
+  copy: src=etc_apache2_conf-available_mod-ssl.conf dest=/etc/apache2/conf-available/mod-ssl.conf
+  copy: src=etc_apache2_conf-available_other-vhosts-access-log dest=/etc/apache2/conf-available/other-vhosts-access-log
+  copy: src=etc_apache2_conf-available_prevent-direct-ip-access.conf dest=/etc/apache2/conf-available/prevent-direct-ip-access.conf
+  copy: src=etc_apache2_conf_available_prevent-git-dir-access.conf dest=/etc/apache2/conf/available/prevent-git-dir-access.conf
+  copy: src=etc_apache2_conf_available_prevent-ssh-dir-access.conf dest=/etc/apache2/conf/available/prevent-ssh-dir-access.conf
+  copy: src=etc_apache2_conf-available_security.conf dest=/etc/apache2/conf-available/security.conf
+  copy: src=etc_apache2_conf-errorlog.conf dest=/etc/apache2/conf-errorlog.conf
+  copy: src=etc_apache2_sites-available_srv01.conf dest=/etc/apache2/sites-available/srv01.conf
+  copy: src=etc_php5_conf.d_30-hide-header.ini dest=etc/php5/conf.d/30-hide-header.ini
+  file: state=link dest=/etc/modsecurity/modsecurity.conf src=modsecurity.conf-recommended
   command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
   command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
   command: a2enmod deflate creates=/etc/apache2/mods-enabled/deflate.load
@@ -37,3 +49,17 @@
   copy: src=etc_ufw_applications.d_apache dest=etc/ufw/applications.d/apache
   ufw: rule=allow name=Apache
   ufw: rule=allow name=Apache-HTTPS
+
+
+
+
+
+
+
+
+
+
+
+
+
+

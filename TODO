@@ -58,6 +58,7 @@
 ☐ [security] Setup logcheck and logwatch (logcheck only?)
     http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
     https://web.archive.org/web/20130313105847/http://cilab.math.upatras.gr/mikeagn/content/how-setup-logwatch-ubuntu-based-systems
+    https://github.com/derhansen/logwatch-modsec2
     ☐ Daily cron job ---
     LOGWATCH_OUT_FILE="${BACKUP_LOCAL_STORAGE}/UserToolkit/logwatch-report.txt"
     logwatch -- service All --range All --archives --filename=${LOGWATCH_OUT_FILE}
