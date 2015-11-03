@@ -23,6 +23,28 @@
   copy: src=etc_apache2_sites-available_srv01.conf dest=/etc/apache2/sites-available/srv01.conf
   copy: src=etc_php5_conf.d_30-hide-header.ini dest=etc/php5/conf.d/30-hide-header.ini
   file: state=link dest=/etc/modsecurity/modsecurity.conf src=modsecurity.conf-recommended
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_bad_robots.data src=../base_rules/modsecurity_35_bad_robots.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_scanners.data src=../base_rules/modsecurity_35_scanners.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_40_generic_attacks.data src=../base_rules/modsecurity_40_generic_attacks.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_41_sql_injection_attacks.data src=../base_rules/modsecurity_41_sql_injection_attacks.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound.data src=../base_rules/modsecurity_50_outbound.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound_malware.data src=../base_rules/modsecurity_50_outbound_malware.data
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_20_protocol_violations.conf src=../base_rules/modsecurity_crs_20_protocol_violations.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_21_protocol_anomalies.conf src=../base_rules/modsecurity_crs_21_protocol_anomalies.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_23_request_limits.conf src=../base_rules/modsecurity_crs_23_request_limits.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_30_http_policy.conf src=../base_rules/modsecurity_crs_30_http_policy.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_35_bad_robots.conf src=../base_rules/modsecurity_crs_35_bad_robots.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_40_generic_attacks.conf src=../base_rules/modsecurity_crs_40_generic_attacks.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf src=../base_rules/modsecurity_crs_41_sql_injection_attacks.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_xss_attacks.conf src=../base_rules/modsecurity_crs_41_xss_attacks.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_42_tight_security.conf src=../base_rules/modsecurity_crs_42_tight_security.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_45_trojans.conf src=../base_rules/modsecurity_crs_45_trojans.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_47_common_exceptions.conf src=../base_rules/modsecurity_crs_47_common_exceptions.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_48_local_exceptions.conf.example src=../base_rules/modsecurity_crs_48_local_exceptions.conf.example
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_49_inbound_blocking.conf src=../base_rules/modsecurity_crs_49_inbound_blocking.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_50_outbound.conf src=../base_rules/modsecurity_crs_50_outbound.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_59_outbound_blocking.conf src=../base_rules/modsecurity_crs_59_outbound_blocking.conf
+  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_60_correlation.conf src=../base_rules/modsecurity_crs_60_correlation.conf
   command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
   command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
   command: a2enmod deflate creates=/etc/apache2/mods-enabled/deflate.load
