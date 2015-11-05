@@ -82,6 +82,10 @@
   ufw: policy=deny direction=in
   ufw: policy=allow direction=out
   ufw: rule=allow name=SSH-823
+
+- name: copy misc utility configuration
+  copy: src=root_.config_htoprc dest=/root/.config/htoprc
+  copy: src=root_.iftoprc dest=/root/.iftoprc
   
 
 #Resource: https://wiki.debian.org/UnattendedUpgrades

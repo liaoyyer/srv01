@@ -1,2 +1,2 @@
-- name: Install Filetea
-  apt: pkg filetea update_cache=yes
+- name: install filetea
+  apt: pkg=filetea update_cache=yes

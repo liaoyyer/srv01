@@ -53,3 +53,9 @@
  * Prefer using newer hardware as it likely decreases your server's power consumption.
   * [PicoPSU](http://www.silentpcreview.com/article601-page1.html) power supply units.
  * Prefer using wired network connections. A wireless connection is possible if the signal quality is good enough, but will decrease performance. Always USE WPA2 wireless connections with good passphrases. -->
+
+### License 
+
+[GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)
+
+Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](http://www.ansible.com/), [Debian](https://www.debian.org/), [awesome-selfhosted](https://github.com/Kickball/awesome-selfhosted), and all contributors to software provided through this tool.
