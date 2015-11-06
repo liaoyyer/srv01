@@ -1,3 +1,0 @@
-[submodule "scripts/openvpn-install"]
-	path = scripts/openvpn-install
-	url = https://github.com/Nyr/openvpn-install
