@@ -1,25 +1,3 @@
-#!/bin/bash
-# srv01 - prosody wrapper
-# STATUS: UNTESTED
-# https://github.com/nodiscc/srv01
-# ░░░░░█▀█
-# ░░░░░█░█
-# ░▀▀▀░▀▀▀
-source "${srv01_path}/scripts/utils"
-
-install() {
-    aptitude install prosody lua-sec
-}
-
-
-adduser() { #Create new IM account
-    echo "Please enter the desired username for the new account:"
-    read PROSODY_NEW_USERNAME
-    prosodyctl adduser "${PROSODY_NEW_USERNAME}@${NZ_FQDN}"
-    if [ $? = 0 ]
-        then echo "Done. You can now login with an XMPP client. Username: ${PROSODY_NEW_USERNAME} , Domain: ${NZ_FQDN}."
-    fi
-}
 
 
 deluser() { #Delete an existing IM account
@@ -53,13 +31,6 @@ status() { #Get IM server enabled/disabled status
     fi
 }
 
-enable() { #Enable/disable IM server
-    update-rc.d prosody enable; service prosody start
-}
-
-disable() { #Enable/disable IM server
-    update-rc.d prosody disable; service prosody stop
-}
 
 regencert() { #Re-generate prosody SSL certificates/keys
     echo "Generating SSL keys and certificates..."

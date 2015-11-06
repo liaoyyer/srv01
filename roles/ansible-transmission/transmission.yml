@@ -1,6 +1,20 @@
+- name: install transmission
+  apt: pkg=transmission-daemon state=present
+
 - name: Add UFW allow rules for Transmission
-  copy: src=etc_ufw_applications.d_transmission dest=etc/ufw/applications.d/transmission
+  copy: src=etc_ufw_applications.d_transmission dest=/etc/ufw/applications.d/transmission
   ufw: rule=allow name=Transmission
 
 - name: create empty transmission log
   file: path=/var/log/transmission-daemon.log owner=debian-transmission group=debian-transmission state=file
+  notify: restart transmission
+
+- name: copy transmission config
+  copy: src=etc_transmission-daemon_settings.json dest=etc/transmission-daemon/settings.json
+  copy: src=etc_default_transmission-daemon dest=/etc/default/transmission-daemon
+  notify: restart transmission
+
+- name: copy apache2 transmission redirect config
+  copy: src=etc_apache2_conf_available_transmission.conf dest=/etc/apache2/conf-available/transmission.conf
+  command: a2enconf transmission creates=/etc/apache2/conf-enabled/transmission.conf
+  notify: restart apache

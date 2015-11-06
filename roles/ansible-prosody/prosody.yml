@@ -1,25 +1,35 @@
-- Name: Prosody XMPP Instant Messaging server
+- name: install prosody
   pkg={{item}} state=present
   with_items:
     - prosody
     - prosody-modules
     - lua-sec
+  notify: create xmpp account
 
-- name: Download mod_block_registrations
+- name: download mod_block_registrations
   get_url:
     url=https://prosody-modules.googlecode.com/hg/mod_block_registrations/mod_block_registrations.lua
     dest=/usr/lib/prosody/modules/mod_block_registrations.lua
 
-- name: Download mod_roster_command
+- name: download mod_roster_command
   get_url:
     url=https://prosody-modules.googlecode.com/hg/mod_roster_command/mod_roster_command.lua
     dest=/usr/lib/prosody/modules/mod_roster_command.lua
 
-- name: Download mod_blocking
+- name: download mod_blocking
   get_url:
     url=https://prosody-modules.googlecode.com/hg/mod_blocking/mod_blocking.lua
     dest=/usr/lib/prosody/modules/mod_blocking.lua
 
-- name: Add UFW allow rules for Prosody
+- name: copy prosody config
+  copy: src=etc_prosody_prosody.cfg.lua dest=/etc/prosody/prosody.cfg.lua
+  copy: src=etc_prosody_conf.d_blockregistrations.cfg.lua dest=/etc/prosody/conf.d/blockregistrations.cfg.lua
+  notify: restart prosody
+
+- name: copy apache prosody bosh redirect config
+  copy: src=etc_apache2_conf-available_prosody-bosh.conf dest=/etc/apache2/conf-available/prosody-bosh.conf
+  notify: restart apache
+
+- name: add UFW allow rules for Prosody
   copy: src=etc_ufw_applications.d_prosody dest=etc/ufw/applications.d/prosody
   ufw: rule=allow name=Prosody

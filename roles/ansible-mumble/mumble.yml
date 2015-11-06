@@ -1,3 +1,7 @@
+- name: install mumble server
+  apt: pkg=mumble-server state=present
+  notify: edit mumble configuration
+
 - name: Add UFW allow rules for Mumble server
   copy: src=etc_ufw_applications.d_mumble-server dest=etc/ufw/applications.d/mumble-server
   ufw: rule=allow name=Mumble-Server

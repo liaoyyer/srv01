@@ -1,0 +1,5 @@
+- name: edit transmission config
+  command: nano /etc/transmission-daemon/settings.json
+  notify: restart transmission
+
+#TODO: start/stop/restart

@@ -1,0 +1,5 @@
+- name: edit mumble configuration
+  command: nano /etc/mumble-server.ini
+  notify: restart mumble
+
+#TODO: start/stop/restart

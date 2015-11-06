@@ -1,0 +1,19 @@
+- name: create xmpp account
+  vars_prompt:
+    - name: "account_name"
+      prompt: "Enter new XMPP account name:"
+  command: prosodyctl adduser {{ account_name }}@{{ srv01_fqdn }}
+  debug: msg="Created account {{ account_name }}@{{ srv01_fqdn }}"
+
+- name: disable prosody
+  service: name=prosody state=stopped enabled=no
+
+- name: enable prosody
+  service: name=prosody state=started enabled=yes
+
+- name: restart prosody
+  service: name=prosody state=restarted enabled=yes
+
+- name: edit prosody config
+  command: nano /etc/prosody/prosody.cfg.lua
+  notify: restart prosody
