@@ -29,8 +29,8 @@
     - ufw
     - debsecan
     - needrestart
-    - scanlogd
-    - auditd
+    - unattended-upgrades
+
 
 - name: Install necessities and nice-to-haves
   apt: pkg={{ item }} state=installed
@@ -41,8 +41,16 @@
     - iftop
     - iotop
     - sudo
-    - unattended-upgrades
     - molly-guard
+    - htop
+    - dfc
+    - ncdu
+    - ranger
+    - iftop
+    - iotop
+    - aptitude
+    - goaccess
+    - nethogs
 
 - name: install backup tools
   apt: pkg=rsnapshot state=present

@@ -136,6 +136,7 @@
     http://thegeekblog.aahank.com/notes/debian-ubuntu-vpn-server/
     http://networkfilter.blogspot.fr/2015/01/be-your-own-vpn-provider-with-openbsd.html
     https://github.com/StarshipEngineer/OpenVPN-Setup
+    https://github.com/sovereign/sovereign/tree/master/roles/vpn
     ☐ test against http://ipleak.net/
     ☐ Firewall: restrict access to VPN ou mod_authz_host
     http://serverfault.com/questions/451788/how-to-access-a-port-via-openvpn-only

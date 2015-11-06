@@ -7,10 +7,6 @@
 # ░▀▀▀░▀▀▀
 source "${srv01_path}/scripts/utils"
 
-install() {
-	aptitude install openssh-server
-}
-
 listsftp() {
     users sftponly
 }

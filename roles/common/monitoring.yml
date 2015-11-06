@@ -1,0 +1,26 @@
+- name: run lynis
+  command: lynis -c -q
+  command: egrep "warning|suggestion" /var/log/lynis-report.dat
+  register: lynis_out
+
+- name: run dfc
+	command: dfc -p -udev,tmpfs -c never
+  register: dfc_out
+
+- name: run last
+  command: last -wdai
+  register: last_out
+
+- name: run lastb
+  command: lastb -wdai
+  register: lastb_out
+
+- name: run netstat
+  command: netstat -pltuna
+  register: netstat_out
+
+- name: run goaccess
+  shell: zcat -f /var/log/apache2/access.log | goaccess -a
+  register: goaccess_out
+
+#- name: generate report

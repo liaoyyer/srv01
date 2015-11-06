@@ -22,7 +22,7 @@
     dest=/usr/lib/prosody/modules/mod_blocking.lua
 
 - name: copy prosody config
-  template: src=etc_prosody_prosody.cfg.lua.j2 dest=/etc/prosody/prosody.cfg.lua
+  template: src=etc_prosody_prosody.cfg.lua.j2 dest=/etc/prosody/prosody.cfg.lua group=root owner=root
   copy: src=etc_prosody_conf.d_blockregistrations.cfg.lua dest=/etc/prosody/conf.d/blockregistrations.cfg.lua
   notify: restart prosody
 
@@ -36,5 +36,5 @@
   tags: ssl
 
 - name: add UFW allow rules for Prosody
-  copy: src=etc_ufw_applications.d_prosody dest=etc/ufw/applications.d/prosody
+  copy: src=etc_ufw_applications.d_prosody dest=/etc/ufw/applications.d/prosody
   ufw: rule=allow name=Prosody
