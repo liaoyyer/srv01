@@ -105,11 +105,9 @@ pidfile = "/var/run/prosody/prosody.pid";
 -- These are the SSL/TLS-related settings. If you don't want
 -- to use SSL/TLS, you may comment or remove this
 ssl = {
-	key = "/etc/prosody/certs/server.key";
-	certificate = "/etc/prosody/certs/server.cert";
+	key = "/etc/prosody/certs/{{ srv01_fqdn }}.key";
+	certificate = "/etc/prosody/certs/{{ srv01_fqdn }}.cert";
 }
---TODO: create the key and cert during setup
-
 
 -- Only allow encrypted streams? Encryption is already used when
 -- available. These options will cause Prosody to deny connections that
@@ -161,8 +159,7 @@ log = {
 -- Settings under each VirtualHost entry apply *only* to that host.
 
 
-VirtualHost "your_fqdn_here"
---TODO: change this during setup
+VirtualHost "{{ srv01_fqdn }}"
 
 ------ Components ------
 -- You can specify components to add hosts that provide special services,

@@ -22,13 +22,18 @@
     dest=/usr/lib/prosody/modules/mod_blocking.lua
 
 - name: copy prosody config
-  copy: src=etc_prosody_prosody.cfg.lua dest=/etc/prosody/prosody.cfg.lua
+  template: src=etc_prosody_prosody.cfg.lua.j2 dest=/etc/prosody/prosody.cfg.lua
   copy: src=etc_prosody_conf.d_blockregistrations.cfg.lua dest=/etc/prosody/conf.d/blockregistrations.cfg.lua
   notify: restart prosody
 
 - name: copy apache prosody bosh redirect config
   copy: src=etc_apache2_conf-available_prosody-bosh.conf dest=/etc/apache2/conf-available/prosody-bosh.conf
   notify: restart apache
+
+- name: generate prosody ssl certificates
+  command: prosodyctl cert generate {{ srv01_fqdn }}
+  notify: restart prosody
+  tags: ssl
 
 - name: add UFW allow rules for Prosody
   copy: src=etc_ufw_applications.d_prosody dest=etc/ufw/applications.d/prosody

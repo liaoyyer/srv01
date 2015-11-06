@@ -4,10 +4,14 @@ freedns_key: #CHANGEME #Enter your update key from freedns.afraid.org
 
 #user configuration
 srv01_user: #CHANGEME #Enter your username on the remote machine
+mysql_username: root
+mysql_password: #CHANGEME
+
 
 #tools options
 pwgen_length: 21 #default random password length
 sshkeytype: ecdsa #default key type for new client SSH keys
+
 
 #minidlna options
 upnp_media_dir: '/var/lib/minidlna/media' #Path to your media files
