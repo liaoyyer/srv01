@@ -1,2 +1,10 @@
-#TODO: start/stop/restart
+- name: disable apache
+  service: name=apache state=stopped enabled=no
+
+- name: enable apache
+  service: name=apache state=started enabled=yes
+
+- name: restart apache
+  service: name=apache state=restarted enabled=yes
+
 #TODO: handler to reset mysql root password

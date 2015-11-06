@@ -1,0 +1,13 @@
+- name: clean owncloud trashes
+  command: find /var/www/owncloud -name files_trashbin -exec rm '{}' \;
+
+- name: disable owncloud maintenance owncloud
+  command: sed -i "/'maintenance'/c\  \'maintenance' => false," /var/www/owncloud/config/config.php
+
+- name: enable owncloud maintenance mode
+  command: sed -i "/'maintenance'/c\  \'maintenance' => true," /var/www/owncloud/config/config.php
+
+- name: upgrade owncloud
+  command: /usr/bin/php /var/www/owncloud/occ upgrade --skip-migration-test
+  become: yes
+  become_usre: www-data

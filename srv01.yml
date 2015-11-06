@@ -1,0 +1,14 @@
+- hosts: all
+  vars_files: config.yml
+  user: {{ srv01_user }}
+  sudo: True
+  gather_facts: True
+
+  environment:
+    LESSOPEN: "| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+    LESS: ' -R '
+    LESSPROMPT: "Line %lb/%L. Press Q to quit; Press / to search, Press H for help"
+
+  roles:
+    - prosody
+

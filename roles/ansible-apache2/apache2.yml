@@ -73,6 +73,8 @@
 
 - name: regen apache ssl certs and keys
   command: make-ssl-cert generate-default-snakeoil --force-overwrite
+  file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root
+  file: name=/etc/ssl/private/ssl-srv01.key mode=644 owner=root group=root
   notify: restart apache
   tags: ssl
 
@@ -80,12 +82,6 @@
   command: a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
   command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
   notify: restart apache
-
-- name: Set permissions on cert/keys
-  file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root
-  file: name=/etc/ssl/private/ssl-srv01.key mode=644 owner=root group=root
-  notify: restart apache
-  tags: ssl
 
 - name: Add UFW allow rules for apache
   copy: src=etc_ufw_applications.d_apache dest=etc/ufw/applications.d/apache

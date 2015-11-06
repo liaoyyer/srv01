@@ -1,0 +1,20 @@
+#domain name configuration
+srv01_fqdn: #CHANGEME #Enter your full domain name here
+freedns_key: #CHANGEME #Enter your update key from freedns.afraid.org
+
+#user configuration
+srv01_user: #CHANGEME #Enter your username on the remote machine
+
+#tools options
+pwgen_length: 21 #default random password length
+sshkeytype: ecdsa #default key type for new client SSH keys
+
+#minidlna options
+upnp_media_dir: '/var/lib/minidlna/media' #Path to your media files
+
+#transmission options
+transmission_download_dir: '/var/lib/transmission-daemon/downloads' #Download directory for transmission
+
+#backup options
+backup_local_storage: '/var/backups/srv01' #Path to local backup dir on the server
+backup_important_dirs: '/media/ /home/git/' #Force backup of these directories
