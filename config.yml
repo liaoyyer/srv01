@@ -1,11 +1,11 @@
 #domain name configuration
-srv01_fqdn: #CHANGEME #Enter your full domain name here
-freedns_key: #CHANGEME #Enter your update key from freedns.afraid.org
+srv01_fqdn: CHANGEME #Enter your full domain name here
+freedns_key: CHANGEME #Enter your update key from freedns.afraid.org
 
 #user configuration
-srv01_user: #CHANGEME #Enter your username on the remote machine
-mysql_username: root
-mysql_password: #CHANGEME
+srv01_user: CHANGEME #Enter your username on the remote machine
+mysql_username: root #Username for MySQL admin
+mysql_password: CHANGEME #Password for MySQL admin
 
 
 #tools options
@@ -16,9 +16,14 @@ sshkeytype: ecdsa #default key type for new client SSH keys
 #minidlna options
 upnp_media_dir: '/var/lib/minidlna/media' #Path to your media files
 
+
 #transmission options
 transmission_download_dir: '/var/lib/transmission-daemon/downloads' #Download directory for transmission
 
+
 #backup options
-backup_local_storage: '/var/backups/srv01' #Path to local backup dir on the server
+backups_dir: '/var/backups/srv01' #Path to local backup dir on the server
 backup_important_dirs: '/media/ /home/git/' #Force backup of these directories
+
+#fluxbb options
+fluxbb_db_password: CHANGEME #Password for fluxbb MySQL database
