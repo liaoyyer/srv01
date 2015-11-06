@@ -1,2 +1,2 @@
 - name: Install Openvpn
-  apt: pkg openvpn-server update_cache=yes
+  apt: pkg=openvpn-server update_cache=yes

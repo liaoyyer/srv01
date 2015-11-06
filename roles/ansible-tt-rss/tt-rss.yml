@@ -1,7 +1,123 @@
 - name: clone tt-rss
-    git: repo=https://tt-rss.org/gitlab/fox/tt-rss.git
-       dest=/var/www/tt-rss
+  git: repo=https://tt-rss.org/gitlab/fox/tt-rss.git
+     dest=/var/www/tt-rss
+     version=master
+     accept_hostkey=yes
+
+- name: setup tt-rss feed update cron job
+  copy: src=etc_cron.d_tt-rss-update-feeds dest=etc/cron.d/tt-rss-update-feeds
+
+#### THEMES ################################
+
+- name: install chalk theme
+  git: repo=https://github.com/asyncopation/ttrss-theme-chalk
+       dest=/var/www/tt-rss/themes/chalk
        version=master
        accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/themes/chalk.css src=chalk/chalk.css
+  file: state=link dest=/var/www/tt-rss/themes/chalk_images src=chalk/chalk_images
+
+
+- name: install grone theme
+  git: repo=https://github.com/cas--/tt-rss_theme_grone
+       dest=/var/www/tt-rss/themes/grone
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/themes/grone.css src=grone/grone.css
+  file: state=link dest=/var/www/tt-rss/themes/grone_imgs src=theme-reeder/grone/grone_imgs/
+
+
+- name: install feedly theme
+  git: repo=https://github.com/levito/tt-rss-feedly-theme
+       dest=/var/www/tt-rss/themes/feedly
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/themes/feedly.css src=feedly/feedly.css
+
+
+- name: install reeder theme
+  git: repo=https://github.com/tschinz/tt-rss_reeder_theme
+       dest=/var/www/tt-rss/themes/theme-reeder
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/themes/reeder src=theme-reeder/reeder/
+  file: state=link dest=/var/www/tt-rss/themes/reeder.css src=theme-reeder/reeder.css
+
+#### PLUGINS ################################
+
+- name: install yourls plugin
+  git: repo=https://github.com/acaranta/tt-rss-yourls
+       dest=/var/www/tt-rss/plugins/tt-rss-yourls
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/yourls src=tt-rss-yourls/yourls/
+
+
+- name: install readability plugin
+  git: repo=https://github.com/ebell451/tt-rss_plugin_readabillity
+       dest=/var/www/tt-rss/plugins/tt-rss_plugin_readabillity
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/readabilty src=tt-rss_plugin_readabillity/readability/
+
+
+- name: install framarticle_toolbar plugin
+  git: repo=https://github.com/framasoft/framarticle_toolbar
+       dest=/var/www/tt-rss/plugins/framarticle_toolbar
+       version=master
+       accept_hostkey=yes
+
+
+- name: install qrcode plugin
+  git: repo=https://github.com/jonrandoem/ttrss-qrcode
+       dest=/var/www/tt-rss/plugins/ttrss-qrcode
+       version=master
+       accept_hostkey=yes
+
+
+- name: install wallabag plugin
+  git: repo=https://github.com/xppppp/ttrss-wallabag-plugin
+       dest=/var/www/tt-rss/plugins/wallabag
+       version=master
+       accept_hostkey=yes
+
+
+- name: install shaarli plugin
+  git: repo=https://github.com/jcsaaddupuy/tt-rss-shaarli
+       dest=/var/www/tt-rss/plugins/tt-rss-shaarli
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/shaarli src=tt-rss-shaarli/shaarli/
+
+
+- name: install videoframes plugin
+  git: repo=https://github.com/tribut/ttrss-videoframes
+       dest=/var/www/tt-rss/plugins/ttrss-videoframes
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/videoframes src=ttrss-videoframes/videoframes/
+
+
+- name: install sendtokindle plugin
+  git: repo=https://github.com/usr42/ttrss-sendtokindle
+       dest=/var/www/tt-rss/plugins/ttrss-sendtokindle
+       version=master
+       accept_hostkey=yes
+
+
+- name: install tumblr plugin
+  git: repo=https://github.com/epyonavenger/tt-rss-tumblr
+       dest=/var/www/tt-rss/plugins/tt-rss-tumblr
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/tumblr src=tt-rss-tumblr/tumblr/
+
+
+- name: install facebook plugin
+  git: repo=https://github.com/dotdavid/ttrss-facebook
+       dest=/var/www/tt-rss/plugins/ttrss-facebook
+       version=master
+       accept_hostkey=yes
+  file: state=link dest=/var/www/tt-rss/plugins/facebook src=ttrss-facebook/facebook/
 
 #TODO: implement backup
