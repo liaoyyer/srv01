@@ -6,13 +6,6 @@ deluser() { #Delete an existing IM account
     prosodyctl deluser "${PROSODY_DELETE_ACCOUNT}@${FQDN}"
 }
 
-listusers() { #Get list of IM accounts on the server
-    PROSODY_FQDN_STRING=$(echo $NZ_FQDN | sed 's/\./\%2e/g')
-    PROSODY_ACCOUNT_FILES=$(find "/var/lib/prosody/${PROSODY_FQDN_STRING}/accounts" -name "*.dat")
-    PROSODY_ACCOUNT_LIST=$(for i in ${PROSODY_ACCOUNT_FILES}; do basename $i .dat; done)
-    echo "$PROSODY_ACCOUNT_LIST"
-}
-
 passwd() { #Change password for an IM account
     echo"Enter the name of the account you want to change the password for:"
     read PROSODY_PASSWD_ACCOUNT
