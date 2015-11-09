@@ -84,12 +84,12 @@
   copy: src=etc_cron.d_debsecan dest=/etc/cron.d/debsecan
 
 - name: Set UFW default policy
-  command: ufw enable
   copy: src=etc_ufw_after.rules dest=/etc/ufw/after.rules
   copy: src=etc_ufw_applications.d_openssh-823 dest=/etc/ufw/applications.d/openssh-823
   ufw: policy=deny direction=in
   ufw: policy=allow direction=out
   ufw: rule=allow name=SSH-823
+  ufw: state=enabled
 
 - name: copy misc utility configuration
   copy: src=root_.config_htoprc dest=/root/.config/htoprc

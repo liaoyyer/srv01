@@ -23,4 +23,22 @@
   shell: zcat -f /var/log/apache2/access.log | goaccess -a
   register: goaccess_out
 
-#- name: generate report
+- name: get UFW status
+  command: ufw status numbered
+  register: ufw_out
+
+#TODO cron job
+#TODO services status
+#TODO generate report
+#TODO debsecan
+#TODO tiger
+#TODO rkhunter
+#TODO debsums
+#TODO chkrootkit
+#TODO fail2ban
+#TODO upgrades
+#TODO logwatch
+#TODO logcheck
+#TODO needrestart
+#TODO display maintenance tools menu
+#TODO fix permissions
