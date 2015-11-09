@@ -1,0 +1,35 @@
+- name: download h5ai
+  get_url:
+    url=https://release.larsjung.de/h5ai/h5ai-0.27.0.zip
+    dest=/var/lib/srv01/h5ai-0.27.0.zip
+
+- name: decompress h5ai
+  unarchive: src=/var/lib/srv01/h5ai-0.27.0.zip
+             dest=/var/lib/srv01 copy=no
+             creates=/var/lib/srv01/h5ai-0.27.0
+
+- name: Move h5ai to /var/www/_h5ai
+  command: mv h5ai-0.27.0/_h5ai /var/www/dokuwiki/lib/plugins/note chdir=/var/lib/srv01 creates=/var/www/_h5ai
+
+- name: copy h5ai config
+  copy: src=var_www__h5ai_conf_options.json dest=/var/www/_h5ai/conf/options.json
+  tags: config
+
+- name: create cache directory
+  file: path=/var/www/_h5ai/cache state=directory owner=www-data group=www-data mode=0770
+  tags: permissions
+
+- name: create directory for content
+  file: path=/var/www/docs state=directory owner={{ srv01_user }} group=www-data mode=2770
+  file: path=/var/www/docs state=directory owner=www-data group={{ srv01_user }} recursive=true
+  tags: permissions
+
+- name: copy htaccess for content
+  copy: src=var_www_docs_.htaccess /var/www/docs/.htaccess
+  tag: config
+
+- name: create symlink to content in user directory
+  file: state=link src=/var/www/docs/ dest=/home/{{ srv01_user }}/public-docs
+  tags: symlinks
+
+- debug: msg="Place your files in ~/public-docs/ or /var/www/h5ai/docs/"
