@@ -1,5 +1,23 @@
-- name: Clone MapBBcodeShare
+- name: clone mapbbcodeshare
   git: repo=https://github.com/MapBBCode/share.mapbbcode.org
        dest=/var/www/maps
        version=master
        accept_hostkey=yes
+
+- name: copy mapbbcodeshare config
+  template: src=var_www_maps_config.php.j2 dest=/var/www/maps/config.php
+
+- name: create mapbbcode cache directory
+  file: path=/var/www/maps/cache owner=www-data group=www-data mode=0770
+
+- name: create database user mapbbcodeshare
+  mysql_user: user=mapbbcodeshare password={{ mapbbcodeshare_db_password }} state=present priv="mapbbcodeshare.*:ALL"
+
+- name: create database for mapbbcodeshare
+  mysql_db: name=mapbbcodeshare state=present
+
+- name: initialize mapbbcodeshare database
+  command: curl --insecure https://127.0.0.1/maps/initdb
+
+- name: set initdb to false after initialization
+  replace: dest=/var/www/maps/config.php regexp='const NEED_INIT_DB = true;' replace='const NEED_INIT_DB = false;' backup=no

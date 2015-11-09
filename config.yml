@@ -27,3 +27,6 @@ backup_important_dirs: '/media/ /home/git/' #Force backup of these directories
 
 #fluxbb options
 fluxbb_db_password: CHANGEME #Password for fluxbb MySQL database
+
+#mapbbcodeshare options
+mapbbcodeshare_db_password: CHANGEME #Password for MapBBcodeShare database
