@@ -1,6 +1,0 @@
-- name: install minidlna
-  apt: pkg=minidlna update_cache=yes cache_valid_time=900
-
-- name: Add UFW allow rules for MiniDLNA
-  copy: src=etc_ufw_applications.d_minidlna dest=etc/ufw/applications.d/minidlna
-  ufw: rule=allow name=MiniDLNA
