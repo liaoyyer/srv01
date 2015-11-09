@@ -218,6 +218,7 @@
     ☐ strict_https
     ☐ block_registrations
     ☐ log_auth
+    ☐ check sec level with https://xmpp.net/index.php
 
 ☐ [feature] add SMART tests maintenance functions
 
