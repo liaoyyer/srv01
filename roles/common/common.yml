@@ -6,12 +6,12 @@
 - name: Upgrade all safe packages
   apt: upgrade=safe
 
+
 - name: Update apt cache
   apt: update_cache=yes
 
 - name: install base packages
   apt: pkg=openssh-server state=present
-  
 
 - name: install server security tools
   apt: pkg={{item}} state=present
@@ -30,7 +30,7 @@
     - debsecan
     - needrestart
     - unattended-upgrades
-
+    - fail2ban
 
 - name: Install necessities and nice-to-haves
   apt: pkg={{ item }} state=installed
@@ -70,6 +70,11 @@
 
 - name: copy sshd config
   copy: src=etc_ssh_sshd-config dest=/etc/ssh/sshd_config
+  notify: reload ssh
+
+- name: copy fail2ban config
+  template: src=etc_fail2ban_jail.local.j2 dest=/etc/fail2ban/jail.local
+  notify: restart fail2ban
 
 - name: copy sysctl config
   copy: src=etc_sysctl.d_disable-ipv6.conf dest=/etc/sysctl.d/disable-ipv6.conf

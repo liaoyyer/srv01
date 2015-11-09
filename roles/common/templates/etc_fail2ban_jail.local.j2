@@ -1,0 +1,45 @@
+[DEFAULT]
+ignoreip  = 127.0.0.1 {{ ansible_default_ipv4.address }} {{ ' '.join(friendly_networks) }}
+bantime   = 86400
+destemail = {{ admin_email }}
+banaction = ufw
+action    = %(action_)s
+
+# JAILS
+[sshd]
+enabled   = true
+maxretry  = 5
+
+[pam-generic]
+enabled   = true
+banaction = iptables-allports
+
+[apache]
+enabled = true
+
+[apache-badbots]
+enabled  = true
+port     = http,https
+logpath  = /var/log/apache*/*.log
+maxretry = 3
+filter   = apache-badbots
+
+[apache-fakegooglebot]
+enabled  = true
+port     = http,https
+logpath  = /var/log/apache*/*.log
+maxretry = 3
+filter   = apache-fakegooglebot
+
+[apache-botsearch]
+enabled  = true
+port     = http,https
+logpath  = /var/log/apache*/*.log
+maxretry = 3
+filter   = apache-botsearch
+
+[apache-modescurity]
+enabled = true
+
+[apache-overflows]
+enabled = true
