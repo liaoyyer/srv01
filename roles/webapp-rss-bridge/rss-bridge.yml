@@ -1,0 +1,5 @@
+- name: Clone rss-bridge
+  git: repo=https://github.com/sebsauvage/rss-bridge
+       dest=/var/www/rss-bridge
+       version=master
+       accept_hostkey=yes
