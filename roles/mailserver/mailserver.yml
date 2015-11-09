@@ -1,2 +1,0 @@
-- name: E-Mail server
-  apt: pkg=lsb-invalid-mta state=present
