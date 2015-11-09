@@ -3,6 +3,9 @@
   user: {{ srv01_user }}
   sudo: True
   gather_facts: True
+  friendly_networks:
+    - ""
+
 
   environment:
     LESSOPEN: "| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
