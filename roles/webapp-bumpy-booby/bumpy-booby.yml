@@ -1,0 +1,5 @@
+- name: Clone Bumpy-Booby
+  git: repo=https://github.com/piero-la-lune/Bumpy-Booby
+       dest=/var/www/bugs
+       version=master
+       accept_hostkey=yes
