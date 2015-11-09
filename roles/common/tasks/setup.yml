@@ -6,18 +6,14 @@
   copy: src=etc_apt_apt.conf.d_99-norecommends dest=etc/apt/apt.conf.d/99-norecommends
   copy: src=etc_apt_apt.conf.d_50unattended-upgrades dest=etc/apt/apt.conf.d/50unattended-upgrades
 
-- name: Upgrade all safe packages
-  apt: upgrade=safe
-
-
-- name: Update apt cache
-  apt: update_cache=yes
+- name: Upgrade packages
+  apt: upgrade=safe update_cache=yes
 
 - name: install base packages
-  apt: pkg=openssh-server state=present
+  apt: pkg=openssh-server state=present update_cache=yes cache_valid_time=900
 
 - name: install server security tools
-  apt: pkg={{item}} state=present
+  apt: pkg={{item}} state=present  update_cache=yes cache_valid_time=900
   with_items:
     - lynis
     - rkhunter
@@ -36,7 +32,7 @@
     - fail2ban
 
 - name: Install necessities and nice-to-haves
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed  update_cache=yes cache_valid_time=900
   with_items:
     - build-essential
     - git
@@ -54,9 +50,7 @@
     - aptitude
     - goaccess
     - nethogs
-
-- name: install backup tools
-  apt: pkg=rsnapshot state=present
+    - rsnapshot
 
 - name: copy locale config
   copy: src=etc_locale.gen dest=/etc/locale.gen

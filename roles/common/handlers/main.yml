@@ -1,5 +1,88 @@
+#### SERVICES ####################################
+
 - name: restart fail2ban
   service: name=fail2ban state=restarted
 
 - name: reload ssh
   service: name=ssh state=reloaded
+
+#### MAINTENANCE ############################
+
+- name: run lynis
+  command: lynis -c -q
+
+- name: parse lynis logs
+  command: egrep "warning|suggestion" /var/log/lynis-report.dat
+  register: lynis_out
+
+- name: run dfc
+  command: dfc -p -udev,tmpfs,cgroup,cgmfs -c never
+  register: dfc_out
+
+- name: run last
+  command: last -wdai
+  register: last_out
+
+- name: run lastb
+  command: lastb -wdai
+  register: lastb_out
+
+- name: run netstat
+  command: netstat -pltuna
+  register: netstat_out
+
+#    - name: run goaccess
+#      shell: zcat -f /var/log/apache2/access.log | goaccess -a
+#      register: goaccess_out
+
+- name: get ufw status
+  command: ufw status verbose
+  register: ufw_out
+
+- name: get uptime
+  command: uptime
+  register: uptime
+
+- name: get uname
+  command: uname -a
+  register: uname
+
+- name: print lynis out
+  debug: var=lynis_out.stdout_lines
+
+- name: print dfc out
+  debug: var=dfc_out.stdout_lines
+
+- name: print last out
+  debug: var=last_out.stdout_lines
+
+- name: print lastb out
+  debug: var=lastb_out.stdout_lines
+
+- name: print netstat out
+  debug: var=netstat_out.stdout_lines
+
+- name: print ufw status
+  debug: var=ufw_out.stdout_lines
+
+- name: print uptime
+  debug: var=uptime.stdout_lines
+
+- name: print uname
+  debug: var=uname.stdout_lines
+
+#TODO cron job
+#TODO services status
+#TODO generate report
+#TODO debsecan
+#TODO tiger
+#TODO rkhunter
+#TODO debsums
+#TODO chkrootkit
+#TODO fail2ban
+#TODO upgrades
+#TODO logwatch
+#TODO logcheck
+#TODO needrestart
+#TODO display maintenance tools menu
+#TODO fix permissions

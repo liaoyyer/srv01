@@ -8,6 +8,9 @@ mysql_username: root #Username for MySQL admin
 mysql_password: CHANGEME #Password for MySQL admin
 
 
+friendly_networks:
+    - ""
+
 #tools options
 pwgen_length: 21 #default random password length
 sshkeytype: ecdsa #default key type for new client SSH keys

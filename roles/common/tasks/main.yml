@@ -1,0 +1,29 @@
+- include: setup.yml
+  tags: setup
+
+- name: do nothing
+  shell: /bin/true
+  tags: dummy
+
+- name: run maintenance tools
+  shell: /bin/true
+  tags:
+   - maintenance
+  notify: 
+    - run lynis
+    - parse lynis logs
+    - run dfc
+    - run last
+    - run lastb
+    - run netstat
+    - get ufw status
+    - get uptime
+    - get uname
+    - print lynis out
+    - print dfc out
+    - print last out
+    - print lastb out
+    - print netstat out
+    - print ufw status
+    - print uptime
+    - print uname
