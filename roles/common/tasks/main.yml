@@ -19,6 +19,7 @@
     - get ufw status
     - get uptime
     - get uname
+    - run rkhunter
     - test internet connection
     - print lynis out
     - print dfc out
@@ -29,3 +30,4 @@
     - print uptime
     - print uname
     - print ping output
+    - print rkhunter out

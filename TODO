@@ -73,8 +73,6 @@
     ☐ debsums
     ☐ lynis
     ☐ debsecan
-    ☐ rkhunter
-    grep Warning /var/log/rkhunter.log
     ☐ Setup fail2ban to log only, add fail2ban.log as a source for logwatch
     ☐ Make sure it logs apache 403s
     ☐ make sure it logs shaarli failed logins

@@ -51,6 +51,10 @@
   command: uname -a
   register: uname
 
+- name: run rkhunter
+  command: rkhunter --update --propupd --check --report-warnings-only --nocolors --skip-keypress --syslog
+  register: rkhunter_out
+
 - name: print lynis out
   debug: var=lynis_out.stdout_lines
 
@@ -78,12 +82,14 @@
 - name: print ping output
   debug: var=ping_out.stdout_lines
 
+- name: print rkhunter out
+  debug: var=rkhunter_out.stdout_lines
+
 #TODO cron job
 #TODO services status
 #TODO generate report
 #TODO debsecan
 #TODO tiger
-#TODO rkhunter
 #TODO debsums
 #TODO chkrootkit
 #TODO fail2ban
