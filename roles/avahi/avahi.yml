@@ -1,0 +1,3 @@
+- name: Add UFW allow rules for Avahi
+  copy: src=etc_ufw_applications.d_avahi dest=etc/ufw/applications.d/avahi
+  ufw: rule=allow name=Avahi
