@@ -1,2 +1,0 @@
-- name: install filetea
-  apt: pkg=filetea update_cache=yes
