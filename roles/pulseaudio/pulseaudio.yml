@@ -1,0 +1,6 @@
+- name: Install Pulseaudio audio streaming server
+  - apt: pkg={{item}} state=present
+  with_items:
+    - pulseaudio-module-zeroconf
+    - pulseaudio-utils
+    - pulseaudio
