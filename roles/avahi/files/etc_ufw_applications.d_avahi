@@ -1,4 +1,0 @@
-[Avahi]
-title=Avahi network announce service
-description=Network services discovery and announce
-ports=5353/udp
