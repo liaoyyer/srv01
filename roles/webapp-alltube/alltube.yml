@@ -1,0 +1,11 @@
+#TODO https://github.com/Rudloff/alltube/releases/download/0.3.2/alltube-release.zip
+- name: Clone Alltube
+  git: repo=https://github.com/Rudloff/alltube
+       dest=/var/www/alltube
+       version=0.2.1
+       accept_hostkey=yes
+
+- name: copy alltube config
+  copy: src=var_www_alltube_config.php dest=/var/www/alltube/config.php
+
+
