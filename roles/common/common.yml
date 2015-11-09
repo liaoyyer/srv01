@@ -1,3 +1,6 @@
+- name: set hostname
+- hostname: name={{ srv01_fqdn }}
+
 - name: copy APT config
   copy: src=etc_apt_apt.conf.d_99-no-overwrite-conffiles dest=/etc/apt/apt.conf.d/99-no-overwrite-conffiles
   copy: src=etc_apt_apt.conf.d_99-norecommends dest=etc/apt/apt.conf.d/99-norecommends
