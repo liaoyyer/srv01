@@ -6,10 +6,6 @@
 # ░░░░░█░█
 # ░▀▀▀░▀▀▀
 
-testinetconnection() { #Test connectivity to debian.org #TODO move to NzMenuTroubleshooting
-    ping -q -c3 debian.org
-}
-
 getmainuser() { #Get system's main user name (assume it was the first user created)
 	NZ_USER=$(getent passwd|grep 1001:1001|awk -F":" '{print $1}')
 }

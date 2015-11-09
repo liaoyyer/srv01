@@ -19,6 +19,7 @@
     - get ufw status
     - get uptime
     - get uname
+    - test internet connection
     - print lynis out
     - print dfc out
     - print last out
@@ -27,3 +28,4 @@
     - print ufw status
     - print uptime
     - print uname
+    - print ping output

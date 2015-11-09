@@ -8,6 +8,10 @@
 
 #### MAINTENANCE ############################
 
+- name: test internet connection
+  shell: ping -c3 debian.org
+  register: ping_out
+
 - name: run lynis
   command: lynis -c -q
 
@@ -70,6 +74,9 @@
 
 - name: print uname
   debug: var=uname.stdout_lines
+
+- name: print ping output
+  debug: var=ping_out.stdout_lines
 
 #TODO cron job
 #TODO services status
