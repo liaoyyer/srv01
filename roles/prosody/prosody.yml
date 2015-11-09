@@ -21,6 +21,11 @@
     url=https://prosody-modules.googlecode.com/hg/mod_blocking/mod_blocking.lua
     dest=/usr/lib/prosody/modules/mod_blocking.lua
 
+- name: download mod_listusers
+  get_url:
+    url=http://prosody.im/files/mod_listusers.lua
+    dest=/usr/lib/prosody/modules/mod_listusers.lua
+
 - name: copy prosody config
   template: src=etc_prosody_prosody.cfg.lua.j2 dest=/etc/prosody/prosody.cfg.lua group=root owner=root
   copy: src=etc_prosody_conf.d_blockregistrations.cfg.lua dest=/etc/prosody/conf.d/blockregistrations.cfg.lua
