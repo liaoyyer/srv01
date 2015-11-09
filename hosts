@@ -1,2 +1,2 @@
 [srv01]
-CHANGEME
+localhost ansible_connection=local
