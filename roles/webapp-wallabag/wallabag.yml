@@ -1,7 +1,0 @@
-- name: Clone Wallabag
-  git: repo=https://github.com/wallabag/wallabag
-       dest=/var/www/wallabag
-       version=1.8.1b
-       accept_hostkey=yes
-
-#see https://github.com/sovereign/sovereign/blob/master/roles/readlater/tasks/wallabag.yml
