@@ -1,6 +1,0 @@
-- name: install samba
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - samba
-    - samba-common
-    - samba-common-bin

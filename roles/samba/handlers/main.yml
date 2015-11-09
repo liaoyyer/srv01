@@ -1,8 +1,0 @@
-- name: start and enable samba
-  service: name=smb state=started enabled=yes
-
-- name: restart samba
-  service: name=smb state=restarted enabled=yes
-
-- name: stop and disable samba
-  service: name=smb state=stopped enabled=no
