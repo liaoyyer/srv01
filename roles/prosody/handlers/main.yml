@@ -17,3 +17,10 @@
 - name: edit prosody config
   command: nano /etc/prosody/prosody.cfg.lua
   notify: restart prosody
+
+- name: list prosody users
+  command: prosodyctl mod_listusers
+  register: prosody_users
+  debug: msg="{{ prosody_users }}"
+
+#TODO delete user
