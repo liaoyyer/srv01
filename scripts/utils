@@ -13,19 +13,3 @@ getmainuser() { #Get system's main user name (assume it was the first user creat
 getlanip() { #Get the current LAN IP and subnet
 	ip addr show ${srv01_net_iface} | egrep "inet " | awk -F" " '{print $2}'
 }
-
-reboot() { #Reboot
-    read -p "Are you sure? This will reboot the machine [y/N]: " confirmation
-    if [ "$confirmation" != "y" ]
-        then echo "Reboot cancelled."
-        else reboot
-    fi
-}
-
-poweroff() { #Power off the machine
-    read -p "Are you sure? This will turn the machine off (you will have to manually turn it on) [y/N]: " confirmation
-    if [ "$confirmation" != "y" ]
-        then echo "Power off cancelled."
-        else poweroff
-    fi
-}

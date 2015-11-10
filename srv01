@@ -1,3 +1,2 @@
 #!/bin/bash
-
 sudo ansible-playbook site.yml --tags "dummy,$@"

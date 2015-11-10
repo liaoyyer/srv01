@@ -1,5 +1,5 @@
 - name: set hostname
-- hostname: name={{ srv01_fqdn }}
+  hostname: name={{ srv01_fqdn }}
 
 - name: copy APT config
   copy: src=etc_apt_apt.conf.d_99-no-overwrite-conffiles dest=/etc/apt/apt.conf.d/99-no-overwrite-conffiles
@@ -55,9 +55,13 @@
 - name: copy locale config
   copy: src=etc_locale.gen dest=/etc/locale.gen
 
-- name: copy rsnapshot config
+- name: create local backup directory
   file: path={{ backups_dir }} owner=root group=root state=directory
+
+- name: copy rsnapshot config
   template: src=etc/rsnapshot.conf.j2 dest=/etc/rsnapshot/rsnapshot.conf
+
+- name: copy rsnapshot cronjob #TODO use cron module
   copy: src=etc_cron.d_rsnapshot dest=/etc/cron.d/rsnapshot
 
 - name: copy logwatch config
@@ -81,16 +85,26 @@
 - name: copy usbmount config
   copy: src=etc_usbmount_usbmount.conf dest=/etc/usbmount/usbmount.conf
 
-- name: copy debsecan config
+- name: create debsecan log
   file: path=/var/log/debsecan.log owner=root group=root state=file
+
+- name: copy debsecan config
   copy: src=etc_cron.d_debsecan dest=/etc/cron.d/debsecan
 
-- name: Set UFW default policy
-  copy: src=etc_ufw_after.rules dest=/etc/ufw/after.rules
-  copy: src=etc_ufw_applications.d_openssh-823 dest=/etc/ufw/applications.d/openssh-823
+- name: set ufw default policy
   ufw: policy=deny direction=in
   ufw: policy=allow direction=out
+
+- name: copy ufw default log policy
+  copy: src=etc_ufw_after.rules dest=/etc/ufw/after.rules
+
+- name: create sshd port 823 ufw application profile
+  copy: src=etc_ufw_applications.d_openssh-823 dest=/etc/ufw/applications.d/openssh-823
+
+- name: allow sshd ufw profile
   ufw: rule=allow name=SSH-823
+
+- name: enable ufw
   ufw: state=enabled
 
 - name: copy misc utility configuration
