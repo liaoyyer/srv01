@@ -6,7 +6,7 @@
   copy: src=etc_apt_apt.conf.d_99-norecommends dest=etc/apt/apt.conf.d/99-norecommends
   copy: src=etc_apt_apt.conf.d_50unattended-upgrades dest=etc/apt/apt.conf.d/50unattended-upgrades
 
-- name: Upgrade packages
+- name: upgrade packages
   apt: upgrade=safe update_cache=yes
 
 - name: install base packages
@@ -30,8 +30,9 @@
     - needrestart
     - unattended-upgrades
     - fail2ban
+  tags: security
 
-- name: Install necessities and nice-to-haves
+- name: install command-line tools
   apt: pkg={{ item }} state=installed  update_cache=yes cache_valid_time=900
   with_items:
     - build-essential
@@ -41,12 +42,10 @@
     - iotop
     - sudo
     - molly-guard
-    - htop
     - dfc
     - ncdu
     - ranger
-    - iftop
-    - iotop
+    - tree
     - aptitude
     - goaccess
     - nethogs
@@ -55,7 +54,7 @@
 - name: copy locale config
   copy: src=etc_locale.gen dest=/etc/locale.gen
 
-- name: create local backup directory
+- name: create rsnapshot backup directory
   file: path={{ backups_dir }} owner=root group=root state=directory
 
 - name: copy rsnapshot config

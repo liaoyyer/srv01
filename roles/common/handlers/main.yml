@@ -35,7 +35,7 @@
   command: netstat -pltuna
   register: netstat_out
 
-#    - name: run goaccess
+#    - name: run goaccess #TODO
 #      shell: zcat -f /var/log/apache2/access.log | goaccess -a
 #      register: goaccess_out
 
@@ -54,6 +54,8 @@
 - name: run rkhunter
   command: rkhunter --update --propupd --check --report-warnings-only --nocolors --skip-keypress --syslog
   register: rkhunter_out
+
+## print them all ######
 
 - name: print lynis out
   debug: var=lynis_out.stdout_lines
@@ -99,3 +101,11 @@
 #TODO needrestart
 #TODO display maintenance tools menu
 #TODO fix permissions
+#TODO apt update log
+#TODO backups
+#TODO htop
+#TODO iftop
+#TODO iotop
+#TODO ncdu? tree?
+#TODO list git repos
+#TODO nethogs

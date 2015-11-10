@@ -10,16 +10,16 @@
   tags:
    - maintenance
   notify: 
-    - run lynis
-    - parse lynis logs
+    - get uname
+    - get uptime
+    - get ufw status
     - run dfc
     - run last
     - run lastb
     - run netstat
-    - get ufw status
-    - get uptime
-    - get uname
+    - run lynis
     - run rkhunter
+    - parse lynis logs
     - test internet connection
     - print lynis out
     - print dfc out
@@ -31,3 +31,5 @@
     - print uname
     - print ping output
     - print rkhunter out
+
+#TODO: split long/quick actions
