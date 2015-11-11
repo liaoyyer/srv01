@@ -77,8 +77,8 @@
   tags: security
 
 - name: set ufw default policy
-  ufw: policy=deny direction=in
-  ufw: policy=allow direction=out
+  ufw: policy=deny direction=incoming
+  ufw: policy=allow direction=outgoing
   tags: security
 
 - name: copy ufw default log policy
