@@ -48,6 +48,7 @@
     - goaccess
     - nethogs
     - rsnapshot
+    - usbmount
 
 - name: copy sshd config
   copy: src=etc_ssh_sshd-config dest=/etc/ssh/sshd_config
@@ -107,11 +108,11 @@
 - name: create rsnapshot backup directory
   file: path={{ backups_dir }} owner=root group=root state=directory
 
-- name: copy rsnapshot config
-  template: src=etc/rsnapshot.conf.j2 dest=/etc/rsnapshot/rsnapshot.conf
+#- name: copy rsnapshot config #TODO
+#  template: src=etc_rsnapshot.conf.j2 dest=/etc/rsnapshot.conf
 
-- name: copy rsnapshot cronjob #TODO use cron module
-  copy: src=etc_cron.d_rsnapshot dest=/etc/cron.d/rsnapshot
+#- name: copy rsnapshot cronjob #TODO use cron module
+#  copy: src=etc_cron.d_rsnapshot dest=/etc/cron.d/rsnapshot
 
 - name: copy logwatch config
   copy: src=etc_logwatch_conf_ignore.conf dest=/etc/logwatch/conf/ignore.conf
