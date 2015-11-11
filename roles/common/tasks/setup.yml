@@ -24,7 +24,6 @@
     - logwatch
 #    - logcheck
     - unhide
-    - unhide.rb
     - ufw
     - debsecan
     - needrestart
