@@ -42,7 +42,6 @@
     - iotop
     - sudo
     - molly-guard
-    - dfc
     - ncdu
     - ranger
     - tree

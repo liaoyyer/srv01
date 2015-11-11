@@ -6,7 +6,7 @@
     - get uname
     - get uptime
     - get ufw status
-    - run dfc
+    - run df
     - run last
     - run lastb
     - run netstat
@@ -15,7 +15,7 @@
     - parse lynis logs
     - test internet connection
     - print lynis out
-    - print dfc out
+    - print df out
     - print last out
     - print lastb out
     - print netstat out

@@ -11,9 +11,9 @@
   command: egrep "warning|suggestion" /var/log/lynis-report.dat
   register: lynis_out
 
-- name: run dfc
-  command: dfc -p -udev,tmpfs,cgroup,cgmfs -c never
-  register: dfc_out
+- name: run df
+  command: df -h -x tmpfs -x devtmpfs
+  register: df_out
 
 - name: run last
   command: last -wdai
@@ -53,8 +53,8 @@
 - name: print lynis out
   debug: var=lynis_out.stdout_lines
 
-- name: print dfc out
-  debug: var=dfc_out.stdout_lines
+- name: print df out
+  debug: var=df_out.stdout_lines
 
 - name: print last out
   debug: var=last_out.stdout_lines
