@@ -3,8 +3,8 @@
 
 - name: copy APT config
   copy: src=etc_apt_apt.conf.d_99-no-overwrite-conffiles dest=/etc/apt/apt.conf.d/99-no-overwrite-conffiles
-  copy: src=etc_apt_apt.conf.d_99-norecommends dest=etc/apt/apt.conf.d/99-norecommends
-  copy: src=etc_apt_apt.conf.d_50unattended-upgrades dest=etc/apt/apt.conf.d/50unattended-upgrades
+  copy: src=etc_apt_apt.conf.d_99-norecommends dest=/etc/apt/apt.conf.d/99-norecommends
+  copy: src=etc_apt_apt.conf.d_50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades
 
 - name: upgrade packages
   apt: upgrade=safe update_cache=yes
