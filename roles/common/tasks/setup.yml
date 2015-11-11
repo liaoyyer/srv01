@@ -69,7 +69,7 @@
   command: sysctl --system
 
 - name: create debsecan log
-  file: path=/var/log/debsecan.log owner=root group=root state=file
+  copy: src=var_log_debsecan.log dest=/var/log/debsecan.log
   tags: security
 
 - name: copy debsecan config
