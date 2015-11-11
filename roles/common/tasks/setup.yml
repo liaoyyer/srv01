@@ -9,7 +9,7 @@
 - name: upgrade packages
   apt: upgrade=safe update_cache=yes
 
-- name: install base packages
+- name: install openssh-server
   apt: pkg=openssh-server state=present update_cache=yes cache_valid_time=900
 
 - name: install server security tools
@@ -22,7 +22,7 @@
     - debsums
     - unattended-upgrades
     - logwatch
-    - logcheck
+#    - logcheck
     - unhide
     - unhide.rb
     - ufw
@@ -51,8 +51,60 @@
     - nethogs
     - rsnapshot
 
-- name: copy locale config
-  copy: src=etc_locale.gen dest=/etc/locale.gen
+- name: copy sshd config
+  copy: src=etc_ssh_sshd-config dest=/etc/ssh/sshd_config
+  notify: reload ssh
+  tags: security
+
+- name: copy fail2ban config
+  template: src=etc_fail2ban_jail.local.j2 dest=/etc/fail2ban/jail.local
+  notify: restart fail2ban
+  tags: security
+
+- name: copy sysctl config
+  copy: src=etc_sysctl.d_disable-ipv6.conf dest=/etc/sysctl.d/disable-ipv6.conf
+  copy: src=etc_sysctl.d_ipv4-security.conf dest=/etc/sysctl.d/ipv4-security.conf
+  copy: src=etc_sysctl.d_memtweaks.conf dest=/etc/sysctl.d/memtweaks.conf
+  tags: security
+
+- name: apply sysctl config
+  command: sysctl --system
+
+- name: create debsecan log
+  file: path=/var/log/debsecan.log owner=root group=root state=file
+  tags: security
+
+- name: copy debsecan config
+  copy: src=etc_cron.d_debsecan dest=/etc/cron.d/debsecan
+  tags: security
+
+- name: set ufw default policy
+  ufw: policy=deny direction=in
+  ufw: policy=allow direction=out
+  tags: security
+
+- name: copy ufw default log policy
+  copy: src=etc_ufw_after.rules dest=/etc/ufw/after.rules
+  tags: security
+
+- name: create sshd port 823 ufw profile, allow
+  copy: src=etc_ufw_applications.d_openssh-823 dest=/etc/ufw/applications.d/openssh-823
+  tags: security
+
+- name: ufw allow sshd profile
+  ufw: rule=allow name=SSH-823
+  tags: security
+
+- name: enable ufw
+  ufw: state=enabled
+  tags: security
+
+- name: copy misc utility configuration
+  copy: src=root_.config_htoprc dest=/root/.config/htoprc
+  copy: src=root_.iftoprc dest=/root/.iftoprc
+  
+- name: copy usbmount config
+  copy: src=etc_usbmount_usbmount.conf dest=/etc/usbmount/usbmount.conf
 
 - name: create rsnapshot backup directory
   file: path={{ backups_dir }} owner=root group=root state=directory
@@ -67,49 +119,10 @@
   copy: src=etc_logwatch_conf_ignore.conf dest=/etc/logwatch/conf/ignore.conf
   copy: src=etc_cron.daily_00logwatch dest=/etc/cron.daily/00logwatch
   copy: src=etc_cron.weekly_logwatch dest=/etc/cron.weekly/logwatch
+  tags: security
 
-- name: copy sshd config
-  copy: src=etc_ssh_sshd-config dest=/etc/ssh/sshd_config
-  notify: reload ssh
-
-- name: copy fail2ban config
-  template: src=etc_fail2ban_jail.local.j2 dest=/etc/fail2ban/jail.local
-  notify: restart fail2ban
-
-- name: copy sysctl config
-  copy: src=etc_sysctl.d_disable-ipv6.conf dest=/etc/sysctl.d/disable-ipv6.conf
-  copy: src=etc_sysctl.d_ipv4-security.conf dest=/etc/sysctl.d/ipv4-security.conf
-  copy: src=etc_sysctl.d_memtweaks.conf dest=/etc/sysctl.d/memtweaks.conf
-
-- name: copy usbmount config
-  copy: src=etc_usbmount_usbmount.conf dest=/etc/usbmount/usbmount.conf
-
-- name: create debsecan log
-  file: path=/var/log/debsecan.log owner=root group=root state=file
-
-- name: copy debsecan config
-  copy: src=etc_cron.d_debsecan dest=/etc/cron.d/debsecan
-
-- name: set ufw default policy
-  ufw: policy=deny direction=in
-  ufw: policy=allow direction=out
-
-- name: copy ufw default log policy
-  copy: src=etc_ufw_after.rules dest=/etc/ufw/after.rules
-
-- name: create sshd port 823 ufw application profile
-  copy: src=etc_ufw_applications.d_openssh-823 dest=/etc/ufw/applications.d/openssh-823
-
-- name: allow sshd ufw profile
-  ufw: rule=allow name=SSH-823
-
-- name: enable ufw
-  ufw: state=enabled
-
-- name: copy misc utility configuration
-  copy: src=root_.config_htoprc dest=/root/.config/htoprc
-  copy: src=root_.iftoprc dest=/root/.iftoprc
-  
+#- name: copy locale config
+#  copy: src=etc_locale.gen dest=/etc/locale.gen
 
 #Resource: https://wiki.debian.org/UnattendedUpgrades
 #Resource: http://www.saltycrane.com/blog/2008/02/backup-on-linux-rsnapshot-vs-rdiff/

@@ -10,6 +10,7 @@
 #TODO: chown -R www-data:user /var/www/images/photos
 #TODO: sgid /var/www/images/photos
 #TODO: create a symlink in user's home dir to /var/www/images/photos
+#TODO: handler to clear minigalnano cache
 
 - name: print photos upload reminder
   debug: msg="You can now upload your pictures to your ~/IMAGES directory directory through SFTP."

@@ -330,7 +330,7 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
 CLIENT
 
  * auto export bumpy booby bugs (json)
- * auto export TT-RSS OPML
+ * auto export TT-RSS OPML (populate public url in db, curl?)
  * auto-export shaarli public/private/all
  * auto-copy client ssh key
  * auto backup LUKS keys (password protected)
@@ -341,5 +341,7 @@ CLIENT
         ☐ owncloud backup users/passes
         ☐ owncloud backup contacts
  * backup prosody accounts
- * setup SFTP connection as gtk bookmark
+ * setup SFTP connection as gtk bookmark, mount sftp://${srv01_remote_username}@${srv01_hostname}:${srv01_ssh_port}, xdg-open
+ * rsync server backups to client?
+ * open webserver in browser
 ```

@@ -9,3 +9,5 @@
 
 - name: print manual install reminder
   debug: msg="Please open https://{{ srv01_fqdn }}/links to complete the installation"
+
+#TODO: handler clear shaarli cache (subtask util)

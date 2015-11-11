@@ -53,40 +53,8 @@ aptitude -q5 -y upgrade
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-
-
-_editMainConfig() { #Edit and reload main srv01 config file
-    #Note: See also https://packages.debian.org/sid/augeas-tools to edit config files
-    $EDITOR ${NZ_CONF_PATH}/srv01.conf
-    source "${NZ_CONF_PATH}/srv01.conf"
-    updatehostname
-    _Srv01ReloadConfig #TODO: (check if paths/values in srv01.conf are valid) update config files accordingly
-}
-
-clearcaches() { #Clear dokuwiki and php-apc caches
-	rm -r "$srv01_apache_documentroot/dokuwiki/data/cache/*"
-	service apache2 restart #clear php-apc cache, so subtle
-	#TODO: remove more caches (minigal, shaarli, owncloud deleted files...)
-}
-
-
-
-_AutoMaintenance() { #full auto maintenance tasks
-	_MaintenanceAptUpgrade
-	_MaintenanceAptCleanup
-}
-
-
-
-
-
-
-
-
 _Srv01ReloadConfig() { #Main config reload routine
 	_Srv01ConfigUpdateFqdn
-	_Srv01RegenContactPage
-	_Srv01RegenHomePage
 	_Srv01FixPermissions
 }
 
@@ -99,30 +67,6 @@ _Srv01ReloadConfig() { #Main config reload routine
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-_Srv01ServiceApacheCheck() { #Checks for apache2 status and network access
-	if [ ! -f /usr/bin/apache2 ]
-	#If apache is not installed	
-		#Check firewall status for service
-		#TODO: move this to NzMenuFirewall as a function: _Srv01FirewallCheck 443
-		#TODO: use LAN and VPN netmasks instead of hardcoding 192.168 (_Srv01GetLANSubnet)
-
-}
-
-
-
-
-_Srv01InstallWebapp() { #Install a web application
-	AppToInstall="$1"
-	"$srv01_path/webapps/$AppToInstall.sh" install
-
-	_Srv01RegenHomepage
-	#_Srv01FixPermissions TODO re-enable when it's verified
-}
-
-_Srv01UpgradeWebapp() { #Upgrade a web application
-	AppToUpgrade="$1"
-	"$srv01_path/webapps/$AppToUpgrade.sh" upgrade
-}
 
 
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -132,41 +76,6 @@ _Srv01UpgradeWebapp() { #Upgrade a web application
 #░░░                                               ░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 #░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
-_Srv01UserShowWwwaccess() { #Show main user's permissions on web served content
-    groups $NZ_USER | grep -q "$APACHE_GROUP"
-    if [ ?$ != 0 ]
-        then echo "$NZ_USER is not allowed to edit the web server files"
-        else  echo "$NZ_USER is allowed to edit the web server files"
-    fi
-}
-
-_Srv01UserToggleWwwAccess() { #Show main user's permissions on web served content
-    _Srv01UserShowWwwAccess >/dev/null
-    if [ $NZ_USERWWWACCESS = 0 ]
-        then adduser $NZ_USER www-data; _Srv01UserShowWwwAccess
-        else deluser $NZ_USER www-data; _Srv01UserShowWwwAccess
-    fi
-}
-
-_Srv01UserShowTransmissionAccess() { #Show main user's permissions on transmission downloaded files
-    groups $NZ_USER | grep -q debian-transmission
-    if [ ?$ != 0 ]
-        then echo "$NZ_USER is not allowed to edit transmission downloaded files"
-        export NZ_USERTRANSMISSIONACCESS=0
-        else  echo "$NZ_USER is allowed to edit the transmission downloaded files"
-        export NZ_USERTRANSMISSIONACCESS=1
-    fi
-}
-
-_Srv01UserToggleTransmissionAccess() { #Toggle main user's permissions on transmission downloaded files
-    _Srv01UserShowTransmissionAccess
-    if [ $NZ_USERTRANSMISSIONACCESS = 0 ]
-        then adduser $NZ_USER debian-transmission; _Srv01UserShowTransmissionAccess
-        else deluser $NZ_USER debian-transmission; _Srv01UserShowTransmissionAccess
-    fi
-}
 
 _Srv01UserTransmissionPassword() {
     service transmission-daemon stop

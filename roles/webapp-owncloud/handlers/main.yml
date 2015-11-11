@@ -1,7 +1,7 @@
 - name: clean owncloud trashes
   command: find /var/www/owncloud -name files_trashbin -exec rm '{}' \;
 
-- name: disable owncloud maintenance owncloud
+- name: disable owncloud maintenance
   command: sed -i "/'maintenance'/c\  \'maintenance' => false," /var/www/owncloud/config/config.php
 
 - name: enable owncloud maintenance mode
@@ -10,4 +10,6 @@
 - name: upgrade owncloud
   command: /usr/bin/php /var/www/owncloud/occ upgrade --skip-migration-test
   become: yes
-  become_usre: www-data
+  become_user: www-data
+
+#TODO clear owncloud cache

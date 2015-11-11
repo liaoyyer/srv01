@@ -57,3 +57,6 @@
 - name: print prosody registrations status
   when: allow_registration == True
   debug: msg="! XMPP account registration allowed"
+
+#TODO move status tasks to handlers
+#TODO prosody allowfromlan allowfrominet deny

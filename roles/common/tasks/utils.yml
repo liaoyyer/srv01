@@ -1,0 +1,28 @@
+- name: run maintenance tools
+  shell: /bin/true
+  tags:
+   - maintenance
+  notify: 
+    - get uname
+    - get uptime
+    - get ufw status
+    - run dfc
+    - run last
+    - run lastb
+    - run netstat
+    - run lynis
+    - run rkhunter
+    - parse lynis logs
+    - test internet connection
+    - print lynis out
+    - print dfc out
+    - print last out
+    - print lastb out
+    - print netstat out
+    - print ufw status
+    - print uptime
+    - print uname
+    - print ping output
+    - print rkhunter out
+
+#TODO: split long/quick actions

@@ -8,3 +8,4 @@
   service: name=apache state=restarted enabled=yes
 
 #TODO: handler to reset mysql root password
+#TODO: handler to clear apc cache
