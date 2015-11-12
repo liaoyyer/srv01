@@ -35,6 +35,9 @@
   copy: src=etc_apache2_conf-errorlog.conf dest=/etc/apache2/conf-errorlog.conf
   copy: src=etc_apache2_sites-available_srv01.conf dest=/etc/apache2/sites-available/srv01.conf
   copy: src=etc_php5_conf.d_30-hide-header.ini dest=etc/php5/conf.d/30-hide-header.ini
+  notify: restart apache
+
+- name: create modsecurity rules symlinks
   file: state=link dest=/etc/modsecurity/modsecurity.conf src=modsecurity.conf-recommended
   file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_bad_robots.data src=../base_rules/modsecurity_35_bad_robots.data
   file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_scanners.data src=../base_rules/modsecurity_35_scanners.data
@@ -58,7 +61,13 @@
   file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_50_outbound.conf src=../base_rules/modsecurity_crs_50_outbound.conf
   file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_59_outbound_blocking.conf src=../base_rules/modsecurity_crs_59_outbound_blocking.conf
   file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_60_correlation.conf src=../base_rules/modsecurity_crs_60_correlation.conf
+  notify: restart apache
+
+- name: set apache2 fqdn
   template: src=fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
+  notify: restart apache
+
+- name: enable apache2 mods and config
   command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf
   command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
   command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
@@ -73,6 +82,9 @@
 
 - name: regen apache ssl certs and keys
   command: make-ssl-cert generate-default-snakeoil --force-overwrite
+  notify: restart apache
+
+- name: set permissions for apache certs
   file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root
   file: name=/etc/ssl/private/ssl-srv01.key mode=644 owner=root group=root
   notify: restart apache
@@ -83,8 +95,10 @@
   command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
   notify: restart apache
 
-- name: Add UFW allow rules for apache
+- name: Add apache2 ufw application profile
   copy: src=etc_ufw_applications.d_apache dest=etc/ufw/applications.d/apache
+
+- name: add allow apache ufw rule
   ufw: rule=allow name=Apache
   ufw: rule=allow name=Apache-HTTPS
 
