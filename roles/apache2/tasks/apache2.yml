@@ -64,7 +64,7 @@
   notify: restart apache
 
 - name: set apache2 fqdn
-  template: src=fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
+  template: src=etc_apache2_conf-available_fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
   notify: restart apache
 
 - name: enable apache2 mods and config
