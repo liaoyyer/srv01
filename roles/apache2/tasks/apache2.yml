@@ -21,63 +21,25 @@
     - mysql-server
     - goaccess
 
-- name: configure apache
-  copy: src=etc_apache2_conf-available_deflate.conf dest=/etc/apache2/conf-available/deflate.conf
-  copy: src=etc_apache2_conf-available_force-https.conf dest=/etc/apache2/conf-available/force-https.conf
-  copy: src=etc_apache2_conf_available_mitigate-memory-leaks.conf dest=/etc/apache2/conf/available/mitigate-memory-leaks.conf
-  copy: src=etc_apache2_conf-available_mod-evasive.conf dest=/etc/apache2/conf-available/mod-evasive.conf
-  copy: src=etc_apache2_conf-available_mod-ssl.conf dest=/etc/apache2/conf-available/mod-ssl.conf
-  copy: src=etc_apache2_conf-available_other-vhosts-access-log dest=/etc/apache2/conf-available/other-vhosts-access-log
-  copy: src=etc_apache2_conf-available_prevent-direct-ip-access.conf dest=/etc/apache2/conf-available/prevent-direct-ip-access.conf
-  copy: src=etc_apache2_conf_available_prevent-git-dir-access.conf dest=/etc/apache2/conf/available/prevent-git-dir-access.conf
-  copy: src=etc_apache2_conf_available_prevent-ssh-dir-access.conf dest=/etc/apache2/conf/available/prevent-ssh-dir-access.conf
-  copy: src=etc_apache2_conf-available_security.conf dest=/etc/apache2/conf-available/security.conf
-  copy: src=etc_apache2_conf-errorlog.conf dest=/etc/apache2/conf-errorlog.conf
-  copy: src=etc_apache2_sites-available_srv01.conf dest=/etc/apache2/sites-available/srv01.conf
-  copy: src=etc_php5_apache2_conf.d_30-hide-header.ini dest=/etc/php5/apache2/conf.d/30-hide-header.ini
-  notify: restart apache
-
-- name: create modsecurity rules symlinks
-  file: state=link dest=/etc/modsecurity/modsecurity.conf src=modsecurity.conf-recommended
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_bad_robots.data src=../base_rules/modsecurity_35_bad_robots.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_scanners.data src=../base_rules/modsecurity_35_scanners.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_40_generic_attacks.data src=../base_rules/modsecurity_40_generic_attacks.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_41_sql_injection_attacks.data src=../base_rules/modsecurity_41_sql_injection_attacks.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound.data src=../base_rules/modsecurity_50_outbound.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound_malware.data src=../base_rules/modsecurity_50_outbound_malware.data
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_20_protocol_violations.conf src=../base_rules/modsecurity_crs_20_protocol_violations.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_21_protocol_anomalies.conf src=../base_rules/modsecurity_crs_21_protocol_anomalies.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_23_request_limits.conf src=../base_rules/modsecurity_crs_23_request_limits.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_30_http_policy.conf src=../base_rules/modsecurity_crs_30_http_policy.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_35_bad_robots.conf src=../base_rules/modsecurity_crs_35_bad_robots.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_40_generic_attacks.conf src=../base_rules/modsecurity_crs_40_generic_attacks.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf src=../base_rules/modsecurity_crs_41_sql_injection_attacks.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_xss_attacks.conf src=../base_rules/modsecurity_crs_41_xss_attacks.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_42_tight_security.conf src=../base_rules/modsecurity_crs_42_tight_security.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_45_trojans.conf src=../base_rules/modsecurity_crs_45_trojans.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_47_common_exceptions.conf src=../base_rules/modsecurity_crs_47_common_exceptions.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_48_local_exceptions.conf.example src=../base_rules/modsecurity_crs_48_local_exceptions.conf.example
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_49_inbound_blocking.conf src=../base_rules/modsecurity_crs_49_inbound_blocking.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_50_outbound.conf src=../base_rules/modsecurity_crs_50_outbound.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_59_outbound_blocking.conf src=../base_rules/modsecurity_crs_59_outbound_blocking.conf
-  file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_60_correlation.conf src=../base_rules/modsecurity_crs_60_correlation.conf
-  notify: restart apache
-
 - name: set apache2 fqdn
   template: src=etc_apache2_conf-available_fqdn.j2 dest=/etc/apache2/conf-available/fqdn.conf
+- command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf
   notify: restart apache
 
-- name: enable apache2 mods and config
-  command: a2enconf fqdn creates=/etc/apache2/conf-enabled/fqdn.conf
-  command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
-  command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
-  command: a2enmod deflate creates=/etc/apache2/mods-enabled/deflate.load
-  command: a2enmod mod-evasive creates=/etc/apache2/mods-enabled/mod-evasive.load
-  command: a2enmod rewrite creates=/etc/apache2/mods-enabled/rewrite.load
-  command: a2enmod mod-security creates=/etc/apache2/mods-enabled/mod-security.load
-  command: a2enmod php5 creates=/etc/apache2/mods-enabled/php5.load
-  command: a2dismod cgi removes=/etc/apache2/mods-enabled/cgi.load
-#  command: a2dismod autoindex removes=/etc/apache2/mods-enabled/autoindex.load
+- name: configure apache deflate module
+  copy: src=etc_apache2_conf-available_deflate.conf dest=/etc/apache2/conf-available/deflate.conf
+- command: a2enmod deflate creates=/etc/apache2/mods-enabled/deflate.load
+  notify: restart apache
+
+- name: configure apache force https
+  copy: src=etc_apache2_conf-available_force-https.conf dest=/etc/apache2/conf-available/force-https.conf
+
+- name: configure apache memory settings
+  copy: src=etc_apache2_conf_available_mitigate-memory-leaks.conf dest=/etc/apache2/conf/available/mitigate-memory-leaks.conf
+
+- name: configure apache mod_evasive module
+  copy: src=etc_apache2_conf-available_mod-evasive.conf dest=/etc/apache2/conf-available/mod-evasive.conf
+- command: a2enmod mod-evasive creates=/etc/apache2/mods-enabled/mod-evasive.load
   notify: restart apache
 
 - name: regen apache ssl certs and keys
@@ -101,6 +63,85 @@
   notify: restart apache
   tags: ssl
 
+- name: configure apache ssl module
+  copy: src=etc_apache2_conf-available_mod-ssl.conf dest=/etc/apache2/conf-available/mod-ssl.conf
+  tags: ssl
+- command: a2enmod ssl creates=/etc/apache2/mods-enabled/ssl.load
+  notify: restart apache
+  tags: ssl
+
+- name: configure apache2 vhosts logging
+  copy: src=etc_apache2_conf-available_other-vhosts-access-log dest=/etc/apache2/conf-available/other-vhosts-access-log
+
+- name: configure apache2 direct ip access restriction
+  copy: src=etc_apache2_conf-available_prevent-direct-ip-access.conf dest=/etc/apache2/conf-available/prevent-direct-ip-access.conf
+
+- name: configure apache2 .git directory access restriction
+  copy: src=etc_apache2_conf_available_prevent-git-dir-access.conf dest=/etc/apache2/conf/available/prevent-git-dir-access.conf
+
+- name: configure apache2 .ssh directory access restriction
+  copy: src=etc_apache2_conf_available_prevent-ssh-dir-access.conf dest=/etc/apache2/conf/available/prevent-ssh-dir-access.conf
+
+- name: configure apache2 security
+  copy: src=etc_apache2_conf-available_security.conf dest=/etc/apache2/conf-available/security.conf
+
+- name: configure apache2 error logging
+  copy: src=etc_apache2_conf-errorlog.conf dest=/etc/apache2/conf-errorlog.conf
+
+- name: enable apache2 rewrite module
+  command: a2enmod rewrite creates=/etc/apache2/mods-enabled/rewrite.load
+  notify: restart apache
+
+- name: copy apache2 sites-available
+  copy: src=etc_apache2_sites-available_srv01.conf dest=/etc/apache2/sites-available/srv01.conf
+
+- name: copy php hide-header config
+  copy: src=etc_php5_apache2_conf.d_30-hide-header.ini dest=/etc/php5/apache2/conf.d/30-hide-header.ini
+- command: a2enmod php5 creates=/etc/apache2/mods-enabled/php5.load
+  notify: restart apache
+
+- name: load apache2 headers module
+  command: a2enmod headers creates=/etc/apache2/mods-enabled/headers.load
+  notify: restart apache
+
+#- name: disable apache2 autoindex module
+#  command: a2dismod autoindex removes=/etc/apache2/mods-enabled/autoindex.load
+#  notify: restart apache
+
+
+- name: create modsecurity rules symlinks
+  file: state=link dest=/etc/modsecurity/modsecurity.conf src=modsecurity.conf-recommended
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_bad_robots.data src=../base_rules/modsecurity_35_bad_robots.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_scanners.data src=../base_rules/modsecurity_35_scanners.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_40_generic_attacks.data src=../base_rules/modsecurity_40_generic_attacks.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_41_sql_injection_attacks.data src=../base_rules/modsecurity_41_sql_injection_attacks.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound.data src=../base_rules/modsecurity_50_outbound.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound_malware.data src=../base_rules/modsecurity_50_outbound_malware.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_20_protocol_violations.conf src=../base_rules/modsecurity_crs_20_protocol_violations.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_21_protocol_anomalies.conf src=../base_rules/modsecurity_crs_21_protocol_anomalies.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_23_request_limits.conf src=../base_rules/modsecurity_crs_23_request_limits.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_30_http_policy.conf src=../base_rules/modsecurity_crs_30_http_policy.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_35_bad_robots.conf src=../base_rules/modsecurity_crs_35_bad_robots.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_40_generic_attacks.conf src=../base_rules/modsecurity_crs_40_generic_attacks.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf src=../base_rules/modsecurity_crs_41_sql_injection_attacks.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_xss_attacks.conf src=../base_rules/modsecurity_crs_41_xss_attacks.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_42_tight_security.conf src=../base_rules/modsecurity_crs_42_tight_security.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_45_trojans.conf src=../base_rules/modsecurity_crs_45_trojans.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_47_common_exceptions.conf src=../base_rules/modsecurity_crs_47_common_exceptions.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_48_local_exceptions.conf.example src=../base_rules/modsecurity_crs_48_local_exceptions.conf.example
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_49_inbound_blocking.conf src=../base_rules/modsecurity_crs_49_inbound_blocking.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_50_outbound.conf src=../base_rules/modsecurity_crs_50_outbound.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_59_outbound_blocking.conf src=../base_rules/modsecurity_crs_59_outbound_blocking.conf
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_60_correlation.conf src=../base_rules/modsecurity_crs_60_correlation.conf
+- name: enable apache2 modsecurity and config
+- command: a2enmod security2 creates=/etc/apache2/mods-enabled/security2.load
+  notify: restart apache
+  #TODO check missing main config file?
+
+- name: disable apache2 cgi module
+  command: a2dismod cgi removes=/etc/apache2/mods-enabled/cgi.load
+  notify: restart apache
+
 - name: disable default apache site and enable srv01 site
   command: a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
   command: a2ensite srv01 creates=/etc/apache2/sites-enabled/srv01
@@ -115,10 +156,4 @@
 
 - name: secure mysql
   command: mysql_secure_installation
-
-
-
-
-
-
-
+  notify: restart mysql
