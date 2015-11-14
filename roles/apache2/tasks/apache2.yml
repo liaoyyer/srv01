@@ -35,7 +35,7 @@
   copy: src=etc_apache2_conf-available_force-https.conf dest=/etc/apache2/conf-available/force-https.conf
 
 - name: configure apache memory settings
-  copy: src=etc_apache2_conf_available_mitigate-memory-leaks.conf dest=/etc/apache2/conf/available/mitigate-memory-leaks.conf
+  copy: src=etc_apache2_conf_available_mitigate-memory-leaks.conf dest=/etc/apache2/conf-available/mitigate-memory-leaks.conf
 
 - name: configure apache mod_evasive module
   copy: src=etc_apache2_conf-available_mod-evasive.conf dest=/etc/apache2/conf-available/mod-evasive.conf
@@ -77,10 +77,10 @@
   copy: src=etc_apache2_conf-available_prevent-direct-ip-access.conf dest=/etc/apache2/conf-available/prevent-direct-ip-access.conf
 
 - name: configure apache2 .git directory access restriction
-  copy: src=etc_apache2_conf_available_prevent-git-dir-access.conf dest=/etc/apache2/conf/available/prevent-git-dir-access.conf
+  copy: src=etc_apache2_conf_available_prevent-git-dir-access.conf dest=/etc/apache2/conf-available/prevent-git-dir-access.conf
 
 - name: configure apache2 .ssh directory access restriction
-  copy: src=etc_apache2_conf_available_prevent-ssh-dir-access.conf dest=/etc/apache2/conf/available/prevent-ssh-dir-access.conf
+  copy: src=etc_apache2_conf_available_prevent-ssh-dir-access.conf dest=/etc/apache2/conf-available/prevent-ssh-dir-access.conf
 
 - name: configure apache2 security
   copy: src=etc_apache2_conf-available_security.conf dest=/etc/apache2/conf-available/security.conf
