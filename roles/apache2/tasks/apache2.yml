@@ -39,7 +39,7 @@
 
 - name: configure apache mod_evasive module
   copy: src=etc_apache2_conf-available_mod-evasive.conf dest=/etc/apache2/conf-available/mod-evasive.conf
-- command: a2enmod mod-evasive creates=/etc/apache2/mods-enabled/mod-evasive.load
+- command: a2enmod evasive creates=/etc/apache2/mods-enabled/evasive.load
   notify: restart apache
 
 - name: regen apache ssl certs and keys
