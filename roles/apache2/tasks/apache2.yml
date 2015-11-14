@@ -86,12 +86,12 @@
   tags: ssl
 
 - name: rename ssl certs
-  command: mv /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/srv01.pem 
+  command: mv /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-srv01.pem 
   notify: restart apache
   tags: ssl
 
 - name: rename ssl keys
-  command: mv /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/srv01.key 
+  command: mv /etc/ssl/private/ssl-cert-snakeoil.key /etc/ssl/private/ssl-srv01.key 
   notify: restart apache
   tags: ssl
 
