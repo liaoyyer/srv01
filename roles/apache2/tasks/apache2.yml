@@ -114,7 +114,7 @@
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_bad_robots.data src=../base_rules/modsecurity_35_bad_robots.data
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_35_scanners.data src=../base_rules/modsecurity_35_scanners.data
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_40_generic_attacks.data src=../base_rules/modsecurity_40_generic_attacks.data
-- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_sql_injection_attacks.data src=../base_rules/modsecurity_crs_41_sql_injection_attacks.data
+- file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf src=../base_rules/modsecurity_crs_41_sql_injection_attacks.conf
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound.data src=../base_rules/modsecurity_50_outbound.data
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_50_outbound_malware.data src=../base_rules/modsecurity_50_outbound_malware.data
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_20_protocol_violations.conf src=../base_rules/modsecurity_crs_20_protocol_violations.conf
