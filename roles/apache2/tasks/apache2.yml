@@ -148,7 +148,7 @@
   notify: restart apache
 
 - name: Add apache2 ufw application profile
-  copy: src=etc_ufw_applications.d_apache dest=etc/ufw/applications.d/apache
+  copy: src=etc_ufw_applications.d_apache dest=/etc/ufw/applications.d/apache
 
 - name: add allow apache ufw rule
   ufw: rule=allow name=Apache
