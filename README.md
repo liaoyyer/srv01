@@ -91,6 +91,7 @@ pastebin
 filetea/wetransfer/...
 review sysctl
 alltube + apache password
+daux.io + symlink ~/
 
 
 
