@@ -7,9 +7,9 @@
 - name: copy minigalnano config
   copy: src=var_www_images_config.php dest=/var/www/images/config.php
 
-#TODO: chown -R www-data:user /var/www/images/photos
-#TODO: sgid /var/www/images/photos
-#TODO: create a symlink in user's home dir to /var/www/images/photos
+#TODO: create and chown -R www-data:user /var/www/images/photos
+#TODO: sgid /var/www/images/photos (chmod g+rws)
+#TODO: create a symlink ~/public_images/ -> /var/www/images/photos
 #TODO: handler to clear minigalnano cache
 
 - name: print photos upload reminder
