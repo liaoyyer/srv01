@@ -134,7 +134,7 @@
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_59_outbound_blocking.conf src=../base_rules/modsecurity_crs_59_outbound_blocking.conf
 - file: state=link dest=/usr/share/modsecurity-crs/activated_rules/modsecurity_crs_60_correlation.conf src=../base_rules/modsecurity_crs_60_correlation.conf
 - name: enable apache2 modsecurity and config
-- command: a2enmod security2 creates=/etc/apache2/mods-enabled/security2.load
+  command: a2enmod security2 creates=/etc/apache2/mods-enabled/security2.load
   notify: restart apache
   #TODO check missing main config file?
 
