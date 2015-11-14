@@ -83,6 +83,17 @@
 - name: regen apache ssl certs and keys
   command: make-ssl-cert generate-default-snakeoil --force-overwrite
   notify: restart apache
+  tags: ssl
+
+- name: rename ssl certs
+  command: mv /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/ssl/certs/srv01.pem 
+  notify: restart apache
+  tags: ssl
+
+- name: rename ssl keys
+  command: mv /etc/ssl/certs/ssl-cert-snakeoil.key /etc/ssl/certs/srv01.key 
+  notify: restart apache
+  tags: ssl
 
 - name: set permissions for apache certs
   file: name=/etc/ssl/certs/ssl-srv01.pem mode=644 owner=root group=root
