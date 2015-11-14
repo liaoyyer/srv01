@@ -3,3 +3,8 @@
        dest=/var/www/gitlist
        version=0.5.0
        accept_hostkey=yes
+
+- name: create gitlist cache
+  file: state=directory path=/var/www/gitlist/cache mode=0770 owner=www-data group=git
+
+#TODO: edit config/copy config.ini-example
