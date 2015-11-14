@@ -76,10 +76,31 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
 
 ```
 ☐ MOVE TO ANSIBLE!
+☐ [feature] mumble server
+test sftp
+☐ [feature] tt-rss (OU AUTRE)
+☐ apache test
+☐ h5ai test
+☐ shaarli test
+☐ transmission test
+owncloud
+minigalnano test
+test backups (config, etc; data, mysql, services data)
+test usbmount
+pastebin
+filetea/wetransfer/...
+review sysctl
+alltube + apache password
+
+
+
+☐ [feature] add SMART tests maintenance functions
 
 ☐ [security] apache/prosody: generate secure ssl certs
     https://github.com/sovereign/sovereign/issues/373, https://weakdh.org/sysadmin.html
     https://github.com/sovereign/sovereign/issues/399
+
+
 
 ☐ [feature] pulseaudio + test (share audio outputs over local network)
     ☐ start services pulseaudio and avahi-daemon
@@ -91,14 +112,16 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
     ☐ adduser root et baseuser pulse-access
     ☐ adduser pulse audio
     ☐ doc: http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/WhatIsWrongWithSystemWide/
+  avahi-daemon (zero-configuration)!
 
+
+☐ [feature] minidlna: pas de fichiers flac??
+  ☐ config + test
 
 ☐ [feature]network scanner server
     - https://wiki.archlinux.org/index.php/SANE
     - clients?
 
-
-☐ [enh] minidlna: pas de fichiers flac??
 
 ☐ [feature] samba file sharing
     ☐ config: https://github.com/debops/ansible-samba/blob/master/tasks/main.yml https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
@@ -112,6 +135,12 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
         #browseable = yes
         #public = yes
         #writeable = yes
+
+[enh] improve less usability:
+    environment:
+    LESSOPEN: "| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+    LESS: ' -R '
+    LESSPROMPT: "Line %lb/%L. Press Q to quit; Press / to search, Press H for help"
 
 ☐ [feature] mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail)
     ☐ dkim
@@ -236,7 +265,7 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
 
 
 
-☐ [feature] tt-rss
+☐ [feature] tt-rss [dn]
     ☐ tt-rss/config.php
     ☐ create database
     ☐ replace password in tt-rss/config.php
@@ -263,9 +292,9 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
     https://github.com/wallabag/wallabag
 
 
-☐ private bittorrent tracker
+☐ [feature] private bittorrent tracker
 
-☐ DHCP server
+☐ [feature] DHCP server
     dhcpd configured Disabled by default
     http://www.linuxhomenetworking.com/wiki/index.php Quick_HOWTO_:_Ch08_:_Configuring_the_DHCP_Server
     http://www.it-connect.fr/serveur-dhcp-sous-linux/
@@ -295,9 +324,7 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
     ☐ log_auth
     ☐ check sec level with https://xmpp.net/index.php
 
-☐ [feature] add SMART tests maintenance functions
 
-☐ [feature] mumble server
 
     ☐ Packages: mumble-server
     ☐ Config: /etc/mumble-server.ini
@@ -322,6 +349,8 @@ Special thanks: [Sovereign](https://github.com/sovereign/sovereign), [Ansible](h
 
 
 ☐ [enh] create symlinks to webapps data dirs/transmission data dir in user home
+
+☐ [feature] markdown editor
 
 ☐ [enh] add unit tests
   https://github.com/sovereign/sovereign/blob/master/tests.py
