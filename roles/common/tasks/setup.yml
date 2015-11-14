@@ -49,6 +49,14 @@
     - nethogs
     - rsnapshot
     - usbmount
+    - dma
+
+- name: remove unwanted packages
+  apt: pkg={{ item }} state=absent
+  with_items:
+    - rpcbind
+    - exim4-base
+    - nfs-common
 
 - name: copy sshd config
   copy: src=etc_ssh_sshd-config dest=/etc/ssh/sshd_config

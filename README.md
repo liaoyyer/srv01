@@ -48,6 +48,8 @@
     srv01 maintenance
     srv01 reboot
     srv01 poweroff
+    srv01 setup
+    srv01 install apache
  
 ## Hardware requirements
 

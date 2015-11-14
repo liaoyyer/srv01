@@ -76,7 +76,7 @@ daux.io + symlink ~/
 
 ☐ [maybe] mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail): dkim; spf; antispam; smtp; imap; web UI
 
-☐ [feature] mail: use external SMTP provider
+☐ [feature] mail: use external SMTP provider (package dma, dma.conf, smarthost)
 
 ☐ [maybe] firejail? http://l3net.wordpress.com/2014/04/16/how-to-restrict-a-login-shell-using-linux-namespaces/
 
