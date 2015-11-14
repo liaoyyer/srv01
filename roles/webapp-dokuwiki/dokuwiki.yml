@@ -7,12 +7,22 @@
 
 # Plugins
        
+# https://www.dokuwiki.org/plugin:orphanmedia
+# Usage:
+# ~~NOCACHE~~
+# ~~ORPHANMEDIA:orphan~~
+# ~~ORPHANMEDIA:missing~~
+
 - name: Clone orphanmedia plugin
   git: repo=https://github.com/Taggic/orphanmedia
        dest=/var/www/dokuwiki/lib/plugins/orphanmedia
        version=master
        accept_hostkey=yes
        
+# https://www.dokuwiki.org/plugin:orphanswanted
+# Usage:
+# ~~ORPHANSWANTED:orphans~~
+# ~~ORPHANSWANTED:wanted~~
 
 - name: Clone orphanswanted plugin
   git: repo=https://github.com/lupo49/dokuwiki-plugin-orphanswanted
@@ -20,23 +30,26 @@
        version=master
        accept_hostkey=yes
 
+# https://www.dokuwiki.org/plugin:text
 - name: Clone text plugin
   git: repo=https://github.com/michitux/dokuwiki-plugin-text/
        dest=/var/www/dokuwiki/lib/plugins/text
        version=master
        accept_hostkey=yes
 
+# https://www.dokuwiki.org/plugin:titlesanchorlink
 - name: Clone titlesanchorlink plugin
   git: repo=https://github.com/Dric/dokuwiki-titlesanchorlink/
        dest=/var/www/dokuwiki/lib/plugins/titlesanchorlink
        version=master
        accept_hostkey=yes
 
-- name: Clone upgrade plugin
-  git: repo=https://github.com/splitbrain/dokuwiki-plugin-upgrade
-       dest=/var/www/dokuwiki/lib/plugins/upgrade
-       version=master
-       accept_hostkey=yes
+# https://www.dokuwiki.org/plugin:upgrade
+#- name: Clone upgrade plugin
+#  git: repo=https://github.com/splitbrain/dokuwiki-plugin-upgrade
+#       dest=/var/www/dokuwiki/lib/plugins/upgrade
+#       version=master
+#       accept_hostkey=yes
 
 - name: Clone xbr plugin
   git: repo=https://github.com/Chris--S/dokuwiki-plugin-xbr
@@ -56,36 +69,45 @@
 #       version=master
 #       accept_hostkey=yes
 
+# https://www.dokuwiki.org/plugin:editx
 #- name: Clone editx plugin
 #  git: repo=https://github.com/danny0838/dw-editx/
 #       dest=/var/www/dokuwiki/lib/plugins/editx
 #       version=master
 #       accept_hostkey=yes
 
+# https://www.dokuwiki.org/plugin:gallery
+# Usage: {{gallery> ?modsort&recursive&direct&lightbox&nocache&0&crop&~12&reverse }}%%''
+#
 #- name: Clone gallery plugin
 #  git: repo=https://github.com/splitbrain/dokuwiki-plugin-gallery/
 #       dest=/var/www/dokuwiki/lib/plugins/gallery
 #       version=master
 #       accept_hostkey=yes
 
+
+# https://www.dokuwiki.org/plugin:include
 - name: Clone include plugin
   git: repo=https://github.com/dokufreaks/plugin-include/
        dest=/var/www/dokuwiki/lib/plugins/include
        version=master
        accept_hostkey=yes
 
+# http://dokuwiki.org/plugin:indexmenu
 - name: Clone indexmenu plugin
   git: repo=https://github.com/samuelet/indexmenu
        dest=/var/www/dokuwiki/lib/plugins/indexmenu
        version=master
        accept_hostkey=yes
-       
+
+# https://www.dokuwiki.org/plugin:markdownextra
 - name: Clone markdownextra plugin
   git: repo=https://github.com/naokij/dokuwiki-plugin-markdownextra/
        dest=/var/www/dokuwiki/lib/plugins/markdownextra
        version=master
        accept_hostkey=yes
 
+# https://www.dokuwiki.org/plugin:note
 - name: Download note plugin
   get_url:
     url=http://gauret.free.fr/fichiers/dokuwiki/dokuwiki-note-20090615.tgz
@@ -99,7 +121,7 @@
 - name: Move note plugin to /var/www/dokuwiki/lib/plugins/note
   command: mv dokuwiki-note-20090615 /var/www/dokuwiki/lib/plugins/note chdir=/var/lib/srv01 creates=/var/www/dokuwiki/lib/plugins/note
 
-
+# https://www.dokuwiki.org/plugin:externallink
 - name: Download externallink plugin
   get_url:
     url=http://koti.mbnet.fi/oiv/pubtest/externallink.zip
@@ -114,7 +136,7 @@
   command: mv externallink /var/www/dokuwiki/lib/plugins/externallink chdir=/var/lib/srv01 creates=/var/www/dokuwiki/lib/plugins/externallink
 
 
-
+# https://www.dokuwiki.org/plugin:baselink
 - name: Download baselink plugin
   get_url:
     url=http://www.robmeerman.co.uk/downloads/dokuwiki-plugin-baselink.tar.gz
@@ -130,5 +152,29 @@
 
 
 
+#TODO http://www.dokuwiki.org/plugin:nspages
 
 
+#DOC Other plugins
+#  * Discussion https://www.dokuwiki.org/plugin:discussion
+#  * SchulzeVote https://www.dokuwiki.org/plugin:schulzevote
+#  * Log Auth Error https://www.dokuwiki.org/plugin:logautherror
+#  * Vote https://www.dokuwiki.org/plugin:vote
+#  * DW2PDF https://www.dokuwiki.org/plugin:dw2pdf
+#  * Page Redirect https://www.dokuwiki.org/plugin:pageredirect
+#  * Wrap https://www.dokuwiki.org/plugin:wrap
+#  * OpenLayersMap https://www.dokuwiki.org/plugin:openlayersmap
+#  * Lightbox v2 https://www.dokuwiki.org/plugin:lightboxv2
+#  * Flattr https://www.dokuwiki.org/plugin:flattr
+#  * Vshare http://www.dokuwiki.org/plugin:vshare
+#  * Search Text https://www.dokuwiki.org/plugin:searchtext
+#    * Text Export/Render https://www.dokuwiki.org/plugin:text (requis)
+#  * AuthOwncloud https://www.dokuwiki.org/plugin:authowncloud
+#  * Bookcreator https://www.dokuwiki.org/plugin:bookcreator
+#  * Bookmarkme https://www.dokuwiki.org/plugin:bookmarkme
+#  * Dokubookmark https://www.dokuwiki.org/plugin:dokubookmark
+#  * Cloud https://www.dokuwiki.org/plugin:cloud
+#  * OSM https://www.dokuwiki.org/plugin:osm
+#  * MozShot https://www.dokuwiki.org/plugin:mozshot
+#  * Divalign2 https://www.dokuwiki.org/plugin:divalign2
+#  * Mnml-blog template https://andreashaerter.com/projects/dokuwiki-#template-mnml-blog
