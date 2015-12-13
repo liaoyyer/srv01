@@ -1,7 +1,7 @@
 #### SERVICES ####################################
 
 - name: restart fail2ban
-  service: name=fail2ban state=restarted
+  service: name=fail2ban state=restarted enabled=yes
 
 - name: reload ssh
-  service: name=ssh state=reloaded
+  service: name=ssh state=reloaded enabled=yes

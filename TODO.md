@@ -2,36 +2,39 @@
 ## TODO
 
 ```
-☐ MOVE TO ANSIBLE!
-☐ [feature] mumble server
-test sftp
-☐ [feature] tt-rss (OU AUTRE)
-☐ apache test
+
+☐ mumble: change superuser password: murmurd -i /etc/mumble-server.ini -supw "$NEWPASSWORD"; service mumble-server restart
+☐ conversejs: short help text, better styling on xmpp/
+☐ setup ssh keys/users/etc!
+☐ test sftp
+☐ srv01 allowinet/allowlanonly/deny/status for each service
+☐ filetea/wetransfer/...
+☐ test usbmount
+☐ srv01 tools (list) reboot, poweroff
 ☐ h5ai test
-☐ shaarli test
-☐ transmission test
-owncloud
-minigalnano test
-test backups (config, etc; data, mysql, services data)
-test usbmount
-pastebin
-filetea/wetransfer/...
-review sysctl
-alltube + apache password
-daux.io + symlink ~/
+☐ mail: use external SMTP provider (package dma, dma.conf, smarthost)
 
+☐ [bug] backups
+     ☐ action: backup data files, dbs and manually specified dirs to local dir
+     ☐ action: sync local backups to external drive (check avail space)
+     ☐ rsnapshot config https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/templates/rsnapshot.conf.j2 https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/files/rsnapshot.cron https://github.com/debops/ansible-rsnapshot https://github.com/osiell/ansible-rsnapshot-master nice/priority
 
+☐ [feature] tt-rss
+
+☐ [feature] pastebin
+
+☐ [feature] minidlna:
+  ☐ flac support??
+  ☐ config + test
 
 ☐ [feature] add SMART tests maintenance functions
 
 ☐ [security] apache/prosody: generate secure ssl certs
     https://github.com/sovereign/sovereign/issues/373, https://weakdh.org/sysadmin.html
     https://github.com/sovereign/sovereign/issues/399
+https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody-ansible
 
-☐ [enh] prosody offline support <http://prosody.im/doc/modules/modoffline(http://prosody.im/doc/modules/modoffline>
-
-
-☐ [feature] pulseaudio + test (share audio outputs over local network)
+☐ [feature] pulseaudio (share audio outputs over local network)
     ☐ start services pulseaudio and avahi-daemon
     https://github.com/pimusicbox/pimusicbox/blob/develop/filechanges/etc/avahi/avahi-daemon.conf
     ☐ firewall port 4713: sudo ufw allow from 192.168.0.0/16 to any port 4713 proto tcp
@@ -44,16 +47,8 @@ daux.io + symlink ~/
   avahi-daemon (zero-configuration)!
 
 
-☐ [feature] minidlna: pas de fichiers flac??
-  ☐ config + test
-
-☐ [feature]network scanner server
-    https://wiki.archlinux.org/index.php/SANE
-    http://xmodulo.com/2014/08/usb-network-printer-and-scanner-server-debian.html
-    clients?
-    http://xmodulo.com/2014/08/configure-network-printer-scanner-ubuntu-desktop.html
-
 ☐ [feature] CUPS printer sharing
+
 
 ☐ [feature] samba file sharing (CIFS)
     ☐ config: https://github.com/debops/ansible-samba/blob/master/tasks/main.yml https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
@@ -68,57 +63,47 @@ daux.io + symlink ~/
         #public = yes
         #writeable = yes
 
-[enh] improve less usability:
-    environment:
-    LESSOPEN: "| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-    LESS: ' -R '
-    LESSPROMPT: "Line %lb/%L. Press Q to quit; Press / to search, Press H for help"
 
-☐ [maybe] mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail): dkim; spf; antispam; smtp; imap; web UI
-
-☐ [feature] mail: use external SMTP provider (package dma, dma.conf, smarthost)
-
-☐ [maybe] firejail? http://l3net.wordpress.com/2014/04/16/how-to-restrict-a-login-shell-using-linux-namespaces/
-
-☐ [security] SFTP: chroot users to their home directory
-    requires the home dir to be owned by root; https://en.wikibooks.org/wiki/OpenSSH/Cookbook/SFTP -> `ChrootDirectory %h`; http://www.cyberciti.biz/faq/debian-ubuntu-restricting-ssh-user-session-to-a-directory-chrooted-jail/
+☐ [feature]network scanner server
+    https://wiki.archlinux.org/index.php/SANE
+    http://xmodulo.com/2014/08/usb-network-printer-and-scanner-server-debian.html
+    clients?
+    http://xmodulo.com/2014/08/configure-network-printer-scanner-ubuntu-desktop.html
 
 
-    
+
+
 
 ☐ [enh] SFTP user creation: propose to generate a key and authorize it
 
-☐ [security] Setup logcheck and logwatch (logcheck only?)
+☐ [bug] [security] MONITORING/REPORTS
+    https://github.com/lfit/itpol/blob/master/linux-workstation-security.md#root-mail
     http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
     https://web.archive.org/web/20130313105847/http://cilab.math.upatras.gr/mikeagn/content/how-setup-logwatch-ubuntu-based-systems
-    https://github.com/derhansen/logwatch-modsec2
-    ☐ Daily cron job ---
-    LOGWATCH_OUT_FILE="${BACKUP_LOCAL_STORAGE}/UserToolkit/logwatch-report.txt"
-    logwatch -- service All --range All --archives --filename=${LOGWATCH_OUT_FILE}
-    echo "Logwatch report saved at $LOGWATCH_OUT_FILE."
-    ☐ Add an option to clear logs in the admin interface (with warning) - else logwatch will be picking the same warnings/errors foerver, even if they have been fixed.
-    ☐ setup a cron job to send the reports (either by mail, or store them in a directory that should be synced daily to the client admin) every saturday and monday morning
-    /usr/sbin/logwatch --output mail --mailto test@gmail.com --detail high
-    ☐ Add more log sources -----
+    
+    ☐ logcheck/logwatch (logcheck only?)
+
     ☐ tiger
     ☐ chkrootkit
     ☐ tripwire
     ☐ debsums
     ☐ lynis
     ☐ debsecan
-    ☐ Setup fail2ban to log only, add fail2ban.log as a source for logwatch
-    ☐ Make sure it logs apache 403s
-    ☐ make sure it logs shaarli failed logins
-    ☐ make sure it logs owncloud failed logins
-    ☐ make sure it logs bumpy-booby failed logins
-    ☐ make sure it logs transmission failed logins
-    ☐ make sure it logs tt-rss failed logins
-    ☐ https://github.com/lfit/itpol/blob/master/linux-workstation-security.md#root-mail
-    Config: https://github.com/Glench/dotfiles/tree/master/conf/fail2ban
-    Config: report owncloud login failures to fail2ban
-    http://tuxicoman.jesuislibre.net/2015/01/fail2ban-pour-owncloud-7-sur-debian-jessie.html
-    http://blog.bandinelli.net/index.php?post/2015/01/02/Entretenir-et-s%C3%A9curiser-ownCloud-avec-logrotate-et-fail2ban
-    http://www.it-connect.fr/filtres-et-actions-personnalises-dans-fail2ban/
+    ☐ https://github.com/derhansen/logwatch-modsec2
+    ☐ fail2ban blocks
+        https://github.com/Glench/dotfiles/tree/master/conf/fail2ban
+        http://www.it-connect.fr/filtres-et-actions-personnalises-dans-fail2ban/
+        http://tuxicoman.jesuislibre.net/2015/01/fail2ban-pour-owncloud-7-sur-debian-jessie.html
+        http://blog.bandinelli.net/index.php?post/2015/01/02/Entretenir-et-s%C3%A9curiser-ownCloud-avec-logrotate-et-fail2ban
+        ☐ shaarli failed logins
+        ☐ owncloud failed logins
+        ☐ transmission failed logins
+        ☐ tt-rss failed logins
+    ☐ apache 403s
+    ☐ SMART tests
+    ☐ 
+
+    ☐ Send reports (rsync? xmpp? mail?) twice a week `LOGWATCH_OUT_FILE="${BACKUP_LOCAL_STORAGE}/UserToolkit/logwatch-report.txt"; logwatch -- service All --range All --archives --filename=${LOGWATCH_OUT_FILE}; echo "Logwatch report saved at $LOGWATCH_OUT_FILE."; /usr/sbin/logwatch --output mail --mailto test@gmail.com --detail high`
 
 ☐ [security] blocklist management      
     ☐ Add a switch to set fail2ban to ban mode
@@ -241,9 +226,7 @@ daux.io + symlink ~/
     * http://www.seeks-project.info/site/2011/12/03/what-freedom-in-websearch-truely-means, http://www.seeks-project.info/site/, http://doc.ubuntu-fr.org/seeks, http://www.seeks-project.info/wiki/index.php/List_of_Web_Seeks_nodes
     * https://github.com/asciimoo/searx/wiki/Installation
 
-☐ [feature] etherpad
 
-☐ [feature] ethercalc
 
 ☐ [security] prosody: more security features (plugins)
     ☐ strict_https
@@ -253,16 +236,8 @@ daux.io + symlink ~/
 
 
 
-    ☐ Packages: mumble-server
-    ☐ Config: /etc/mumble-server.ini
-    ☐ Ports: 64738/tcp
-    ☐ Change superuser password: murmurd -i /etc/mumble-server.ini -supw "$NEWPASSWORD"; service mumble-server restart
-    ☐ Web interface.: http://mumble.sourceforge.net/Mumble-Django
 
-[backups] backups
-     ☐ action: backup data files, dbs and manually specified dirs to local dir
-     ☐ action: sync local backups to external drive (check avail space)
-     ☐ rsnapshot config https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/templates/rsnapshot.conf.j2 https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/files/rsnapshot.cron https://github.com/debops/ansible-rsnapshot https://github.com/osiell/ansible-rsnapshot-master nice/priority
+
 
 ☐ [bug] reports
      ☐ services status + firewall access
@@ -275,22 +250,38 @@ daux.io + symlink ~/
      ☐ output of w, who, uptime, date, last, lastb
 
 
+
+
+☐ [security] Grsec/RBAC/SELinux/sandboxing?
+ * https://forum.xojo.com/5439-webapp-deployment-with-selinux/0
+ * http://stackoverflow.com/questions/15437603/running-an-untrusted-application-on-linux-in-a-sandbox
+ * https://people.redhat.com/tscherf/articles/lm_en_selinux.pdf
+ * https://www.linux.com/learn/tutorials/382226-run-applications-in-secure-sandboxes-with-selinux
+ * https://www.google.fr/search?q=selinux+sanbodx+webapp
+ * firejail? http://l3net.wordpress.com/2014/04/16/how-to-restrict-a-login-shell-using-linux-namespaces/
+
+
+☐ [enh] [security] SFTP: chroot users to their home directory
+    requires the home dir to be owned by root; https://en.wikibooks.org/wiki/OpenSSH/Cookbook/SFTP -> `ChrootDirectory %h`; http://www.cyberciti.biz/faq/debian-ubuntu-restricting-ssh-user-session-to-a-directory-chrooted-jail/
+☐ [enh] improve less usability:
+    environment:
+    LESSOPEN: "| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+    LESS: ' -R '
+    LESSPROMPT: "Line %lb/%L. Press Q to quit; Press / to search, Press H for help"
 ☐ [enh] create symlinks to webapps data dirs/transmission data dir in user home
-
-
-☐ [security] Grsec/RBAC/SELinux
-
-
-
-
+☐ [enh] prosody: file transfer does not work in every direction
+☐ [feature] etherpad
+☐ [feature] ethercalc
+☐ [enh] mumble Auto-setup accounts on client
 ☐ [maybe] markdown editor
-☐ [maybe] add unit tests
-  https://github.com/sovereign/sovereign/blob/master/tests.py
+☐ [maybe] add unit tests https://github.com/sovereign/sovereign/blob/master/tests.py
+☐ [maybe] mail server (postfix, exim4-base, exim4-daemon-light, exim4-config, sendmail): dkim; spf; antispam; smtp; imap; web UI
 ☐ [maybe] LDAP + PostgreSQL backend, Samba4 as AD: FREEIPA http://www.freeipa.org/page/Main_Page; libpam-ldapd ldapscripts libpam-ldapd, https://wiki.debian.org/DebianLAN, https://packages.debian.org/jessie/debian-lan-config
 ☐ [maybe] hypervisor? Proxmox VE, Xenserver, ESXi
 ☐ [maybe] lvm/raid helpers: http://xmodulo.com/2014/09/create-software-raid1-array-mdadm-linux.html, http://xmodulo.com/2014/09/manage-lvm-volumes-centos-rhel-7-system-storage-manager.html
 ☐ [maybe] ACLs
 ☐ [enh] prevent forkbombs http://www.cyberciti.biz/tips/linux-limiting-user-process.html
+☐ [enh] prosody offline support <http://prosody.im/doc/modules/modoffline(http://prosody.im/doc/modules/modoffline>
 ☐  [maybe] support nginx?
 ☐  [maybe] support postgresql?
 

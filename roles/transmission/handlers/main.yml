@@ -2,4 +2,7 @@
   command: nano /etc/transmission-daemon/settings.json
   notify: restart transmission
 
+- name: restart transmission
+  service: name=transmission-daemon state=restarted enabled=yes
+  
 #TODO: start/stop/restart

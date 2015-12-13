@@ -9,3 +9,11 @@
   roles:
     - common
     - apache2
+    - prosody
+    - transmission
+    - mumble
+    - webapp-shaarli
+    - webapp-minigalnano
+    - webapp-conversejs
+    - webapp-apaxy
+    - webapp-owncloud

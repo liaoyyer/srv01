@@ -4,25 +4,31 @@
    - maintenance
   notify: 
     - get uname
-    - get uptime
-    - get ufw status
-    - run df
-    - run last
-    - run lastb
-    - run netstat
-    - run lynis
-    - run rkhunter
-    - parse lynis logs
-    - test internet connection
-    - print lynis out
-    - print df out
-    - print last out
-    - print lastb out
-    - print netstat out
-    - print ufw status
-    - print uptime
     - print uname
+    - get uptime
+    - print uptime
+    - test internet connection
     - print ping output
+    - get ufw status
+    - print ufw status
+    - run df
+    - print df out
+    - run last
+    - print last out
+    - run lastb
+    - print lastb out
+    - run netstat
+    - print netstat out
+    - run lynis
+    - print lynis out
+    - parse lynis logs
+    - run rkhunter
     - print rkhunter out
+    - run debsums
+    - print debsums out
+    - get network traffic stats
+    - print iftop out
+    - upgrade all packages
+
 
 #TODO: split long/quick actions

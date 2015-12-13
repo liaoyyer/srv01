@@ -50,6 +50,9 @@
     - rsnapshot
     - usbmount
     - dma
+    - ntp
+    - ntpdate
+    - autojump
 
 - name: remove unwanted packages
   apt: pkg={{ item }} state=absent

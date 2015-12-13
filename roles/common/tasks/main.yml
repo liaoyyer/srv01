@@ -6,6 +6,3 @@
   tags: dummy
 
 - include: utils.yml
-  tags:
-    - utils
-    - manual

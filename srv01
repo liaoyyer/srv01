@@ -1,2 +1,9 @@
 #!/bin/bash
-sudo ansible-playbook site.yml --tags "dummy,$@"
+#TODO rewrite with case statements
+if [[ "$1" == 'prosody adduser' && "$2" != "" ]]
+  then
+    sudo ansible-playbook site.yml --tags 'prosody adduser' --extra-vars "newaccount=$2"
+  else 
+    sudo ansible-playbook site.yml --tags "dummy,$@"
+fi
+

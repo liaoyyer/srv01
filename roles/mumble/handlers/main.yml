@@ -1,5 +1,5 @@
-- name: edit mumble configuration
-  command: nano /etc/mumble-server.ini
-  notify: restart mumble
+- name: restart mumble
+  service: name=mumble-server state=restarted enabled=yes
 
-#TODO: start/stop/restart
+- name: stop mumble
+  service: name=mumble-server state=stopped enabled=no

@@ -15,8 +15,3 @@ allowfromlan() { #Allow a port to be accessed from the LAN. Usage: allowfromlan 
 deny() { #Deny access to a port. Usage: deny80,443 tcp
 	ufw deny log $1/$2
 }
-
-allowinet() { #Allow all access to a port. Usage: allowinet 80,443 tcp
-	ufw allow $1/$2
-}
-

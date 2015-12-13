@@ -1,2 +1,15 @@
 - include: apache2.yml
   tags: install apache
+
+- include: security.yml
+  tags:
+    - install apache
+    - security
+
+- include: ssl.yml
+  tags:
+    - install apache
+    - security
+    - ssl
+
+- include: firewall.yml
