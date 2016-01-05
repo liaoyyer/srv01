@@ -53,6 +53,7 @@
     - ntp
     - ntpdate
     - autojump
+    - colortail
 
 - name: remove unwanted packages
   apt: pkg={{ item }} state=absent
@@ -133,6 +134,8 @@
 
 #- name: copy locale config
 #  copy: src=etc_locale.gen dest=/etc/locale.gen
+
+#TODO create main user account
 
 #Resource: https://wiki.debian.org/UnattendedUpgrades
 #Resource: http://www.saltycrane.com/blog/2008/02/backup-on-linux-rsnapshot-vs-rdiff/

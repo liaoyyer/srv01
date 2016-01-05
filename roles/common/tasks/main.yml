@@ -1,3 +1,5 @@
+####### MAIN ROLE - MACHINE SETUP ###################
+
 - include: setup.yml
   tags: setup
 
@@ -5,4 +7,9 @@
   shell: /bin/true
   tags: dummy
 
-- include: utils.yml
+- include: maintenance.yml
+
+- include: client.yml
+  tags: client
+
+- include: status.yml

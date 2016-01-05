@@ -7,77 +7,108 @@ Automated, unattended installation/setup/maintenance tool for personal servers
 
 ## Features
 
- * Automated system configuration
- * Web server ([Apache](https://httpd.apache.org/) + [Apaxy](http://adamwhitcroft.com/apaxy/) )
-  * Links/bookmarks sharing tool ([Shaarli](https://github.com/shaarli/shaarli))
-  * Image gallery ([MinigalNano](https://github.com/sebsauvage/MinigalNano))
-  * File synchronization and sharing, calendars, address books ([Owncloud](https://owncloud.org))
- * Jabber/XMPP communication server ([Prosody](https://prosody.im/))
-  * Web chat client ([Converse.js](https://conversejs.org/))
- * Bittorrent client ([Transmission](http://www.transmissionbt.com/))
- * Voice communication server ([Mumble](http://wiki.mumble.info/wiki/Main_Page))
- * Automated maintenance and reports (`unattended-upgrades, debsecan, logwatch, tiger, chkrootkit, rkhunter, lynis, debsums, needrestart, fail2ban, iftop, htop, iotop, ncdu, goaccess, nethogs, mod-security2, mod-evasive, ufw, goaccess, nethogs, tree, ranger, autojump, ncdu, iotop, iftop, rsnapshot ...`)
+ * Automated system [configuration, maintenance and reporting](roles/common/common.md)
+ * Web server ([Apache + Apaxy](roles/apache2/apache.md)
+  * Links/bookmarks sharing tool ([Shaarli](roles/webapp-shaarli/shaarli.md))
+  * Image gallery ([MinigalNano](roles/webapp-minigalnano/minigalnano.md))
+  * File synchronization and sharing, calendars, address books ([Owncloud](roles/webapp-owncloud/owncloud.md))
+ * Jabber/XMPP communication server ([Prosody](roles/prosody/prosody.md))
+  * Web chat client ([Converse.js](roles/webapp-conversejs/conversejs.md))
+ * Git ([repository server](roles/git/git.md)
+  * Web repository browser [Gitlist](roles/webapp-gitlist/gitlist.md)
+ * Bittorrent client ([Transmission](roles/transmission/transmission.md))
+ * Voice communication server ([Mumble](roles/mumble/mumble.md))
+
+## Requirements
+
+```
+    Computer with x86-compatible CPU
+    512MB RAM
+    10+GB system storage drive
+    80GB-4+TB data storage drive
+    80GB-4+TB external (USB) backup drive
+    1GB+ USB drive, Internet connection
+    Optional: remote control computer running Linux
+    Optional: register a domain name (https://freedns.afraid.org/domain/registry/)
+```
 
 ## Installation
 
- * Hardware requirements: x86-compatible CPU, 512MB RAM, 10+GB system storage, Data storage drive, External backup drive, 1GB+ USB drive
- * Download [Debian](https://www.debian.org/CD/netinst/) netinstall
- * Burn or write the iso to USB using `dd` or [win32diskimager](http://sourceforge.net/projects/win32diskimager/)
- * Boot your server from USB/DVD
-  * Select `Graphical advanced install` and setup Debian
-   * Allow root (administrator) logins.
-   * Only install `Standard system utilities` and `SSH server` tasks.
- * Finish install, reboot, login as root
-  * Run `aptitude install ansible git sudo pwgen python-mysqldb; git clone https://github.com/nodiscc/srv01; cd srv01`
-  * Change required configuration values (`nano config.yml`, use `pwgen -s 20` to generate random passwords)
-  * Run `./srv01 setup` to setup initial system.
- * Run any command below
+ * Download [Debian](https://www.debian.org/CD/netinst/)
+ * Burn or write the iso file to USB using `dd` or [win32diskimager](http://sourceforge.net/projects/win32diskimager/)
+ * Boot your server from USB/DVD; select `Advanced > Graphical advanced install`
+ * Allow root (administrator) logins
+ * Do not create and extra user
+ * Only install `Standard system utilities` and `SSH server` tasks.
+ * Finish installation, reboot, login as `root`, and run:
+
+```
+    aptitude install ansible git sudo pwgen python-mysqldb
+    git clone https://github.com/nodiscc/srv01
+    cd srv01
+    nano config.yml #change required configuration values
+    ./srv01 setup #setup the base system
+```
+
+## Setup remote administration from another computer
+
+ * Run `git clone https://github.com/nodiscc/srv01; cd srv01` on your computer.
+ * set the `srv01_user` variable in `config.yml` to match your username on the server, and replace the `localhost...` line in `hosts` with the domain name (or IP address) of your server.
+ * run `./srv01 client `. This will authorize the machine to connect to the server using SSH keys, and will disable password-based authentication.
 
 ## Usage
 
-    ./srv01 setup                       #run initial setup
+    USAGE: ./srv01 'command'
+
+    setup                       #run initial setup
+    client                      #setup local computer for remote control of the server
 
     # WEB SERVER
-    ./srv01 install apache              #(re)install web server
-    ./srv01 install apaxy               #update home page/(re)setup directory listings
+    install apache              #(re)install web server
+    apache updatehome           #update home page/(re)setup directory listings
+    apache setpassword          #update webserver directories password
+    apache allowinet            #allow web server access from Internet
+    apache allowlanonly     #allow web server access only from LAN
+
 
     # WEB APPLICATIONS
-    ./srv01 install owncloud            #(re)install owncloud file sharing and synchronization tool
-    ./srv01 install minigalnano         #(re)install minigalnano image gallery
-    ./srv01 install shaarli             #(re)install shaarli links/bookmarks sharing tool
-    ./srv01 <app> password/nopassword  #add/remove access restriction for web <app>lication
-    ./srv01 apache updatepassword       #update webserver directories password
+    install owncloud            #(re)install owncloud file sharing and synchronization tool
+        upgrade owncloud        #upgrade owncloud to latest version
+    install minigalnano         #(re)install minigalnano image gallery
+    install shaarli             #(re)install shaarli links/bookmarks sharing tool
+
 
     # XMPP SERVER
-    ./srv01 install prosody             #(re)install xmpp/jabber communication server
-    ./srv01 install conversejs          #(re)install the web chat client
-    ./srv01 prosody adduser <username> #create new XMPP instant messaging account
-    ./srv01 prosody listusers           #list xmpp accounts registered on server
+    install prosody             #(re)install xmpp/jabber communication server
+    install conversejs          #(re)install the web chat client
+    prosody adduser <username> #create new XMPP instant messaging account
+    prosody listusers           #list xmpp accounts registered on server
 
     # MUMBLE SERVER
-    ./srv01 install mumble              #(re)install voice communication server
+    install mumble              #(re)install voice communication server
 
     # BITTORRENT CLIENT
-    ./srv01 install transmission        #(re)install bittorrent client
-    ./srv01 allowinet transmission      #allow bittorrent peer connections from Internet
+    install transmission        #(re)install bittorrent client
+    transmission allowinet      #allow bittorrent peer connections from Internet
 
-    # FIREWALL
-    ./srv01 allowinet <service>        #allow <service> access from Internet
-    ./srv01 allowlanonly <service>     #allow <service> access only from LAN
-    ./srv01 deny <service>             #deny webserver network access
+    # GIT SERVER
+    install gitlist             #install the git repository web interface/browser
 
     # UTILITIES
-    ./srv01 services                    #display services status
-    ./srv01 maintenance                 #run auto maintenance
-    ./srv01 permissions                 #fix file permissions
-    ./srv01 ssl                         #re-setup ssl permissions
-    ./srv01 security                    #re-setup security
+    services                    #display services status
+    firewall                    #display firewall status
+    maintenance                 #run auto maintenance
+    report                      #generate full system report
+    permissions                 #fix file permissions
+    ssl                         #regenerate ssl certificates
+    security                    #re-setup security
+    reboot                      #reboot the machine
+    poweroff                    #power off the machine
 
 
+Run `ansible-playbook site.yml --list-tags` for a complete list of commands (_tags_). All commands can be run locally on the server, or from the computer you set up as a client.
 
 
-
-Run `ansible-playbook site.yml --list-tags` for a complete list of commands (_tags_) 
 
 ----------------------------
 

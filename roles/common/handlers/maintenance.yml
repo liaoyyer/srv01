@@ -54,12 +54,6 @@
 #      shell: zcat -f /var/log/apache2/access.log | goaccess -a
 #      register: goaccess_out
 
-- name: get ufw status
-  command: ufw status verbose
-  register: ufw_out
-- name: print ufw status
-  debug: var=ufw_out.stdout_lines
-
 - name: run rkhunter
   command: rkhunter --update --propupd --check --report-warnings-only --nocolors --skip-keypress --syslog
   register: rkhunter_out
@@ -84,6 +78,16 @@
   apt: upgrade=safe update_cache=yes
 
 
+############### CLEAN
+
+- name: run bleachbit
+  command: bleachbit --clean --preset --overwrite
+
+- name: clear apc cache
+  command: /bin/true
+  notify: restart apache
+
+#TODO add bleachbit config (clear caches, tt-rss post-upgrade dirs)
 #TODO fix permissions (+handlers in other roles)
 #TODO users in transmission-debian
 #TODO users in www-data
@@ -95,7 +99,6 @@
 #TODO tiger
 #TODO chkrootkit
 #TODO fail2ban
-#TODO bleachbit/clear caches/apt cleanup
 #TODO logwatch
 #TODO logcheck
 #TODO needrestart
@@ -114,5 +117,5 @@
 #TODO  tiger
 #TODO  fail2ban
 #TODO  auto-update status
-#TODO  services status
 #TODO  ufw
+#TODO clear gitlist cache

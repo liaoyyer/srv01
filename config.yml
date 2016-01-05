@@ -1,61 +1,57 @@
-#domain name configuration
-srv01_fqdn: CHANGEME #Your full domain name
-freedns_key: CHANGEME #Your update key from freedns.afraid.org
+############ SRV01 CONFIG ##################
 
-#user configuration
-srv01_user: CHANGEME #Your SSH/SFTP username on the server
-friendly_networks:
-    - ""
+####### DOMAIN NAME
+srv01_fqdn: CHANGEME #Your full domain name
+freedns_update_url: CHANGEME #Your update URL from freedns.afraid.org
+
+####### USER CONFIGURATION
+# Username/password for physical console logins, SSH and SFTP access
+srv01_user: CHANGEME #Your "administrator" username on the server
+srv01_password: CHANGEME #Your "administrator" username on the server
 
 ###########################################
 
-# Web server options
+######## WEB SERVER
 web_password: CHANGEME #password for password-protected web applications
 web_user: CHANGEME #username for password-protected web applications
-mysql_username: root #Username for MySQL admin
-mysql_password: CHANGEME #Password for MySQL admin #TODO
 
-# Owncloud options
-owncloud_user: CHANGEME #owncloud admin username
-owncloud_password: CHANGEME #owncloud admin password
-owncloud_db_pass: CHANGEME #password for the owncloud MySQL database
 
-# MapBBcodeShare map editor options
-mapbbcodeshare_db_password: CHANGEME #Password for MapBBcodeShare database
-
-###########################################
-
-# Bittorrent client options (Transmission)
+######## BITTORRENT
 transmission_download_dir: '/var/lib/transmission-daemon/downloads' #Download directory for transmission
 transmission_rpc_username: CHANGEME #username for transmission remote control
 transmission_rpc_password: CHANGEME #password for transmission remote control
 
-# uPnP media server options (minidlna)
+######## UPNP MEDIASERVER
 upnp_media_dir: '/var/lib/minidlna/media' #Path to your media files
 
-###########################################
-
-# Mumble voice communication server options
+######## MUMBLE
 mumble_server_password: CHANGEME #NO SPACES! password to join the mumble server
 
-# XMPP/Jabber messaging server options (Prosody) TODO
+######## XMPP
 
 
-###########################################
-
-
-# Backup options
+######## BACKUPS
 backups_dir: '/var/backups/srv01' #Path to local backup dir on the server
 backup_important_dirs: '/media/ /home/git/' #Force backup of these directories
 
-
-# Fluxbb forum board options
-fluxbb_db_password: CHANGEME #Password for fluxbb MySQL database
-
-
-
-
-
-#tools options
+######## TOOLS
 pwgen_length: 21 #default random password length
-sshkeytype: ecdsa #default key type for new client SSH keys
+local_home: "{{ lookup('env','HOME') }}"
+mysql_username: root #Username for MySQL admin
+mysql_password: CHANGEME #Password for MySQL admin #TODO
+friendly_networks:
+    - ""
+
+
+##################################
+
+### OWNCLOUD
+owncloud_user: CHANGEME #owncloud admin username
+owncloud_password: CHANGEME #owncloud admin password
+owncloud_db_pass: CHANGEME #password for the owncloud MySQL database
+
+### MAPBBCODESHARE
+mapbbcodeshare_db_password: CHANGEME #Password for MapBBcodeShare database
+
+### FLUXBB
+fluxbb_db_password: CHANGEME #Password for fluxbb MySQL database

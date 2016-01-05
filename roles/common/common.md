@@ -6,3 +6,7 @@ Unlike FTP, SFTP is a **secure** file transfer protocol. Transfers and authentic
 
  * [SSH Key authentication (en)](https://we.riseup.net/debian/ssh-key-authentication)
 
+### Maintenance and reports
+
+Installed security tools include: `lynis, bleachbit, rkhunter, chkrootkit, tiger, debsums, unattended-upgrades, logwatch, logcheck, unhide, ufw, debsecan, needrestart, unattended-upgrades, fail2ban`  
+Other command-line tools include: `build-essential, git, htop, iftop, iotop, sudo, molly-guard, ncdu, ranger, tree, aptitude, goaccess, nethogs, rsnapshot, usbmount, dma, ntp, ntpdate, autojump, colortail`

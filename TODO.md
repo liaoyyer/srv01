@@ -2,22 +2,41 @@
 ## TODO
 
 ```
-
+apache upgradeapps          #upgrade all web applications to their latest versions
+<app> password/nopassword   #add/remove access restriction for web <app>lication TODO FOR ALL APPS, add to readme
+srv01 xmpp start
+srv01 xmpp disable
+srv01 xmpp status (version/installed/running/enabled/firewall)
+srv01 apache allowinet
+srv01 apache allowlan
+srv01 apache localonly
+srv01 regencerts
+srv01 apache forcehttps
+srv01 tools (list cli utils)
+srv01 services
+srv01 firewall
+srv01 report
+srv01 scan
+srv01 clean
+srv01 config
 ☐ mumble: change superuser password: murmurd -i /etc/mumble-server.ini -supw "$NEWPASSWORD"; service mumble-server restart
-☐ conversejs: short help text, better styling on xmpp/
-☐ setup ssh keys/users/etc!
-☐ test sftp
+☐ prosody: change user password
+☐ prosody: delete user account
 ☐ srv01 allowinet/allowlanonly/deny/status for each service
-☐ filetea/wetransfer/...
+☐ https://github.com/kern/filepizza
 ☐ test usbmount
-☐ srv01 tools (list) reboot, poweroff
 ☐ h5ai test
 ☐ mail: use external SMTP provider (package dma, dma.conf, smarthost)
 
 ☐ [bug] backups
+     ☐ run/store tree command output before backup
      ☐ action: backup data files, dbs and manually specified dirs to local dir
      ☐ action: sync local backups to external drive (check avail space)
-     ☐ rsnapshot config https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/templates/rsnapshot.conf.j2 https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/files/rsnapshot.cron https://github.com/debops/ansible-rsnapshot https://github.com/osiell/ansible-rsnapshot-master nice/priority
+     ☐ rsnapshot config
+         https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/templates/rsnapshot.conf.j2
+         https://github.com/okfn/infra/blob/master/ansible/roles/rsnapshot/files/rsnapshot.cron
+         https://github.com/debops/ansible-rsnapshot https://github.com/osiell/ansible-rsnapshot-master nice/priority
+         http://www.cyberciti.biz/faq/howto-install-rsnapshot-filesystem-snapshot-backup-utility-in-freebsd/
 
 ☐ [feature] tt-rss
 
@@ -27,9 +46,8 @@
   ☐ flac support??
   ☐ config + test
 
-☐ [feature] add SMART tests maintenance functions
-
 ☐ [security] apache/prosody: generate secure ssl certs
+    https://www.ssllabs.com/ssltest/ returns grade B (disable RC4 ciphersuites)
     https://github.com/sovereign/sovereign/issues/373, https://weakdh.org/sysadmin.html
     https://github.com/sovereign/sovereign/issues/399
 https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody-ansible
@@ -51,8 +69,8 @@ https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody
 
 
 ☐ [feature] samba file sharing (CIFS)
-    ☐ config: https://github.com/debops/ansible-samba/blob/master/tasks/main.yml https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
-	☐ Add samba user: create corresponding unix user -s /dev/null -m -d /homedir user1; smbpasswd -a, smb.conf:; run testparm
+  ☐ config: https://github.com/debops/ansible-samba/blob/master/tasks/main.yml https://www.reddit.com/r/raspberry_pi/comments/3jnaqx/pikeeper_keep_your_data_fresh_a_pibased_nas/
+  ☐ Add samba user: create corresponding unix user -s /dev/null -m -d /homedir user1; smbpasswd -a, smb.conf:; run testparm
         ## SAMBA SHARE
         #[$username-share]
         #path = /home/$username (?)
@@ -62,7 +80,30 @@ https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody
         #browseable = yes
         #public = yes
         #writeable = yes
+  ☐ List samba users
+  ☐ Remove samba user
+  ☐ Change samba passwords
+  ☐ Change UNIX passwords
+  ☐ install/uninstall/enable/disable
+  ☐ [enh] disk quotas: http://xmodulo.com/samba-file-server-windows-clients.html
 
+####### SAMBA CONFIG !
+#samba_users:
+#    - username: alice
+#      readwrite_dirs:
+#        - /media/STORAGE/Downloads
+#        - /media/STORAGE/Torrents
+#      readonly_dirs:
+#        - /media/STORAGE/Programs
+#    - username: bob
+#      readwrite_dirs:
+#        - /media/STORAGE/Music
+#        - /media/STORAGE/Programs
+#        - /media/STORAGE/Torrents
+#      readonly_dirs:
+#        - ""
+
+   user creation: remove all ACLs for each user, apply new ACLS
 
 ☐ [feature]network scanner server
     https://wiki.archlinux.org/index.php/SANE
@@ -79,10 +120,8 @@ https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody
 ☐ [bug] [security] MONITORING/REPORTS
     https://github.com/lfit/itpol/blob/master/linux-workstation-security.md#root-mail
     http://askubuntu.com/questions/280944/what-automated-intrusion-notification-detection-setup-is-good-for-home-desktop-u
-    https://web.archive.org/web/20130313105847/http://cilab.math.upatras.gr/mikeagn/content/how-setup-logwatch-ubuntu-based-systems
-    
+    https://web.archive.org/web/20130313105847/http://cilab.math.upatras.gr/mikeagn/content/how-setup-logwatch-ubuntu-based-systems  
     ☐ logcheck/logwatch (logcheck only?)
-
     ☐ tiger
     ☐ chkrootkit
     ☐ tripwire
@@ -101,8 +140,6 @@ https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody
         ☐ tt-rss failed logins
     ☐ apache 403s
     ☐ SMART tests
-    ☐ 
-
     ☐ Send reports (rsync? xmpp? mail?) twice a week `LOGWATCH_OUT_FILE="${BACKUP_LOCAL_STORAGE}/UserToolkit/logwatch-report.txt"; logwatch -- service All --range All --archives --filename=${LOGWATCH_OUT_FILE}; echo "Logwatch report saved at $LOGWATCH_OUT_FILE."; /usr/sbin/logwatch --output mail --mailto test@gmail.com --detail high`
 
 ☐ [security] blocklist management      
@@ -269,6 +306,7 @@ https://github.com/elnappo/ansible-role-prosody, https://github.com/lxmx/prosody
     LESS: ' -R '
     LESSPROMPT: "Line %lb/%L. Press Q to quit; Press / to search, Press H for help"
 ☐ [enh] create symlinks to webapps data dirs/transmission data dir in user home
+☐ [enh] GUI on client for remote administration
 ☐ [enh] prosody: file transfer does not work in every direction
 ☐ [feature] etherpad
 ☐ [feature] ethercalc

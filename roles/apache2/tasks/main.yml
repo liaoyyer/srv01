@@ -13,3 +13,5 @@
     - ssl
 
 - include: firewall.yml
+
+- include: status.yml
